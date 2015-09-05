@@ -14,6 +14,7 @@
 #include <vector>
 #include "Slot.h"
 #include "Ufo.h"
+#include "Chara.h"
 
 using namespace cocos2d;
 
@@ -28,10 +29,17 @@ public:
 
     void update(float dt);
     void removeChara();
+    void moveCharas(int dst);
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     
     void setScore();
     int getScore();
+    
+    bool isInUpperTable(Chara* chara);
+    void dropFromUpperTable();
+    void detectCollision();
+    void sweep(int dst);
+    void swapZOerder();
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
@@ -39,6 +47,11 @@ public:
     // スロット
     Slot* slot;
     Ufo* ufo;
+    
+    // テーブル
+    Sprite* tableTop;
+    bool isTableFoward = true;
+    bool isTableBack = false;
     
     CREATE_FUNC(GameScene);
 };

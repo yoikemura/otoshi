@@ -52,8 +52,6 @@ bool GameScene::init()
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     //BACK GROUND LAYER
     auto bgLayer = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
@@ -65,30 +63,15 @@ bool GameScene::init()
     
     
     //Table LAYER BOTTOM
-    auto tableLayerBottom = LayerColor::create(Color4B::RED, visibleSize.width, visibleSize.height*0.6);
-    tableLayerBottom->setPosition(Vec2(0,visibleSize.height*0.2));
-    this->addChild(tableLayerBottom);
     auto tableBottom = Sprite::create("table_under.png");
-    tableBottom->setPosition(visibleSize.width*0.5, visibleSize.height*0.2);
-    tableLayerBottom->addChild(tableBottom);
+    tableBottom->setPosition(visibleSize.width*0.5, 150);
+    this->addChild(tableBottom);
     
-
     //Table LAYER TOP
-    auto tableLayerTop = LayerColor::create(Color4B::BLUE, visibleSize.width, visibleSize.height*0.2);
-    tableLayerTop->setPosition(Vec2(0,visibleSize.height*0.6));
-    this->addChild(tableLayerTop);
-    auto tableTop = Sprite::create("table_top.png");
-    tableTop->setPosition(visibleSize.width*0.5, visibleSize.height*0.1);
-    tableLayerTop->addChild(tableTop);
+    tableTop = Sprite::create("table_top.png");
+    tableTop->setPosition(visibleSize.width*0.5, visibleSize.height*0.5);
+    this->addChild(tableTop);
 
-    
-    // LAYERを上下に動かす
-    
-    MoveTo* goup =  MoveTo::create(3.0f, Point(0, visibleSize.height*0.4));
-    MoveTo* godown = MoveTo::create(3.0f, Point(0, visibleSize.height*0.6));
-    auto spawnTableTop = Spawn::create(goup, godown, NULL);
-    auto repeatTableTop = RepeatForever::create(spawnTableTop);
-    tableLayerTop->runAction(repeatTableTop);
     
     auto label = Label::createWithTTF("ゲーム画面", "fonts/Osaka.ttf", 24);
     
@@ -112,14 +95,28 @@ bool GameScene::init()
     int score = getScore();
 
     // キャラをばらまく 30体
-    for(int i = 1; i <= 30; i++) {
+    Rect rect = tableBottom->getBoundingBox();
+    Rect rect2 = tableTop->getBoundingBox();
+    int yMin = rect.getMinY();
+    int hoge = rect2.getMaxY();
+    log("キャラクター配置最低値 MinY: %i", yMin);
+    log("キャラクター配置最高いbottom ManY: %i", hoge);
+
+    for(int i = 0; i < 30; i++) {
         srand((unsigned int)time(NULL));
-        int randY = arc4random() % ((int)visibleSize.height);
         int randX = arc4random() % ((int)visibleSize.width);
 
         CHARA charaData = CHARA_DATA[0];
         auto chara = Chara::create(charaData);
-        chara->setPosition(Vec2(randX, randY));
+        chara->setPosition(Vec2(randX, DEFAULT_CHARA_MAP[i]));
+        
+        if (this->isInUpperTable(chara)) {
+           log("中にいるキャラ");
+            chara->isUpperTable = true;
+        } else {
+            chara->isLowerTable = true;
+        }
+
         charas.pushBack(chara);
         this->addChild(chara);
     }
@@ -153,6 +150,45 @@ bool GameScene::init()
 
 void GameScene::update(float dt)
 {
+    Vec2 tableVec = tableTop->getPosition();
+    int tableY = tableVec.y;
+    
+    if (isTableFoward) {
+        tableTop->setPositionY(tableY - 1);
+        this->moveCharas(-1);
+    }
+
+    if (isTableBack) {
+        tableTop->setPositionY(tableY + 1);
+        this->moveCharas(1);
+    }
+
+    if (tableY == 250) {
+        isTableBack = false;
+        isTableFoward = true; 
+    } 
+
+    if(tableY == 200) {
+        isTableBack = true;
+        isTableFoward = false; 
+    }
+
+    // 上のテーブルから落ちる
+    this->dropFromUpperTable();
+    
+    // 上のテーブルに押し出される
+    this->sweep(1);
+
+    // 衝突判定
+    this->detectCollision();
+
+    //removeChara();
+    
+    ufo->update(dt);
+}
+
+void GameScene::detectCollision() 
+{
     // iteratorで内部要素を回し、該当値であればその要素を削除
     int i = 0;
     int j = 0;
@@ -162,28 +198,91 @@ void GameScene::update(float dt)
         for (auto itr2 = charas.begin(); itr2 != charas.end(); itr2++)
         {
 
-            auto chara1 = charas.at(i);
-            auto chara2 = charas.at(j);
-            if (chara1 != chara2) {
-                Rect rect = chara1->boundingBox();
+            auto chara1 = (Chara*)charas.at(i);
+            auto chara2 = (Chara*)charas.at(j);
+
+            // TODO: ロジック間違ってるけど衝突判定削減のためやるべき
+            /*
+            if (!(chara1->isUpperTable && chara2->isUpperTable) && 
+                !(chara1->isLowerTable && chara2->isLowerTable)) {
+                j++;
+                break;
+            }
+            */
+
+            // 配列の先頭程奥にある
+            // 奥にあるので自分より手前(配列のindexが大きい物)に対してのみ衝突判定をするべき
+            // 奥の物が前のものを押し出すイメージ
+            if (j > i) {
+                Rect rect1 = chara1->boundingBox();
                 Rect rect2 = chara2->boundingBox();
-                if(rect.intersectsRect(rect2))
-                {
-                    //trueの場合に、何かしらの処理を行う
-                    Vec2 vec = chara1->getPosition();
-                    chara1->setPosition(Vec2(vec.x, vec.y - 1));
-                    Vec2 vec2 = chara1->getPosition();
-                    // log("x:%f y:%f", vec2.x, vec2.y);
+
+                // 斜辺
+                float delt = rect2.size.width * rect2.size.width;
+
+                float ab_x = rect1.getMidX() - rect2.getMidX();
+                float ab_y = rect1.getMidY() - rect2.getMidY();
+
+                // 三平方の定理判定
+                if (ab_x * ab_x +  ab_y * ab_y < delt)  {
+                    Vec2 vec = chara2->getPosition();
+                    // めり込んだ量
+                    float len = sqrtf(ab_x * ab_x + ab_y * ab_y);
+                    float dist = rect2.size.width + rect2.size.width - len;
+
+                    // 自分より手前(chara2)を移動させる
+                    // 移動量はchara1とのめり込み分
+                    chara2->setPosition(Vec2(vec.x, vec.y - 1));
                 }
             }
             j++;
         }
         i++;
     }
+}
 
-    //removeChara();
+// キャラが上のテーブルから落ちたか判定
+void GameScene::dropFromUpperTable()
+{
+    int i = 0;
+    for (auto itr = charas.begin(); itr != charas.end(); itr++)
+    {
+        auto chara = (Chara*)charas.at(i);
+        if (chara->isUpperTable)
+        {
+            if (!this->isInUpperTable(chara)) {
+              log("上テーブルから落ちる");
+              chara->isUpperTable = false;
+              chara->isLowerTable = true;
+            }
+        }
+        
+        i++;
+    }
+}
+
+bool GameScene::isInUpperTable(Chara* chara)
+{
+    Rect tableRect = tableTop->getBoundingBox();
+    int tableMaxY = tableRect.getMaxY();
+    int tableMinY = tableRect.getMinY();
+    int tableMaxX = tableRect.getMaxX();
+    int tableMinX = tableRect.getMinX();
+
+    Rect charaRect = chara->getBoundingBox();
+    int charaMaxY = charaRect.getMaxY();
+    int charaMinY = charaRect.getMinY();
+    int charaMaxX = charaRect.getMaxX();
+    int charaMinX = charaRect.getMinX();
     
-    ufo->update(dt);
+    if (charaMaxY <= tableMaxY &&
+        charaMaxX <= tableMaxX &&
+        charaMinY >= tableMinY &&
+        charaMinX >= tableMinX) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // 下に落ちたキャラを消す
@@ -204,19 +303,78 @@ void GameScene::removeChara()
     }
 }
 
+void GameScene::moveCharas(int dst)
+{
+    int i = 0;
+    for (auto itr = charas.begin(); itr != charas.end(); itr++)
+    {
+        auto chara = (Chara*)charas.at(i);
+        if (chara->isUpperTable)
+        {
+            Vec2 vec = chara->getPosition();
+            chara->setPositionY(vec.y + dst);
+        }
+        
+        i++;
+    }
+}
+
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    int randY = arc4random() % ((int)visibleSize.height);
+    Rect tableRect = tableTop->getBoundingBox();
+    int tableMaxY = tableRect.getMaxY();
     int randX = arc4random() % ((int)visibleSize.width);
     CHARA charaData = CHARA_DATA[0];
     auto chara = Chara::create(charaData);
-    chara->setPosition(Vec2(randX, randY));
-    charas.pushBack(chara);
+    chara->setPosition(Vec2(randX, tableMaxY - 50));
+    // 先頭に追加
+    charas.insert(0, chara);
+    // あとから追加されたやつは絶対上のテーブル
+    chara->isUpperTable = true;
+    
+    // TODO: 一番おくにいかせたい
     this->addChild(chara);
+    this->swapZOerder();
     
     return true;
 }
+
+void GameScene::swapZOerder()
+{
+    int i = 0;
+    for (auto itr = charas.begin(); itr != charas.end(); itr++)
+    {
+        auto chara = (Chara*)charas.at(i);
+        this->reorderChild(chara, i);
+        i++;
+    }
+}
+
+
+
+// 上のテーブルに押し出される
+// 引数はテーブルの移動距離
+void GameScene::sweep(int dst)
+{
+    int i = 0;
+    for (auto itr = charas.begin(); itr != charas.end(); itr++)
+    {
+        auto chara = (Chara*)charas.at(i);
+        if (chara->isLowerTable)
+        {
+            Rect tableRect = tableTop->boundingBox();
+            int tableY = tableRect.getMinY();
+            Rect charaRect = chara->boundingBox();
+            int charaY = charaRect.getMaxY();
+            if (tableY <= charaY) {
+              chara->setPositionY(charaRect.getMidY() - dst);
+            }
+        }
+        i++;
+    }
+}
+
 
 void GameScene::btnToHomeCallback(Ref* pSender)
 {

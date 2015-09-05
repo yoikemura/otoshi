@@ -15,9 +15,9 @@ public:
     
     // ステート
     // 上の台にいる
-    bool isUpperStage;
+    bool isUpperTable = false;
     // 下の台にいる
-    bool isLowerStage;
+    bool isLowerTable = false;
     // 落ちている途中
     bool isDropping;
 
