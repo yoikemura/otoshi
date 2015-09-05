@@ -37,8 +37,6 @@ bool GameScene::init()
         return false;
     }
     
-    log("start game!");
-    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
