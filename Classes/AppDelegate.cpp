@@ -4,9 +4,7 @@
 USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(320, 480);
-static cocos2d::Size smallResolutionSize = cocos2d::Size(320, 480);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(768, 1024);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(1536 ,2048);
+
 
 AppDelegate::AppDelegate() {
 
@@ -52,8 +50,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // 2倍解像度で作れるようにした
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
     Size frameSize = glview->getFrameSize();
-    director->setContentScaleFactor(frameSize.height/designResolutionSize.height);
-
+    log("画面横: %f, 画面縦; %f", frameSize.width, frameSize.height);
+    log("画面比率: %f", (frameSize.width/designResolutionSize.width));
+    director->setContentScaleFactor(frameSize.width/designResolutionSize.width);
 
     register_all_packages();
 

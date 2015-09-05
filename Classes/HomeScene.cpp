@@ -86,7 +86,7 @@ bool Home::init()
     this->addChild(label, 1);
 
     // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("goma_home.png");
+    auto sprite = Sprite::create("logo.png");
 
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));

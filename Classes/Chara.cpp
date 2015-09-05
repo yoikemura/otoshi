@@ -31,6 +31,8 @@ Chara* Chara::create(struct CHARA chara)
 bool Chara::initWithFile(const char *pFileName)
 {
     Sprite::initWithFile(pFileName);
+    
+    
     return true;
 }
 
