@@ -31,7 +31,6 @@ Ufo* Ufo::create()
 
 bool Ufo::initWithFile()
 {
-    
     Sprite::initWithFile("ufo.png");
     size = Director::getInstance()->getWinSize();
     this->setScale(0.5f);
@@ -54,6 +53,4 @@ void Ufo::move()
 
 
 void Ufo::update(float dt) {
-    
-    
 }
