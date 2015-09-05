@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+#include "Slot.h"
 
 class GameScene : public cocos2d::Layer
 {
@@ -24,6 +25,9 @@ public:
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     void btnToHomeCallback(cocos2d::Ref* pSender);
+    
+    // スロット
+    Slot* slot;
     
     
     // implement the "static create()" method manually

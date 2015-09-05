@@ -47,6 +47,12 @@ bool GameScene::init()
     // add the label as a child to this layer
     this->addChild(label, 1);
     
+    slot = Slot::create();
+    slot->setPosition(Vec2(visibleSize.width/2,
+                           visibleSize.height - slot->getContentSize().height));
+    this->addChild(slot);
+
+    
     return true;
 }
 
