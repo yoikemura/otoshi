@@ -48,6 +48,7 @@ bool GameScene::init()
     
 
     // スタート！みたいなのをだす
+    int score = getScore();
 
     // キャラをばらまく 30体
     for(int i = 1; i <= 30; i++) {
@@ -70,23 +71,17 @@ bool GameScene::init()
     slot->setPosition(Vec2(visibleSize.width/2,
                            visibleSize.height/4 - slot->getContentSize().height));
     
-    
     this->addChild(slot);
     this->addChild(ufo);
     
     slot->rotation();
     
-    
+    // UFOを永遠に左右に動かす
     MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, 0));
     MoveTo* goback = MoveTo::create(1.0f, Point(0, 0));
-    
     auto spawn = Spawn::create(gogo, goback, NULL);
-    
     auto repeatForever = RepeatForever::create(spawn);
-    
     ufo->runAction(repeatForever);
-    
-    
     
     
     return true;
@@ -99,9 +94,22 @@ void GameScene::update(float dt)
     {
         
     }
-    
     ufo->update(dt);
+}
 
+void GameScene::setScore()
+{
+    UserDefault* userDefault = UserDefault::getInstance();
+    const char* scoreKey = "highScore";
+    userDefault->setIntegerForKey(scoreKey, 0);//0 はtempora
+    userDefault->flush();
+}
 
+int GameScene::getScore()
+{
+    UserDefault* userDefault = UserDefault::getInstance();
+    const char* scoreKey = "highScore";
+    int currentScore = userDefault->getIntegerForKey(scoreKey, 0);
+    return currentScore;
 }
 

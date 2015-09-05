@@ -26,7 +26,9 @@ public:
     
     void menuCloseCallback(cocos2d::Ref* pSender);
     void update(float dt);
-    
+    void setScore();
+    int getScore();
+        
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
     void btnToHomeCallback(cocos2d::Ref* pSender);
