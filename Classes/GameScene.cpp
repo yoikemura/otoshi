@@ -66,8 +66,25 @@ bool GameScene::init()
     slot = Slot::create();
     slot->setPosition(Vec2(visibleSize.width/2,
                            visibleSize.height/4*3 - slot->getContentSize().height));
+    
+    ufo = Ufo::create();
+    slot->setPosition(Vec2(visibleSize.width/2,
+                           visibleSize.height/4 - slot->getContentSize().height));
+    
+    
     this->addChild(slot);
+    this->addChild(ufo);
+    
     slot->rotation();
+    
+    
+    MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, 0));
+    MoveTo* goback = MoveTo::create(1.0f, Point(0, 0));
+    
+    auto spawn = Spawn::create(gogo, goback, NULL);
+    auto repeatForever = RepeatForever::create(spawn);
+    
+    ufo->runAction(repeatForever);
     
     return true;
 }
@@ -102,6 +119,7 @@ void GameScene::update(float dt)
         }
         i++;
     }
-
+    
+    ufo->update(dt);
 }
 
