@@ -38,7 +38,7 @@ bool Home::init()
                                            "start.png",
                                            CC_CALLBACK_1(Home::btnToGameCallback, this));
     
-    btnToGame->setPosition(Vec2(origin.x + visibleSize.width - btnToGame->getContentSize().width/2 ,
+    btnToGame->setPosition(Vec2(visibleSize.width,
                                 origin.y + btnToGame->getContentSize().height/2));
     auto menu2 = Menu::create(btnToGame, NULL);
     menu2->setPosition(Vec2::ZERO);
@@ -46,8 +46,8 @@ bool Home::init()
     
     // 図鑑画面へ移動ボタン
     auto btnToLibrary = MenuItemImage::create(
-                                           "start.png",
-                                           "start.png",
+                                           "zukan.png",
+                                           "zukan.png",
                                            CC_CALLBACK_1(Home::btnToLibraryCallback, this));
     
     btnToLibrary->setPosition(Vec2(origin.x + visibleSize.width - btnToLibrary->getContentSize().width/2 ,
