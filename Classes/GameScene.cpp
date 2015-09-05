@@ -52,6 +52,44 @@ bool GameScene::init()
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    //BACK GROUND LAYER
+    auto bgLayer = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
+    this->addChild(bgLayer);
+    auto centerpos = visibleSize / 2;
+    auto spritebg = Sprite::create("bg.png");
+    spritebg->setPosition(centerpos);
+    bgLayer->addChild(spritebg);
+    
+    
+    //Table LAYER BOTTOM
+    auto tableLayerBottom = LayerColor::create(Color4B::RED, visibleSize.width, visibleSize.height*0.6);
+    tableLayerBottom->setPosition(Vec2(0,visibleSize.height*0.2));
+    this->addChild(tableLayerBottom);
+    auto tableBottom = Sprite::create("table_under.png");
+    tableBottom->setPosition(visibleSize.width*0.5, visibleSize.height*0.2);
+    tableLayerBottom->addChild(tableBottom);
+    
+
+    //Table LAYER TOP
+    auto tableLayerTop = LayerColor::create(Color4B::BLUE, visibleSize.width, visibleSize.height*0.2);
+    tableLayerTop->setPosition(Vec2(0,visibleSize.height*0.6));
+    this->addChild(tableLayerTop);
+    auto tableTop = Sprite::create("table_top.png");
+    tableTop->setPosition(visibleSize.width*0.5, visibleSize.height*0.1);
+    tableLayerTop->addChild(tableTop);
+
+    
+    // LAYERを上下に動かす
+    
+    MoveTo* goup =  MoveTo::create(3.0f, Point(0, visibleSize.height*0.4));
+    MoveTo* godown = MoveTo::create(3.0f, Point(0, visibleSize.height*0.6));
+    auto spawnTableTop = Spawn::create(goup, godown, NULL);
+    auto repeatTableTop = RepeatForever::create(spawnTableTop);
+    tableLayerTop->runAction(repeatTableTop);
+    
     auto label = Label::createWithTTF("ゲーム画面", "fonts/Osaka.ttf", 24);
     
     // position the label on the center of the screen
@@ -142,8 +180,8 @@ void GameScene::update(float dt)
         }
         i++;
     }
-    
-    // removeChara();
+
+    //removeChara();
     
     ufo->update(dt);
 }
