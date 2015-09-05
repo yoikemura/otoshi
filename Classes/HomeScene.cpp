@@ -32,6 +32,10 @@ bool Home::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    // わかりづらいの色をつける
+    auto bg = LayerColor::create(Color4B::RED, visibleSize.width, visibleSize.height);
+    this->addChild(bg);
+    
     // ゲーム画面へ移動ボタン
     auto btnToGame = MenuItemImage::create(
                                            "start.png",
@@ -50,8 +54,7 @@ bool Home::init()
                                            "zukan.png",
                                            CC_CALLBACK_1(Home::btnToLibraryCallback, this));
     
-    btnToLibrary->setPosition(Vec2(origin.x + visibleSize.width - btnToLibrary->getContentSize().width/2 ,
-                                origin.y + btnToLibrary->getContentSize().height/2));
+    btnToLibrary->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 100));
     auto menu3 = Menu::create(btnToLibrary, NULL);
     menu3->setPosition(Vec2::ZERO);
     this->addChild(menu3, 1);
@@ -73,10 +76,10 @@ bool Home::init()
     this->addChild(label, 1);
 
     // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
+    auto sprite = Sprite::create("goma_home.png");
 
     // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
