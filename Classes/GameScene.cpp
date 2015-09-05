@@ -51,8 +51,6 @@ bool GameScene::init()
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    
-    
     //BACK GROUND LAYER
     auto bgLayer = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
     this->addChild(bgLayer);
@@ -61,13 +59,12 @@ bool GameScene::init()
     spritebg->setPosition(centerpos);
     bgLayer->addChild(spritebg);
     
-    
-    //Table LAYER BOTTOM
-    auto tableBottom = Sprite::create("table_under.png");
+    //Table BOTTOM
+    tableBottom = Sprite::create("table_under.png");
     tableBottom->setPosition(visibleSize.width*0.5, 150);
     this->addChild(tableBottom);
     
-    //Table LAYER TOP
+    //Table TOP
     tableTop = Sprite::create("table_top.png");
     tableTop->setPosition(visibleSize.width*0.5, visibleSize.height*0.5);
     this->addChild(tableTop);
@@ -182,9 +179,11 @@ void GameScene::update(float dt)
     // 衝突判定
     this->detectCollision();
 
-    //removeChara();
-    
-    ufo->update(dt);
+    // キャラを落とす
+    this->dropCharas();
+
+    // キャラを消す
+    this->removeCharas();
 }
 
 void GameScene::detectCollision() 
@@ -194,19 +193,19 @@ void GameScene::detectCollision()
     int j = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++)
     {
+
         j = 0;
-        for (auto itr2 = charas.begin(); itr2 != charas.end(); itr2++)
-        {
+        for (auto itr2 = charas.begin(); itr2 != charas.end(); itr2++) {
 
             auto chara1 = (Chara*)charas.at(i);
             auto chara2 = (Chara*)charas.at(j);
 
-            // TODO: ロジック間違ってるけど衝突判定削減のためやるべき
+            // TODO: 処理軽く
             /*
-            if (!(chara1->isUpperTable && chara2->isUpperTable) && 
-                !(chara1->isLowerTable && chara2->isLowerTable)) {
+            if (!((chara1->isUpperTable && chara2->isUpperTable) ||
+                (chara1->isLowerTable && chara2->isLowerTable))) {
                 j++;
-                break;
+                continue;
             }
             */
 
@@ -286,19 +285,40 @@ bool GameScene::isInUpperTable(Chara* chara)
 }
 
 // 下に落ちたキャラを消す
-void GameScene::removeChara()
+void GameScene::removeCharas()
 {
-    int i = 0;
-    for (auto itr = charas.begin(); itr != charas.end(); itr++)
-    {
-        auto chara = charas.at(i);
-        Vec2 vec = chara->getPosition();
-        
-        if (vec.y <= 0) {
-            charas.erase(i);
+    auto itr2 = charas.begin();
+    while (itr2 != charas.end()) {
+        auto chara = (*itr2);
+        int y = chara->getPositionY();
+
+        if (y <= -30) {
+            itr2 = charas.erase(itr2);
             this->removeChild(chara);
         }
-        
+        else
+        {
+            itr2++;
+        }
+    }
+}
+
+// 下に落ちたキャラを消す
+void GameScene::dropCharas()
+{
+    int i = 0;
+    for (auto itr = charas.begin(); itr != charas.end(); itr++) {
+        auto chara = (Chara*)charas.at(i);
+        if (chara->isLowerTable) {
+            Rect tableRect = tableBottom->boundingBox();
+            int tableY = tableRect.getMinY();
+            Rect charaRect = chara->boundingBox();
+            int charaY = charaRect.getMidY();
+            if (tableY > charaY) {
+              chara->isDropping = true;
+              chara->drop();
+            }
+        }
         i++;
     }
 }
@@ -333,7 +353,6 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     // あとから追加されたやつは絶対上のテーブル
     chara->isUpperTable = true;
     
-    // TODO: 一番おくにいかせたい
     this->addChild(chara);
     this->swapZOerder();
     

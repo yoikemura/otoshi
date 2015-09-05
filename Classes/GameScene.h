@@ -28,7 +28,7 @@ public:
     void btnToHomeCallback(cocos2d::Ref* pSender);
 
     void update(float dt);
-    void removeChara();
+    void removeCharas();
     void moveCharas(int dst);
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     
@@ -40,6 +40,7 @@ public:
     void detectCollision();
     void sweep(int dst);
     void swapZOerder();
+    void dropCharas();
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
@@ -50,6 +51,7 @@ public:
     
     // テーブル
     Sprite* tableTop;
+    Sprite* tableBottom;
     bool isTableFoward = true;
     bool isTableBack = false;
     

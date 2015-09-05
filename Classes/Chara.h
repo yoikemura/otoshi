@@ -35,7 +35,6 @@ public:
     // 判定用のNODE
     
     
-    
     const char* getName();
 };
 

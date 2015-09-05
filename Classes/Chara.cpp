@@ -56,5 +56,9 @@ void Chara::show()
 
 void Chara::drop()
 {
-    this->removeChildByTag(30);
+    int x = this->getPositionX();
+    MoveTo* drop = MoveTo::create(1.0f, Point(x, -100));
+    RotateTo* rotate = RotateTo::create( 0.0f, 20.0f);
+    auto spawn = Spawn::create(rotate, drop, NULL);
+    this->runAction(spawn);
 }
