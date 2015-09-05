@@ -1,6 +1,8 @@
 #include "HomeScene.h"
 #include "GameScene.h"
 #include "LibraryScene.h"
+#include "SimpleAudioEngine.h"
+
 
 USING_NS_CC;
 
@@ -32,9 +34,17 @@ bool Home::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    // わかりづらいの色をつける
+    // わかりづらいので色をつける
     auto bg = LayerColor::create(Color4B::RED, visibleSize.width, visibleSize.height);
     this->addChild(bg);
+    
+    //音楽設定
+    CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.8);
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("bgm_normal.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("effect_clicked.mp3");
+
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_normal.mp3", true);
+
     
     // ゲーム画面へ移動ボタン
     auto btnToGame = MenuItemImage::create(
@@ -90,12 +100,14 @@ bool Home::init()
 
 void Home::btnToGameCallback(Ref* pSender)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     auto scene = GameScene::createScene();
     Director::getInstance()->replaceScene(scene);
 }
 
 void Home::btnToLibraryCallback(Ref* pSender)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     auto scene = LibraryScene::createScene();
     Director::getInstance()->replaceScene(scene);
 }
