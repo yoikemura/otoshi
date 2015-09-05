@@ -122,7 +122,6 @@ void GameScene::update(float dt)
         i++;
     }
     ufo->update(dt);
-<<<<<<< HEAD
 }
 
 void GameScene::setScore()
@@ -139,7 +138,5 @@ int GameScene::getScore()
     const char* scoreKey = "highScore";
     int currentScore = userDefault->getIntegerForKey(scoreKey, 0);
     return currentScore;
-=======
->>>>>>> 3d832c5192cfd9d7221711508ccdd5e887e85d86
 }
 
