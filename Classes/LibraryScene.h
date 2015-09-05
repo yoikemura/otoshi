@@ -1,24 +1,31 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+//
+//  LibraryScene.h
+//  MaruOtoshi
+//
+//  Created by JoHazumu on 2015/09/05.
+//
+//
 
-#include "cocos2d.h"
+#ifndef __MaruOtoshi__LibraryScene__
+#define __MaruOtoshi__LibraryScene__
 
-class Home : public cocos2d::Layer
+#include <stdio.h>
+
+class LibraryScene : public cocos2d::Layer
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
-
+    
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
     
-    // ボタンをおした時のあれ
+    // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    void btnToGameCallback(cocos2d::Ref* pSender);
-    void btnToLibraryCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(Home);
+    CREATE_FUNC(LibraryScene);
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __Library_SCENE_H__
+

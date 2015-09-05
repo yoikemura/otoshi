@@ -1,4 +1,6 @@
 #include "HomeScene.h"
+#include "GameScene.h"
+#include "LibraryScene.h"
 
 USING_NS_CC;
 
@@ -29,24 +31,31 @@ bool Home::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(Home::menuCloseCallback, this));
     
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+    // ゲーム画面へ移動ボタン
+    auto btnToGame = MenuItemImage::create(
+                                           "start.png",
+                                           "start.png",
+                                           CC_CALLBACK_1(Home::btnToGameCallback, this));
+    
+    btnToGame->setPosition(Vec2(origin.x + visibleSize.width - btnToGame->getContentSize().width/2 ,
+                                origin.y + btnToGame->getContentSize().height/2));
+    auto menu2 = Menu::create(btnToGame, NULL);
+    menu2->setPosition(Vec2::ZERO);
+    this->addChild(menu2, 1);
+    
+    // 図鑑画面へ移動ボタン
+    auto btnToLibrary = MenuItemImage::create(
+                                           "start.png",
+                                           "start.png",
+                                           CC_CALLBACK_1(Home::btnToLibraryCallback, this));
+    
+    btnToLibrary->setPosition(Vec2(origin.x + visibleSize.width - btnToLibrary->getContentSize().width/2 ,
+                                origin.y + btnToLibrary->getContentSize().height/2));
+    auto menu3 = Menu::create(btnToLibrary, NULL);
+    menu3->setPosition(Vec2::ZERO);
+    this->addChild(menu3, 1);
 
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
 
     /////////////////////////////
     // 3. add your codes below...
@@ -54,7 +63,7 @@ bool Home::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = Label::createWithTTF("ホーム画面予定", "fonts/Marker Felt.ttf", 24);
+    auto label = Label::createWithTTF("星のゴマービィ", "fonts/Osaka.ttf", 24);
     
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -76,11 +85,14 @@ bool Home::init()
 }
 
 
-void Home::menuCloseCallback(Ref* pSender)
+void Home::btnToGameCallback(Ref* pSender)
 {
-    Director::getInstance()->end();
+    auto scene = GameScene::createScene();
+    Director::getInstance()->replaceScene(scene);
+}
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+void Home::btnToLibraryCallback(Ref* pSender)
+{
+    auto scene = LibraryScene::createScene();
+    Director::getInstance()->replaceScene(scene);
 }
