@@ -40,13 +40,17 @@ bool GameScene::init()
     
     log("start game!");
     
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    auto bg = Sprite::create("bg.png");
+    bg->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    this->addChild(bg);
+    
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto label = Label::createWithTTF("ゲーム画面", "fonts/Osaka.ttf", 24);
     
@@ -139,7 +143,7 @@ void GameScene::update(float dt)
         i++;
     }
     
-    removeChara();
+    // removeChara();
     
     ufo->update(dt);
 }

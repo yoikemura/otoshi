@@ -58,10 +58,10 @@ int Slot::rotation()
     Animation* animation;
     animation = Animation::create();
     
-    animation->addSpriteFrameWithFileName("slot_fuck.png");
-    animation->addSpriteFrameWithFileName("slot_jp.png");
-    animation->addSpriteFrameWithFileName("slot_fever.png");
-    animation->addSpriteFrameWithFileName("slot_jap.png");
+    animation->addSpriteFrameWithFile("slot_fuck.png");
+    animation->addSpriteFrameWithFile("slot_jp.png");
+    animation->addSpriteFrameWithFile("slot_fever.png");
+    animation->addSpriteFrameWithFile("slot_jap.png");
     animation->setDelayPerUnit(0.1f);
     animation->setLoops(5);
     

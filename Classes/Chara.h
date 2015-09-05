@@ -32,6 +32,10 @@ public:
     // 下に落ちる
     void drop();
     
+    // 判定用のNODE
+    
+    
+    
     const char* getName();
 };
 
