@@ -52,9 +52,14 @@ bool GameScene::init()
 
     // キャラをばらまく 30体
     for(int i = 1; i <= 30; i++) {
+        srand((unsigned int)time(NULL));
+        log("x:%i y:%i", (int)visibleSize.height, (int)visibleSize.width);
+        int randY = arc4random() % ((int)visibleSize.height);
+        int randX = arc4random() % ((int)visibleSize.width);
+
         CHARA charaData = CHARA_DATA[0];
         auto chara = Chara::create(charaData);
-        chara->setPosition(Vec2(visibleSize.width/2, visibleSize.height));
+        chara->setPosition(Vec2(randX, randY));
         charas.pushBack(chara);
         this->addChild(chara);
     }
@@ -91,7 +96,6 @@ bool GameScene::init()
 
 void GameScene::update(float dt)
 {
-    log("+++update++++");
     // iteratorで内部要素を回し、該当値であればその要素を削除
     int i = 0;
     int j = 0;
@@ -110,9 +114,9 @@ void GameScene::update(float dt)
                 {
                     //trueの場合に、何かしらの処理を行う
                     Vec2 vec = chara1->getPosition();
-                    chara1->setPosition(vec.x + 1, vec.y);
+                    chara1->setPosition(Vec2(vec.x, vec.y - 1));
                     Vec2 vec2 = chara1->getPosition();
-                    log("x:%f y:%f", vec2.x, vec2.y);
+                    //log("x:%f y:%f", vec2.x, vec2.y);
                 }
             }
             j++;
