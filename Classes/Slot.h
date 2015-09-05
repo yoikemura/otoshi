@@ -25,6 +25,7 @@ public:
     // 画面表示
     void show();
     void hide();
+    int rotation();
     void update(float dt);
     
     Size size;
