@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "cocos2d.h"
 #include <vector>
+#include "Slot.h"
 using namespace cocos2d;
 
 class GameScene : public cocos2d::Layer
@@ -26,6 +27,10 @@ public:
     
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
+    void btnToHomeCallback(cocos2d::Ref* pSender);
+    
+    // スロット
+    Slot* slot;
     
     CREATE_FUNC(GameScene);
 };

@@ -62,6 +62,14 @@ bool GameScene::init()
     this->addChild(label, 1);
     this->scheduleUpdate();
     
+    slot = Slot::create();
+    slot->setPosition(Vec2(visibleSize.width/2,
+                           visibleSize.height/4*3 - slot->getContentSize().height));
+    this->addChild(slot);
+    slot->rotation();
+    
+    
+    
     return true;
 }
 

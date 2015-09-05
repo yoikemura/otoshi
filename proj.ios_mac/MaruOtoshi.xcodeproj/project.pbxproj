@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020708511B9ACB95009E53E3 /* Slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0207084F1B9ACB95009E53E3 /* Slot.cpp */; };
+		020708591B9ADC5B009E53E3 /* slot_jap.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708551B9ADC5B009E53E3 /* slot_jap.png */; };
+		0207085A1B9ADC5B009E53E3 /* slot_jap.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708551B9ADC5B009E53E3 /* slot_jap.png */; };
+		0207085B1B9ADC5B009E53E3 /* slot_jp.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708561B9ADC5B009E53E3 /* slot_jp.png */; };
+		0207085C1B9ADC5B009E53E3 /* slot_jp.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708561B9ADC5B009E53E3 /* slot_jp.png */; };
+		0207085D1B9ADC5B009E53E3 /* slot_fuck.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708571B9ADC5B009E53E3 /* slot_fuck.png */; };
+		0207085E1B9ADC5B009E53E3 /* slot_fuck.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708571B9ADC5B009E53E3 /* slot_fuck.png */; };
+		0207085F1B9ADC5B009E53E3 /* slot_fever.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708581B9ADC5B009E53E3 /* slot_fever.png */; };
+		020708601B9ADC5B009E53E3 /* slot_fever.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708581B9ADC5B009E53E3 /* slot_fever.png */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -110,6 +119,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0207084F1B9ACB95009E53E3 /* Slot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slot.cpp; sourceTree = "<group>"; };
+		020708501B9ACB95009E53E3 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
+		020708551B9ADC5B009E53E3 /* slot_jap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_jap.png; sourceTree = "<group>"; };
+		020708561B9ADC5B009E53E3 /* slot_jp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_jp.png; sourceTree = "<group>"; };
+		020708571B9ADC5B009E53E3 /* slot_fuck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_fuck.png; sourceTree = "<group>"; };
+		020708581B9ADC5B009E53E3 /* slot_fever.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_fever.png; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -302,6 +317,10 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				020708551B9ADC5B009E53E3 /* slot_jap.png */,
+				020708561B9ADC5B009E53E3 /* slot_jp.png */,
+				020708571B9ADC5B009E53E3 /* slot_fuck.png */,
+				020708581B9ADC5B009E53E3 /* slot_fever.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
@@ -330,6 +349,8 @@
 				815F6A371B9ACF70008FE936 /* Chara.h */,
 				815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */,
 				815F6A241B9AA6D1008FE936 /* LibraryScene.h */,
+				0207084F1B9ACB95009E53E3 /* Slot.cpp */,
+				020708501B9ACB95009E53E3 /* Slot.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -483,6 +504,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
+				0207085B1B9ADC5B009E53E3 /* slot_jp.png in Resources */,
+				020708591B9ADC5B009E53E3 /* slot_jap.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				815F6A311B9ABAA0008FE936 /* goma.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
@@ -500,10 +523,12 @@
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				815F6A2F1B9ABA97008FE936 /* goma_home.png in Resources */,
+				0207085D1B9ADC5B009E53E3 /* slot_fuck.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				815F6A2D1B9AABC3008FE936 /* start.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				0207085F1B9ADC5B009E53E3 /* slot_fever.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
@@ -517,11 +542,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */,
+				020708601B9ADC5B009E53E3 /* slot_fever.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
+				0207085E1B9ADC5B009E53E3 /* slot_fuck.png in Resources */,
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
+				0207085A1B9ADC5B009E53E3 /* slot_jap.png in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
 				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
+				0207085C1B9ADC5B009E53E3 /* slot_jp.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +565,7 @@
 				815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HomeScene.cpp in Sources */,
+				020708511B9ACB95009E53E3 /* Slot.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				815F6A221B9AA6B1008FE936 /* GameScene.cpp in Sources */,
@@ -573,6 +603,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -593,12 +624,15 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "../Classes/MaruOtoshi-mobile-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
@@ -609,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -627,12 +662,14 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "../Classes/MaruOtoshi-mobile-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";

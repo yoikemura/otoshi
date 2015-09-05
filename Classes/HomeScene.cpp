@@ -42,7 +42,8 @@ bool Home::init()
                                            "start.png",
                                            CC_CALLBACK_1(Home::btnToGameCallback, this));
     
-    btnToGame->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    btnToGame->setPosition(Vec2(visibleSize.width,
+                                origin.y + btnToGame->getContentSize().height/2));
     auto menu2 = Menu::create(btnToGame, NULL);
     menu2->setPosition(Vec2::ZERO);
     this->addChild(menu2, 1);
