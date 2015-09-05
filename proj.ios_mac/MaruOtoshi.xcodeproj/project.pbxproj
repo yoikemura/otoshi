@@ -16,6 +16,10 @@
 		0207085E1B9ADC5B009E53E3 /* slot_fuck.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708571B9ADC5B009E53E3 /* slot_fuck.png */; };
 		0207085F1B9ADC5B009E53E3 /* slot_fever.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708581B9ADC5B009E53E3 /* slot_fever.png */; };
 		020708601B9ADC5B009E53E3 /* slot_fever.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708581B9ADC5B009E53E3 /* slot_fever.png */; };
+		020708641B9AE260009E53E3 /* Ufo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 020708621B9AE260009E53E3 /* Ufo.cpp */; };
+		020708651B9AE260009E53E3 /* Ufo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 020708621B9AE260009E53E3 /* Ufo.cpp */; };
+		020708671B9AE2BF009E53E3 /* ufo.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708661B9AE2BF009E53E3 /* ufo.png */; };
+		020708681B9AE2BF009E53E3 /* ufo.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708661B9AE2BF009E53E3 /* ufo.png */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -23,10 +27,6 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		3EACC99019EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
-		46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
-		46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
-		46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7719C43A67006E1F66 /* CloseSelected.png */; };
-		46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7719C43A67006E1F66 /* CloseSelected.png */; };
 		46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
 		46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
@@ -125,6 +125,9 @@
 		020708561B9ADC5B009E53E3 /* slot_jp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_jp.png; sourceTree = "<group>"; };
 		020708571B9ADC5B009E53E3 /* slot_fuck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_fuck.png; sourceTree = "<group>"; };
 		020708581B9ADC5B009E53E3 /* slot_fever.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_fever.png; sourceTree = "<group>"; };
+		020708621B9AE260009E53E3 /* Ufo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ufo.cpp; sourceTree = "<group>"; };
+		020708631B9AE260009E53E3 /* Ufo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ufo.h; sourceTree = "<group>"; };
+		020708661B9AE2BF009E53E3 /* ufo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ufo.png; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -132,8 +135,6 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
-		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
-		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -317,14 +318,13 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				020708661B9AE2BF009E53E3 /* ufo.png */,
 				020708551B9ADC5B009E53E3 /* slot_jap.png */,
 				020708561B9ADC5B009E53E3 /* slot_jp.png */,
 				020708571B9ADC5B009E53E3 /* slot_fuck.png */,
 				020708581B9ADC5B009E53E3 /* slot_fever.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
-				46880B7619C43A67006E1F66 /* CloseNormal.png */,
-				46880B7719C43A67006E1F66 /* CloseSelected.png */,
 				815F6A301B9ABAA0008FE936 /* goma.png */,
 				46880B7A19C43A67006E1F66 /* HelloWorld.png */,
 				815F6A2E1B9ABA97008FE936 /* goma_home.png */,
@@ -351,6 +351,8 @@
 				815F6A241B9AA6D1008FE936 /* LibraryScene.h */,
 				0207084F1B9ACB95009E53E3 /* Slot.cpp */,
 				020708501B9ACB95009E53E3 /* Slot.h */,
+				020708621B9AE260009E53E3 /* Ufo.cpp */,
+				020708631B9AE260009E53E3 /* Ufo.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -507,12 +509,12 @@
 				0207085B1B9ADC5B009E53E3 /* slot_jp.png in Resources */,
 				020708591B9ADC5B009E53E3 /* slot_jap.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				020708671B9AE2BF009E53E3 /* ufo.png in Resources */,
 				815F6A311B9ABAA0008FE936 /* goma.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
-				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
@@ -532,7 +534,6 @@
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
-				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,13 +544,12 @@
 			files = (
 				46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */,
 				020708601B9ADC5B009E53E3 /* slot_fever.png in Resources */,
+				020708681B9AE2BF009E53E3 /* ufo.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				0207085E1B9ADC5B009E53E3 /* slot_fuck.png in Resources */,
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
 				0207085A1B9ADC5B009E53E3 /* slot_jap.png in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
-				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
-				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				0207085C1B9ADC5B009E53E3 /* slot_jp.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				020708641B9AE260009E53E3 /* Ufo.cpp in Sources */,
 				815F6A381B9ACF70008FE936 /* Chara.cpp in Sources */,
 				815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
@@ -579,6 +580,7 @@
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				020708651B9AE260009E53E3 /* Ufo.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HomeScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

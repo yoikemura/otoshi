@@ -13,6 +13,8 @@
 #include "cocos2d.h"
 #include <vector>
 #include "Slot.h"
+#include "Ufo.h"
+
 using namespace cocos2d;
 
 class GameScene : public cocos2d::Layer
@@ -31,6 +33,7 @@ public:
     
     // スロット
     Slot* slot;
+    Ufo* ufo;
     
     CREATE_FUNC(GameScene);
 };
