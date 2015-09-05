@@ -37,6 +37,8 @@ bool GameScene::init()
         return false;
     }
     
+    log("start game!");
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
@@ -45,7 +47,6 @@ bool GameScene::init()
     // position the label on the center of the screen
     label->setPosition(Vec2(visibleSize.width/2,
                             visibleSize.height - label->getContentSize().height));
-    
 
     // スタート！みたいなのをだす
 
@@ -68,17 +69,38 @@ bool GameScene::init()
     this->addChild(slot);
     slot->rotation();
     
-    
-    
     return true;
 }
 
 void GameScene::update(float dt)
 {
+    log("+++update++++");
     // iteratorで内部要素を回し、該当値であればその要素を削除
-    for (auto i = charas.begin(); i != charas.end(); i++)
+    int i = 0;
+    int j = 0;
+    for (auto itr = charas.begin(); itr != charas.end(); itr++)
     {
-        
+        j = 0;
+        for (auto itr2 = charas.begin(); itr2 != charas.end(); itr2++)
+        {
+
+            auto chara1 = charas.at(i);
+            auto chara2 = charas.at(j);
+            if (chara1 != chara2) {
+                CCRect rect = chara1->boundingBox();
+                CCRect rect2 = chara2->boundingBox();
+                if(rect.intersectsRect(rect2))
+                {
+                    //trueの場合に、何かしらの処理を行う
+                    Vec2 vec = chara1->getPosition();
+                    chara1->setPosition(vec.x + 1, vec.y);
+                    Vec2 vec2 = chara1->getPosition();
+                    log("x:%f y:%f", vec2.x, vec2.y);
+                }
+            }
+            j++;
+        }
+        i++;
     }
 
 }
