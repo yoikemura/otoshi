@@ -24,12 +24,14 @@ public:
     
     virtual bool init();
     
-    void menuCloseCallback(cocos2d::Ref* pSender);
+    void btnToHomeCallback(cocos2d::Ref* pSender);
+
     void update(float dt);
+    void removeChara();
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
-    void btnToHomeCallback(cocos2d::Ref* pSender);
     
     // スロット
     Slot* slot;

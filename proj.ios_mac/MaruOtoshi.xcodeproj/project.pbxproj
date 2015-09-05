@@ -75,6 +75,7 @@
 		815F6A2F1B9ABA97008FE936 /* goma_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2E1B9ABA97008FE936 /* goma_home.png */; };
 		815F6A311B9ABAA0008FE936 /* goma.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A301B9ABAA0008FE936 /* goma.png */; };
 		815F6A381B9ACF70008FE936 /* Chara.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A361B9ACF70008FE936 /* Chara.cpp */; };
+		81D4F33B1B9AFA6000CBE49C /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D4F33A1B9AFA6000CBE49C /* back.png */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -187,6 +188,7 @@
 		815F6A351B9ACD4F008FE936 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		815F6A361B9ACF70008FE936 /* Chara.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chara.cpp; sourceTree = "<group>"; };
 		815F6A371B9ACF70008FE936 /* Chara.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chara.h; sourceTree = "<group>"; };
+		81D4F33A1B9AFA6000CBE49C /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -321,6 +323,7 @@
 				020708661B9AE2BF009E53E3 /* ufo.png */,
 				020708551B9ADC5B009E53E3 /* slot_jap.png */,
 				020708561B9ADC5B009E53E3 /* slot_jp.png */,
+				81D4F33A1B9AFA6000CBE49C /* back.png */,
 				020708571B9ADC5B009E53E3 /* slot_fuck.png */,
 				020708581B9ADC5B009E53E3 /* slot_fever.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
@@ -532,6 +535,7 @@
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				0207085F1B9ADC5B009E53E3 /* slot_fever.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				81D4F33B1B9AFA6000CBE49C /* back.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
