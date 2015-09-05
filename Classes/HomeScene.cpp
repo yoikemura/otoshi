@@ -65,7 +65,7 @@ bool Home::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = Label::createWithTTF("星のゴマービィ", "fonts/Osaka.ttf", 24);
+    auto label = Label::createWithTTF("月のゴマービィ", "fonts/Osaka.ttf", 24);
     
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,

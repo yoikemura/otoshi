@@ -65,6 +65,7 @@
 		815F6A2D1B9AABC3008FE936 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2B1B9AABC3008FE936 /* start.png */; };
 		815F6A2F1B9ABA97008FE936 /* goma_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2E1B9ABA97008FE936 /* goma_home.png */; };
 		815F6A311B9ABAA0008FE936 /* goma.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A301B9ABAA0008FE936 /* goma.png */; };
+		815F6A381B9ACF70008FE936 /* Chara.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A361B9ACF70008FE936 /* Chara.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -167,6 +168,9 @@
 		815F6A2B1B9AABC3008FE936 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		815F6A2E1B9ABA97008FE936 /* goma_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goma_home.png; sourceTree = "<group>"; };
 		815F6A301B9ABAA0008FE936 /* goma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goma.png; sourceTree = "<group>"; };
+		815F6A351B9ACD4F008FE936 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		815F6A361B9ACF70008FE936 /* Chara.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chara.cpp; sourceTree = "<group>"; };
+		815F6A371B9ACF70008FE936 /* Chara.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chara.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -319,8 +323,11 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				46880B8619C43A87006E1F66 /* HomeScene.cpp */,
 				46880B8719C43A87006E1F66 /* HomeScene.h */,
+				815F6A351B9ACD4F008FE936 /* Config.h */,
 				815F6A201B9AA6B1008FE936 /* GameScene.cpp */,
 				815F6A211B9AA6B1008FE936 /* GameScene.h */,
+				815F6A361B9ACF70008FE936 /* Chara.cpp */,
+				815F6A371B9ACF70008FE936 /* Chara.h */,
 				815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */,
 				815F6A241B9AA6D1008FE936 /* LibraryScene.h */,
 			);
@@ -525,6 +532,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815F6A381B9ACF70008FE936 /* Chara.cpp in Sources */,
 				815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HomeScene.cpp in Sources */,
