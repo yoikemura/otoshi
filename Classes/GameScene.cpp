@@ -138,7 +138,6 @@ void GameScene::update(float dt)
         }
         i++;
     }
-<<<<<<< HEAD
     
     removeChara();
     
@@ -161,8 +160,6 @@ void GameScene::removeChara()
         
         i++;
     }
-
-    ufo->update(dt);
 }
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
