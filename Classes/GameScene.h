@@ -30,6 +30,9 @@ public:
     void removeChara();
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     
+    void setScore();
+    int getScore();
+        
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
     

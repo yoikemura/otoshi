@@ -67,6 +67,7 @@ bool GameScene::init()
     this->addChild(menu, 1);
 
     // スタート！みたいなのをだす
+    int score = getScore();
 
     // キャラをばらまく 30体
     for(int i = 1; i <= 30; i++) {
@@ -98,13 +99,11 @@ bool GameScene::init()
     
     slot->rotation();
     
-    
+    // UFOを永遠に左右に動かす
     MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, 0));
     MoveTo* goback = MoveTo::create(1.0f, Point(0, 0));
-    
     auto spawn = Spawn::create(gogo, goback, NULL);
     auto repeatForever = RepeatForever::create(spawn);
-    
     ufo->runAction(repeatForever);
     
     return true;
@@ -139,6 +138,7 @@ void GameScene::update(float dt)
         }
         i++;
     }
+<<<<<<< HEAD
     
     removeChara();
     
@@ -161,6 +161,8 @@ void GameScene::removeChara()
         
         i++;
     }
+
+    ufo->update(dt);
 }
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
@@ -181,5 +183,21 @@ void GameScene::btnToHomeCallback(Ref* pSender)
 {
     Scene* scene = Home::createScene();
     Director::getInstance()->replaceScene(scene);
+}
+
+void GameScene::setScore()
+{
+    UserDefault* userDefault = UserDefault::getInstance();
+    const char* scoreKey = "highScore";
+    userDefault->setIntegerForKey(scoreKey, 0);//0 はtempora
+    userDefault->flush();
+}
+
+int GameScene::getScore()
+{
+    UserDefault* userDefault = UserDefault::getInstance();
+    const char* scoreKey = "highScore";
+    int currentScore = userDefault->getIntegerForKey(scoreKey, 0);
+    return currentScore;
 }
 
