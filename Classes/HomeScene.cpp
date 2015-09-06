@@ -41,6 +41,7 @@ bool Home::init()
     //音楽設定
     CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.8);
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("bgm_normal.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("bgm_game.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("effect_clicked.mp3");
 
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_normal.mp3", true);
@@ -101,6 +102,9 @@ bool Home::init()
 void Home::btnToGameCallback(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic("bgm_normal.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_game.mp3", true);
+    
     auto scene = GameScene::createScene();
     Director::getInstance()->replaceScene(scene);
 }

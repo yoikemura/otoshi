@@ -10,6 +10,8 @@
 #include "HomeScene.h"
 #include "Config.h"
 #include "Chara.h"
+#include "SimpleAudioEngine.h"
+
 
 USING_NS_CC;
 
@@ -324,6 +326,7 @@ void GameScene::removeCharas()
 // 下に落ちたキャラを消す
 void GameScene::dropCharas()
 {
+    
     int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
         auto chara = (Chara*)charas.at(i);
@@ -333,6 +336,7 @@ void GameScene::dropCharas()
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMidY();
             if (tableY > charaY) {
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");                
                 chara->isDropping = true;
                 chara->drop();
             }
@@ -393,6 +397,8 @@ void GameScene::moveCharas(int dst)
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Rect tableRect = tableTop->getBoundingBox();
     int tableMaxY = tableRect.getMaxY();
@@ -449,6 +455,10 @@ void GameScene::sweep(int dst)
 
 void GameScene::btnToHomeCallback(Ref* pSender)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic("bgm_game.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_normal.mp3", true);
+    
     Scene* scene = Home::createScene();
     Director::getInstance()->replaceScene(scene);
 }
