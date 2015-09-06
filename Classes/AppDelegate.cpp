@@ -52,7 +52,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     Size frameSize = glview->getFrameSize();
     log("画面横: %f, 画面縦; %f", frameSize.width, frameSize.height);
     log("画面比率: %f", (frameSize.width/designResolutionSize.width));
-    director->setContentScaleFactor(frameSize.width/designResolutionSize.width);
+    director->setContentScaleFactor(2.0f);
 
     register_all_packages();
 
