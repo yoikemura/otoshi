@@ -64,12 +64,12 @@ bool GameScene::init()
     
     //Table BOTTOM
     tableBottom = Sprite::create("table_under.png");
-    tableBottom->setPosition(visibleSize.width*0.5, 150);
+    tableBottom->setPosition(visibleSize.width*0.5, 210);
     this->addChild(tableBottom);
     
     //Table TOP
     tableTop = Sprite::create("table_top.png");
-    tableTop->setPosition(visibleSize.width*0.5, visibleSize.height*0.5);
+    tableTop->setPosition(visibleSize.width*0.5, TABLE_TOP_Y);
     this->addChild(tableTop);
 
     
@@ -107,8 +107,6 @@ bool GameScene::init()
     Rect rect2 = tableTop->getBoundingBox();
     int yMin = rect.getMinY();
     int hoge = rect2.getMaxY();
-    log("キャラクター配置最低値 MinY: %i", yMin);
-    log("キャラクター配置最高いbottom ManY: %i", hoge);
 
     for(int i = 0; i < 30; i++) {
         srand((unsigned int)time(NULL));
@@ -119,7 +117,6 @@ bool GameScene::init()
         chara->setPosition(Vec2(randX, DEFAULT_CHARA_MAP[i]));
         
         if (this->isInUpperTable(chara)) {
-           log("中にいるキャラ");
             chara->isUpperTable = true;
         } else {
             chara->isLowerTable = true;
@@ -167,12 +164,12 @@ void GameScene::update(float dt)
         this->moveCharas(1);
     }
 
-    if (tableY == 250) {
+    if (tableY == TABLE_TOP_Y + 10) {
         isTableBack = false;
         isTableFoward = true; 
     } 
 
-    if(tableY == 200) {
+    if(tableY == TABLE_TOP_Y - 40) {
         isTableBack = true;
         isTableFoward = false; 
     }
@@ -268,7 +265,7 @@ void GameScene::dropFromUpperTable()
         if (chara->isUpperTable)
         {
             if (!this->isInUpperTable(chara)) {
-              log("上テーブルから落ちる");
+              // log("上テーブルから落ちる");
               chara->isUpperTable = false;
               chara->isLowerTable = true;
             }
@@ -330,9 +327,10 @@ void GameScene::dropCharas()
         auto chara = (Chara*)charas.at(i);
         if (chara->isLowerTable) {
             Rect tableRect = tableBottom->boundingBox();
-            int tableY = tableRect.getMinY();
+            // 15は台の側面の部分
+            int tableY = tableRect.getMinY() + 15;
             Rect charaRect = chara->boundingBox();
-            int charaY = charaRect.getMidY();
+            int charaY = charaRect.getMinY();
             if (tableY > charaY) {
                 CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");
                 chara->isDropping = true;
