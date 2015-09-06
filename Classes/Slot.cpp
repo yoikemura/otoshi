@@ -50,7 +50,7 @@ void Slot::hide() {
     this->setVisible(false);
 }
 
-int Slot::rotate()
+void Slot::rotate(CallFunc *cb)
 {
     this->isRotating = true;
 
@@ -65,18 +65,18 @@ int Slot::rotate()
 
     int randNum = arc4random() % len;
     SLOT decidedSlot = SLOT_DATA[randNum];
+    this->lastEventId = decidedSlot.id;
+
     animation->addSpriteFrameWithFile(decidedSlot.fileName);
-    
     animation->setDelayPerUnit(0.1f);
     animation->setLoops(5);
 
-    auto callbackRotate = CallFunc::create([this](){
-      this->isRotating = false;
-    });
-    
     Animate* rotate = Animate::create(animation);
-    auto seq = Sequence::create(rotate, callbackRotate, NULL);
+    auto seq = Sequence::create(rotate, cb, NULL);
     this->runAction(seq);
-    
-    return randNum;
+}
+
+int Slot::getLastEventId()
+{
+    return this->lastEventId;
 }

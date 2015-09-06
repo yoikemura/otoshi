@@ -25,17 +25,19 @@ public:
     // 画面表示
     void show();
     void hide();
-    int rotate();
+    void rotate(CallFunc *cb);
+    int getLastEventId();
 
     // フラグ
     bool isRotating = false;
+
+    int lastEventId;
     
     Size size;
     Size slot_size;
     
 private:
     Sprite* pSprite;
-    
 };
 
 #endif /* defined(__MaruOtoshi__Slot__) */

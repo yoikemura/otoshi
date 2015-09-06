@@ -152,13 +152,18 @@ void GameScene::update(float dt)
     // イベントキューに値があればイベントスタート
     // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
     // TODO: Must refactor!
-    /*
-    if ((!this->isInEvent) && this->eventQueue.size() > 0) {
+    
+    if (!this->isInEvent &&
+        this->eventQueue.size() > 0) {
+        log("イベント開始 %i", this->eventId);
         auto itr = this->eventQueue.begin();
         this->eventId = *this->eventQueue.erase(itr);
-        this->isInEvent = true;
+        
+        // 一旦「台が伸びるのみ実装」
+        if (this->eventId == EVENT_LOGN) {
+            this->isInEvent = true;
+        }
     }
-     */
 
     Vec2 tableVec = tableTop->getPosition();
     int tableY = tableVec.y;
@@ -180,6 +185,7 @@ void GameScene::update(float dt)
 
     // テーブルが伸びるイベント
     if (this->isInEvent && this->eventId == EVENT_LOGN) {
+                log("大が伸びる");
       if(tableY == TABLE_TOP_Y - 100) {
           isTableBack = true;
           isTableFoward = false; 
@@ -242,7 +248,7 @@ void GameScene::detectCollision()
                 Rect rect2 = chara2->boundingBox();
 
                 // 斜辺
-                float delt = rect2.size.width * rect2.size.width;
+                float delt = rect2.size.width * rect2.size.width  - 500.0f;
 
                 float ab_x = rect1.getMidX() - rect2.getMidX();
                 float ab_y = rect1.getMidY() - rect2.getMidY();
@@ -250,7 +256,7 @@ void GameScene::detectCollision()
                 if (ab_x * ab_x +  ab_y * ab_y < delt)  {
                     Vec2 vec = chara2->getPosition();
                     // めり込んだ量
-                    float len = sqrtf(ab_x * ab_x + ab_y * ab_y);
+                    // float len = sqrtf(ab_x * ab_x + ab_y * ab_y);
                     // float dist = rect2.size.width + rect2.size.width - len;
                     float dist = 2.0f;
                     float angle = atan2f(ab_y, ab_x);
@@ -373,19 +379,21 @@ void GameScene::detectUfoCollision()
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMidY();
             if (tableY > charaY) {
-                Point charaPoint = chara->getPosition();
-                //log("落ちたCHARAのx座標：%f, y座標：%f", charaPoint.x, charaPoint.y);
-                Point ufoPoint = ufo->getPosition();
-                //log("UFOのx座標：%f, y座標：%f", ufoPoint.x, ufoPoint.y);
-                
-                float dif_f = ufoPoint.x - charaPoint.x;
-                int dif_i;
-                dif_i = dif_f;
+                int charaX = chara->getPositionX();
+                int ufoX = ufo->getPositionX();
+                int diff = ufoX - charaX;
                 
                 //UFOとの衝突判定スタート
-                if (abs(dif_i) < 10 && !slot->isRotating){
-                    int eventId = slot->rotate();
-                    // this->eventQueue.pushBack(eventId);
+                if (abs(diff) < 10 && !slot->isRotating) {
+                    // スロットが回り終わったあとのコールバック
+                    auto cb = CallFunc::create([this](){
+                        int eventId = this->slot->getLastEventId();
+                        log("スロット終わり eventId:%i", eventId);
+                        this->eventQueue.push_back(eventId);
+                        this->slot->isRotating = false;
+                    });
+    
+                    this->slot->rotate(cb);
                 }
             }
         }

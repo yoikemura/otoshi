@@ -55,7 +55,7 @@ public:
     Ufo* ufo;
 
     // イベント周り
-    // Vector<int> eventQueue;
+    std::vector<int> eventQueue;
     bool isInEvent = false;
     int eventId;
     
