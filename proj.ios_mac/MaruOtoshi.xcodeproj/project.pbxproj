@@ -688,6 +688,7 @@
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
+				PROVISIONING_PROFILE = "1254476b-d227-4a89-bbcb-a52c136c073b";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Classes/MaruOtoshi-mobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -726,6 +727,7 @@
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
+				PROVISIONING_PROFILE = "1254476b-d227-4a89-bbcb-a52c136c073b";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Classes/MaruOtoshi-mobile-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
