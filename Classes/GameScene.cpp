@@ -405,7 +405,6 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     //Touch 取得
     Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
     Rect tableRect = tableTop->getBoundingBox();
     int tableMaxY = tableRect.getMaxY();
 
@@ -419,13 +418,17 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 
     CHARA charaData = CHARA_DATA[num];
     auto chara = Chara::create(charaData);
-    chara->setPosition(Vec2(touchPoint.x, tableMaxY - 50));
+    chara->setPosition(Vec2(touchPoint.x, tableMaxY + 50));
     // 先頭に追加
     charas.insert(0, chara);
     // あとから追加されたやつは絶対上のテーブル
     chara->isUpperTable = true;
     
     this->addChild(chara);
+    
+    MoveTo* fallDown =  MoveTo::create(0.1f, Point(touchPoint.x, tableMaxY));
+    chara->runAction(fallDown);
+    
     this->swapZOerder();
     
     return true;
