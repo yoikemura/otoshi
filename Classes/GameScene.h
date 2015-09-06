@@ -48,6 +48,7 @@ public:
     
     //変数
     int score;
+    Label* scoreLabel;
     
     // スロット
     Slot* slot;
