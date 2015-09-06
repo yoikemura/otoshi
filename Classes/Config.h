@@ -9,10 +9,42 @@
 #ifndef __MaruOtoshi__Config__
 #define __MaruOtoshi__Config__
 
+//Slot のデータ
+struct SLOT {
+    int id;
+    char fileName[30];
+    char name[50];
+};
+
+
+static struct SLOT SLOT_DATA[] = {
+    {
+      1,
+        "slot_fuck.png",
+        "ファッキュー！！！"
+    },
+    {
+        2,
+        "slot_jap.png",
+        "ジャップーー！！！"
+    },
+    {
+        3,
+        "slot_jp.png",
+        "ジャパーンー！！"
+    },
+    {
+        4,
+        "slot_fever.png",
+        "フィーバー！！！"
+    }
+};
+
 struct CHARA{
     char name[30];
     char fileName[30];
 };
+
 
 // キャラのデータ
 static struct CHARA CHARA_DATA[] = {
