@@ -53,6 +53,11 @@ public:
     // スロット
     Slot* slot;
     Ufo* ufo;
+
+    // イベント周り
+    // Vector<int> eventQueue;
+    bool isInEvent = false;
+    int eventId;
     
     // テーブル
     Sprite* tableTop;

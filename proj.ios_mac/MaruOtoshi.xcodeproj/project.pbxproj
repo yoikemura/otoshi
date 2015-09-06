@@ -84,6 +84,7 @@
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		810FB3801B9C21250056690B /* slot_increment.png in Resources */ = {isa = PBXBuildFile; fileRef = 810FB37E1B9C21250056690B /* slot_increment.png */; };
 		810FB3811B9C21250056690B /* slot_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 810FB37F1B9C21250056690B /* slot_long.png */; };
+		810FB3831B9C26F60056690B /* slot_rare.png in Resources */ = {isa = PBXBuildFile; fileRef = 810FB3821B9C26F60056690B /* slot_rare.png */; };
 		815F6A221B9AA6B1008FE936 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A201B9AA6B1008FE936 /* GameScene.cpp */; };
 		815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */; };
 		815F6A2C1B9AABC3008FE936 /* zukan.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2A1B9AABC3008FE936 /* zukan.png */; };
@@ -205,6 +206,7 @@
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		810FB37E1B9C21250056690B /* slot_increment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_increment.png; sourceTree = "<group>"; };
 		810FB37F1B9C21250056690B /* slot_long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_long.png; sourceTree = "<group>"; };
+		810FB3821B9C26F60056690B /* slot_rare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_rare.png; sourceTree = "<group>"; };
 		815F6A201B9AA6B1008FE936 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		815F6A211B9AA6B1008FE936 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LibraryScene.cpp; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				020519C11B9B11A300911F04 /* bg.png */,
 				020519BD1B9B0AC700911F04 /* table_top.png */,
 				020519BE1B9B0AC700911F04 /* table_under.png */,
+				810FB3821B9C26F60056690B /* slot_rare.png */,
 				810FB37E1B9C21250056690B /* slot_increment.png */,
 				810FB37F1B9C21250056690B /* slot_long.png */,
 				020708661B9AE2BF009E53E3 /* ufo.png */,
@@ -581,6 +584,7 @@
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				020519C01B9B0AC700911F04 /* table_under.png in Resources */,
 				815F6A2D1B9AABC3008FE936 /* start.png in Resources */,
+				810FB3831B9C26F60056690B /* slot_rare.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				0207085F1B9ADC5B009E53E3 /* slot_fever.png in Resources */,

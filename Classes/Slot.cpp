@@ -7,7 +7,7 @@
 //
 
 #include "Slot.h"
-
+#include "Config.h"
 
 USING_NS_CC;
 using namespace cocos2d;
@@ -50,38 +50,33 @@ void Slot::hide() {
     this->setVisible(false);
 }
 
-int Slot::rotation()
+int Slot::rotate()
 {
-    //呼ばれたらRandomな 1 ~ 9を数値として持つ。
-    int randNum = 10 - (arc4random() % 21);
-    log("randNum is %i", abs(randNum));
-    
+    this->isRotating = true;
+
     Animation* animation;
     animation = Animation::create();
     
-    animation->addSpriteFrameWithFile("slot_long.png");
-    animation->addSpriteFrameWithFile("slot_increment.png");
-    
-    if(abs(randNum) < 2){
-        animation->addSpriteFrameWithFile("slot_long.png");
-    }else if(abs(randNum) < 5){
-        animation->addSpriteFrameWithFile("slot_increment.png");
-    }else if(abs(randNum) < 7){
-        animation->addSpriteFrameWithFile("slot_long.png");
-    }else{
-        animation->addSpriteFrameWithFile("slot_increment.png");
+    int len = sizeof(SLOT_DATA) / sizeof(SLOT_DATA[0]);
+
+    for (int i = 0; i < len; i++) {
+      animation->addSpriteFrameWithFile(SLOT_DATA[i].fileName);
     }
+
+    int randNum = arc4random() % len;
+    SLOT decidedSlot = SLOT_DATA[randNum];
+    animation->addSpriteFrameWithFile(decidedSlot.fileName);
     
     animation->setDelayPerUnit(0.1f);
     animation->setLoops(5);
+
+    auto callbackRotate = CallFunc::create([this](){
+      this->isRotating = false;
+    });
     
-    Animate* animate = Animate::create(animation);
-    this->runAction(animate);
+    Animate* rotate = Animate::create(animation);
+    auto seq = Sequence::create(rotate, callbackRotate, NULL);
+    this->runAction(seq);
     
     return randNum;
-}
-
-
-void Slot::update(float dt) {
-    
 }

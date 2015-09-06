@@ -9,34 +9,32 @@
 #ifndef __MaruOtoshi__Config__
 #define __MaruOtoshi__Config__
 
-//Slot のデータ
+const int EVENT_LOGN      = 0;
+const int EVENT_INCREMENT = 1;
+const int EVENT_RARE      = 2;
+
+// Slotのデータ
 struct SLOT {
     int id;
     char fileName[30];
-    char name[50];
+    char description[50];
 };
-
 
 static struct SLOT SLOT_DATA[] = {
     {
-      1,
-        "slot_fuck.png",
-        "ファッキュー！！！"
+        EVENT_LOGN,
+        "slot_long.png",
+        "台が伸びる"
     },
     {
-        2,
-        "slot_jap.png",
-        "ジャップーー！！！"
+        EVENT_INCREMENT,
+        "slot_increment.png",
+        "ゴマビィ増殖"
     },
     {
-        3,
-        "slot_jp.png",
-        "ジャパーンー！！"
-    },
-    {
-        4,
-        "slot_fever.png",
-        "フィーバー！！！"
+        EVENT_RARE,
+        "slot_rare.png",
+        "レア100%"
     }
 };
 

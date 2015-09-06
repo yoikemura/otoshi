@@ -12,7 +12,6 @@
 #include "Chara.h"
 #include "SimpleAudioEngine.h"
 
-
 USING_NS_CC;
 
 Scene* GameScene::createScene()
@@ -150,6 +149,17 @@ bool GameScene::init()
 
 void GameScene::update(float dt)
 {
+    // イベントキューに値があればイベントスタート
+    // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
+    // TODO: Must refactor!
+    /*
+    if ((!this->isInEvent) && this->eventQueue.size() > 0) {
+        auto itr = this->eventQueue.begin();
+        this->eventId = *this->eventQueue.erase(itr);
+        this->isInEvent = true;
+    }
+     */
+
     Vec2 tableVec = tableTop->getPosition();
     int tableY = tableVec.y;
     
@@ -168,9 +178,18 @@ void GameScene::update(float dt)
         isTableFoward = true; 
     } 
 
-    if(tableY == TABLE_TOP_Y - 40) {
-        isTableBack = true;
-        isTableFoward = false; 
+    // テーブルが伸びるイベント
+    if (this->isInEvent && this->eventId == EVENT_LOGN) {
+      if(tableY == TABLE_TOP_Y - 100) {
+          isTableBack = true;
+          isTableFoward = false; 
+          this->isInEvent = false;
+      }
+    } else {
+      if(tableY == TABLE_TOP_Y - 40) {
+          isTableBack = true;
+          isTableFoward = false; 
+      }
     }
 
     // 上のテーブルから落ちる
@@ -356,7 +375,6 @@ void GameScene::detectUfoCollision()
             if (tableY > charaY) {
                 Point charaPoint = chara->getPosition();
                 //log("落ちたCHARAのx座標：%f, y座標：%f", charaPoint.x, charaPoint.y);
-
                 Point ufoPoint = ufo->getPosition();
                 //log("UFOのx座標：%f, y座標：%f", ufoPoint.x, ufoPoint.y);
                 
@@ -365,9 +383,9 @@ void GameScene::detectUfoCollision()
                 dif_i = dif_f;
                 
                 //UFOとの衝突判定スタート
-                if (abs(dif_i) < 10){
-                    //log("衝突GREAT");
-                    slot->rotation();
+                if (abs(dif_i) < 10 && !slot->isRotating){
+                    int eventId = slot->rotate();
+                    // this->eventQueue.pushBack(eventId);
                 }
             }
         }

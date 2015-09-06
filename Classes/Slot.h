@@ -25,12 +25,13 @@ public:
     // 画面表示
     void show();
     void hide();
-    int rotation();
-    void update(float dt);
+    int rotate();
+
+    // フラグ
+    bool isRotating = false;
     
     Size size;
     Size slot_size;
-
     
 private:
     Sprite* pSprite;
