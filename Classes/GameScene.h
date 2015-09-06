@@ -34,6 +34,7 @@ public:
     
     void setScore();
     int getScore();
+    int updateScore();
     
     bool isInUpperTable(Chara* chara);
     void dropFromUpperTable();

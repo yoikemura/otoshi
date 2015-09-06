@@ -338,8 +338,7 @@ void GameScene::dropCharas()
                 CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");
                 chara->isDropping = true;
                 chara->drop();
-                score += 1;
-                scoreLabel->setString(StringUtils::toString(score));
+                this->updateScore();
             }
         }
         i++;
@@ -473,6 +472,8 @@ void GameScene::btnToHomeCallback(Ref* pSender)
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic("bgm_game.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_normal.mp3", true);
+
+    this->setScore();
     
     Scene* scene = Home::createScene();
     Director::getInstance()->replaceScene(scene);
@@ -492,5 +493,11 @@ int GameScene::getScore()
     const char* scoreKey = "highScore";
     int currentScore = userDefault->getIntegerForKey(scoreKey, 0);
     return currentScore;
+}
+
+int GameScene::updateScore()
+{
+    score += 1;
+    scoreLabel->setString(StringUtils::toString(score));
 }
 
