@@ -63,6 +63,7 @@ int Slot::rotation()
     animation->addSpriteFrameWithFile("slot_jp.png");
     animation->addSpriteFrameWithFile("slot_fever.png");
     animation->addSpriteFrameWithFile("slot_jap.png");
+    
     if(abs(randNum) < 2){
         animation->addSpriteFrameWithFile("slot_fuck.png");
     }else if(abs(randNum) < 5){

@@ -399,13 +399,15 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     score -= 1;
     scoreLabel->setString(StringUtils::toString(score));
     
+    Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Rect tableRect = tableTop->getBoundingBox();
     int tableMaxY = tableRect.getMaxY();
-    int randX = arc4random() % ((int)visibleSize.width);
+    //int randX = arc4random() % ((int)visibleSize.width);
     CHARA charaData = CHARA_DATA[0];
     auto chara = Chara::create(charaData);
-    chara->setPosition(Vec2(randX, tableMaxY - 50));
+    chara->setPosition(Vec2(touchPoint.x, tableMaxY - 50));
     // 先頭に追加
     charas.insert(0, chara);
     // あとから追加されたやつは絶対上のテーブル
