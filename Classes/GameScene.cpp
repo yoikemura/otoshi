@@ -222,16 +222,23 @@ void GameScene::detectCollision()
                 float ab_x = rect1.getMidX() - rect2.getMidX();
                 float ab_y = rect1.getMidY() - rect2.getMidY();
 
-                // 三平方の定理判定
                 if (ab_x * ab_x +  ab_y * ab_y < delt)  {
                     Vec2 vec = chara2->getPosition();
                     // めり込んだ量
                     float len = sqrtf(ab_x * ab_x + ab_y * ab_y);
-                    float dist = rect2.size.width + rect2.size.width - len;
+                    // float dist = rect2.size.width + rect2.size.width - len;
+                    float dist = 2.0f;
+                    float angle = atan2f(ab_y, ab_x);
+                    float nx = cosf(angle) * dist;
+                    float ny = sinf(angle) * dist;
+                    
+                    if (ny <= 0) {
+                        ny = 1.0f;
+                    }
 
                     // 自分より手前(chara2)を移動させる
                     // 移動量はchara1とのめり込み分
-                    chara2->setPosition(Vec2(vec.x, vec.y - 1));
+                    chara2->setPosition(Vec2(vec.x - nx, vec.y - ny));
                 }
             }
             j++;
