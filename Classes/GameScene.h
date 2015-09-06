@@ -41,9 +41,13 @@ public:
     void sweep(int dst);
     void swapZOerder();
     void dropCharas();
+    void detectUfoCollision();
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
+    
+    //変数
+    int score;
     
     // スロット
     Slot* slot;

@@ -51,6 +51,7 @@ bool GameScene::init()
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    
     //BACK GROUND LAYER
     auto bgLayer = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
     this->addChild(bgLayer);
@@ -84,13 +85,23 @@ bool GameScene::init()
     
     btnToGame->setPosition(Vec2(visibleSize.width,
                                 origin.y + btnToGame->getContentSize().height/2));
+    
     auto menu = Menu::create(btnToGame, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
+    log("-------------------------------");
     // スタート！みたいなのをだす
-    int score = getScore();
-
+    score = getScore();
+    if (score > 30){
+        score = getScore();
+        log("getscore is %i", score);
+    }else{
+        score = 30;
+        log("score is %i", score);
+    }
+    log("-------------------------------");
+    
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
     Rect rect2 = tableTop->getBoundingBox();
@@ -123,17 +134,13 @@ bool GameScene::init()
     this->scheduleUpdate();
     
     slot = Slot::create();
-    slot->setPosition(Vec2(visibleSize.width/2,
-                           visibleSize.height/4*3 - slot->getContentSize().height));
+    slot->setPosition(Vec2(visibleSize.width*0.5,
+                           visibleSize.height*0.75 - slot->getContentSize().height));
     
     ufo = Ufo::create();
-    slot->setPosition(Vec2(visibleSize.width/2,
-                           visibleSize.height/4 - slot->getContentSize().height));
     
     this->addChild(slot);
     this->addChild(ufo);
-    
-    slot->rotation();
     
     // UFOを永遠に左右に動かす
     MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, 0));
@@ -184,6 +191,9 @@ void GameScene::update(float dt)
 
     // キャラを消す
     this->removeCharas();
+    
+    // UFOとの衝突判定
+    this->detectUfoCollision();
 }
 
 void GameScene::detectCollision() 
@@ -323,12 +333,46 @@ void GameScene::dropCharas()
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMidY();
             if (tableY > charaY) {
-              chara->isDropping = true;
-              chara->drop();
+                chara->isDropping = true;
+                chara->drop();
             }
         }
         i++;
     }
+    
+}
+
+void GameScene::detectUfoCollision()
+{
+    int i = 0;
+    for (auto itr = charas.begin(); itr != charas.end(); itr++) {
+        auto chara = (Chara*)charas.at(i);
+        if (chara->isLowerTable) {
+            Rect tableRect = tableBottom->boundingBox();
+            int tableY = tableRect.getMinY();
+            Rect charaRect = chara->boundingBox();
+            int charaY = charaRect.getMidY();
+            if (tableY > charaY) {
+                Point charaPoint = chara->getPosition();
+                //log("落ちたCHARAのx座標：%f, y座標：%f", charaPoint.x, charaPoint.y);
+
+                Point ufoPoint = ufo->getPosition();
+                //log("UFOのx座標：%f, y座標：%f", ufoPoint.x, ufoPoint.y);
+                
+                float dif_f = ufoPoint.x - charaPoint.x;
+                int dif_i;
+                dif_i = dif_f;
+                
+                //UFOとの衝突判定スタート
+                if (abs(dif_i) < 10){
+                    //log("衝突GREAT");
+                    slot->rotation();
+                }
+            }
+        }
+        i++;
+    }
+    
 }
 
 void GameScene::moveCharas(int dst)
