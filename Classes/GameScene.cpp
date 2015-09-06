@@ -130,8 +130,7 @@ bool GameScene::init()
     this->scheduleUpdate();
     
     slot = Slot::create();
-    slot->setPosition(Vec2(visibleSize.width*0.5,
-                           visibleSize.height*0.75 - slot->getContentSize().height));
+    slot->setPosition(Vec2(visibleSize.width*0.5, 384));
     
     ufo = Ufo::create();
     ufo->setPosition(Vec2(0, ufo->getBoundingBox().size.height));
