@@ -54,6 +54,7 @@ int Slot::rotation()
 {
     //呼ばれたらRandomな 1 ~ 9を数値として持つ。
     int randNum = 10 - (arc4random() % 21);
+    log("randNum is %i", abs(randNum));
     
     Animation* animation;
     animation = Animation::create();
@@ -62,6 +63,16 @@ int Slot::rotation()
     animation->addSpriteFrameWithFile("slot_jp.png");
     animation->addSpriteFrameWithFile("slot_fever.png");
     animation->addSpriteFrameWithFile("slot_jap.png");
+    if(abs(randNum) < 2){
+        animation->addSpriteFrameWithFile("slot_fuck.png");
+    }else if(abs(randNum) < 5){
+        animation->addSpriteFrameWithFile("slot_jp.png");
+    }else if(abs(randNum) < 7){
+        animation->addSpriteFrameWithFile("slot_fever.png");
+    }else{
+        animation->addSpriteFrameWithFile("slot_jap.png");
+    }
+    
     animation->setDelayPerUnit(0.1f);
     animation->setLoops(5);
     
