@@ -232,6 +232,7 @@ void GameScene::detectCollision()
                     float nx = cosf(angle) * dist;
                     float ny = sinf(angle) * dist;
                     
+                    // 少なくとも前に進ませる！
                     if (ny <= 0) {
                         ny = 1.0f;
                     }
