@@ -73,12 +73,6 @@ bool GameScene::init()
     this->addChild(tableTop);
 
     
-    auto label = Label::createWithTTF("ゲーム画面", "fonts/Osaka.ttf", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(visibleSize.width/2,
-                            visibleSize.height - label->getContentSize().height));
-    
     // ホーム画面へ移動ボタン
     auto btnToGame = MenuItemImage::create(
                                            "back.png",
@@ -92,7 +86,6 @@ bool GameScene::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    log("-------------------------------");
     // スタート！みたいなのをだす
     score = getScore();
     if (score > 30){
@@ -102,7 +95,12 @@ bool GameScene::init()
         score = 30;
         log("score is %i", score);
     }
-    log("-------------------------------");
+    
+    scoreLabel = Label::createWithSystemFont(StringUtils::toString(score),"arial", 24);
+    scoreLabel->setPosition(Vec2(visibleSize.width*0.9, visibleSize.height*0.9));
+    scoreLabel->setColor(Color3B::WHITE);
+    this->addChild(scoreLabel);
+    
     
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
@@ -132,7 +130,6 @@ bool GameScene::init()
     }
     
     // add the label as a child to this layer
-    this->addChild(label, 1);
     this->scheduleUpdate();
     
     slot = Slot::create();
@@ -140,13 +137,14 @@ bool GameScene::init()
                            visibleSize.height*0.75 - slot->getContentSize().height));
     
     ufo = Ufo::create();
+    ufo->setPosition(Vec2(0, ufo->getBoundingBox().size.height));
     
     this->addChild(slot);
     this->addChild(ufo);
     
     // UFOを永遠に左右に動かす
-    MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, 0));
-    MoveTo* goback = MoveTo::create(1.0f, Point(0, 0));
+    MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, ufo->getBoundingBox().size.height));
+    MoveTo* goback = MoveTo::create(1.0f, Point(0, ufo->getBoundingBox().size.height));
     auto spawn = Spawn::create(gogo, goback, NULL);
     auto repeatForever = RepeatForever::create(spawn);
     ufo->runAction(repeatForever);
@@ -336,9 +334,11 @@ void GameScene::dropCharas()
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMidY();
             if (tableY > charaY) {
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");                
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");
                 chara->isDropping = true;
                 chara->drop();
+                score += 1;
+                scoreLabel->setString(StringUtils::toString(score));
             }
         }
         i++;
@@ -398,6 +398,8 @@ void GameScene::moveCharas(int dst)
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
+    score -= 1;
+    scoreLabel->setString(StringUtils::toString(score));
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Rect tableRect = tableTop->getBoundingBox();
