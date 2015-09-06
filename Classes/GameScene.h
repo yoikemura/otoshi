@@ -58,6 +58,7 @@ public:
     // テーブル
     Sprite* tableTop;
     Sprite* tableBottom;
+    static const int TABLE_TOP_Y = 300;
     bool isTableFoward = true;
     bool isTableBack = false;
     

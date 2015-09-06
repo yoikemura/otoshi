@@ -33,7 +33,7 @@ Slot* Slot::create()
 bool Slot::initWithFile()
 {
     
-    Sprite::initWithFile("slot_fever.png");
+    Sprite::initWithFile("slot_increment.png");
     size = Director::getInstance()->getWinSize();
     this->setScale(0.5f);
     slot_size = this->getContentSize();
@@ -59,19 +59,17 @@ int Slot::rotation()
     Animation* animation;
     animation = Animation::create();
     
-    animation->addSpriteFrameWithFile("slot_fuck.png");
-    animation->addSpriteFrameWithFile("slot_jp.png");
-    animation->addSpriteFrameWithFile("slot_fever.png");
-    animation->addSpriteFrameWithFile("slot_jap.png");
+    animation->addSpriteFrameWithFile("slot_long.png");
+    animation->addSpriteFrameWithFile("slot_increment.png");
     
     if(abs(randNum) < 2){
-        animation->addSpriteFrameWithFile("slot_fuck.png");
+        animation->addSpriteFrameWithFile("slot_long.png");
     }else if(abs(randNum) < 5){
-        animation->addSpriteFrameWithFile("slot_jp.png");
+        animation->addSpriteFrameWithFile("slot_increment.png");
     }else if(abs(randNum) < 7){
-        animation->addSpriteFrameWithFile("slot_fever.png");
+        animation->addSpriteFrameWithFile("slot_long.png");
     }else{
-        animation->addSpriteFrameWithFile("slot_jap.png");
+        animation->addSpriteFrameWithFile("slot_increment.png");
     }
     
     animation->setDelayPerUnit(0.1f);

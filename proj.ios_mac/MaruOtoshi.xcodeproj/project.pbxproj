@@ -83,6 +83,8 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		810FB3801B9C21250056690B /* slot_increment.png in Resources */ = {isa = PBXBuildFile; fileRef = 810FB37E1B9C21250056690B /* slot_increment.png */; };
+		810FB3811B9C21250056690B /* slot_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 810FB37F1B9C21250056690B /* slot_long.png */; };
 		815F6A221B9AA6B1008FE936 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A201B9AA6B1008FE936 /* GameScene.cpp */; };
 		815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */; };
 		815F6A2C1B9AABC3008FE936 /* zukan.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2A1B9AABC3008FE936 /* zukan.png */; };
@@ -203,6 +205,8 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		810FB37E1B9C21250056690B /* slot_increment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_increment.png; sourceTree = "<group>"; };
+		810FB37F1B9C21250056690B /* slot_long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_long.png; sourceTree = "<group>"; };
 		815F6A201B9AA6B1008FE936 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		815F6A211B9AA6B1008FE936 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LibraryScene.cpp; sourceTree = "<group>"; };
@@ -357,6 +361,8 @@
 				020519C11B9B11A300911F04 /* bg.png */,
 				020519BD1B9B0AC700911F04 /* table_top.png */,
 				020519BE1B9B0AC700911F04 /* table_under.png */,
+				810FB37E1B9C21250056690B /* slot_increment.png */,
+				810FB37F1B9C21250056690B /* slot_long.png */,
 				020708661B9AE2BF009E53E3 /* ufo.png */,
 				81D4F33E1B9B119D00CBE49C /* logo.png */,
 				020708551B9ADC5B009E53E3 /* slot_jap.png */,
@@ -574,6 +580,7 @@
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				815F6A2F1B9ABA97008FE936 /* goma_home.png in Resources */,
 				0207085D1B9ADC5B009E53E3 /* slot_fuck.png in Resources */,
+				810FB3801B9C21250056690B /* slot_increment.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				020519C01B9B0AC700911F04 /* table_under.png in Resources */,
 				815F6A2D1B9AABC3008FE936 /* start.png in Resources */,
@@ -585,6 +592,7 @@
 				020519BF1B9B0AC700911F04 /* table_top.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				81D4F33B1B9AFA6000CBE49C /* back.png in Resources */,
+				810FB3811B9C21250056690B /* slot_long.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				02ADFFBB1B9C06FE00C9D567 /* effect_drop.mp3 in Resources */,
