@@ -43,6 +43,7 @@ static struct SLOT SLOT_DATA[] = {
 struct CHARA{
     char name[30];
     char fileName[30];
+    int percent;
 };
 
 
@@ -50,8 +51,15 @@ struct CHARA{
 static struct CHARA CHARA_DATA[] = {
     {
         "ゴマ-ビィ",
-        "goma.png"
+        "goma.png",
+        80
+    },
+    {
+        "メジェドさん",
+        "chara_medjed.png",
+        20
     }
+    
 };
 
 static int DEFAULT_CHARA_MAP[] = {

@@ -11,6 +11,7 @@
 #include "Config.h"
 #include "Chara.h"
 #include "SimpleAudioEngine.h"
+#include <time.h>
 
 
 USING_NS_CC;
@@ -143,8 +144,8 @@ bool GameScene::init()
     this->addChild(ufo);
     
     // UFOを永遠に左右に動かす
-    MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, ufo->getBoundingBox().size.height));
-    MoveTo* goback = MoveTo::create(1.0f, Point(0, ufo->getBoundingBox().size.height));
+    MoveTo* gogo =  MoveTo::create(3.0f, Point(visibleSize.width, ufo->getBoundingBox().size.height));
+    MoveTo* goback = MoveTo::create(3.0f, Point(0, ufo->getBoundingBox().size.height));
     auto spawn = Spawn::create(gogo, goback, NULL);
     auto repeatForever = RepeatForever::create(spawn);
     ufo->runAction(repeatForever);
@@ -358,10 +359,8 @@ void GameScene::detectUfoCollision()
             int charaY = charaRect.getMidY();
             if (tableY > charaY) {
                 Point charaPoint = chara->getPosition();
-                //log("落ちたCHARAのx座標：%f, y座標：%f", charaPoint.x, charaPoint.y);
 
                 Point ufoPoint = ufo->getPosition();
-                //log("UFOのx座標：%f, y座標：%f", ufoPoint.x, ufoPoint.y);
                 
                 float dif_f = ufoPoint.x - charaPoint.x;
                 int dif_i;
@@ -397,17 +396,29 @@ void GameScene::moveCharas(int dst)
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    //クリック音
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
+
+    //合計値マイナス
     score -= 1;
     scoreLabel->setString(StringUtils::toString(score));
     
+    //Touch 取得
     Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Rect tableRect = tableTop->getBoundingBox();
     int tableMaxY = tableRect.getMaxY();
-    //int randX = arc4random() % ((int)visibleSize.width);
-    CHARA charaData = CHARA_DATA[0];
+
+    int r = arc4random() % 10;
+    int num;
+    if (r < 8) {
+        num = 0;
+    }else{
+        num = 1;
+    }
+
+    CHARA charaData = CHARA_DATA[num];
     auto chara = Chara::create(charaData);
     chara->setPosition(Vec2(touchPoint.x, tableMaxY - 50));
     // 先頭に追加
