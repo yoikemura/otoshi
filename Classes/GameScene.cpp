@@ -158,7 +158,6 @@ void GameScene::update(float dt)
     // イベントキューに値があればイベントスタート
     // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
     // TODO: Must refactor!
-    
     if (!this->isInEvent &&
         this->eventQueue.size() > 0) {
         log("イベント開始 %i", this->eventId);
@@ -166,7 +165,7 @@ void GameScene::update(float dt)
         this->eventId = *this->eventQueue.erase(itr);
         
         // 一旦「台が伸びるのみ実装」
-        if (this->eventId == EVENT_LOGN) {
+        if (this->eventId == EVENT_LOGN || this->eventId == EVENT_INCREMENT) {
             this->isInEvent = true;
         }
     }
@@ -191,17 +190,22 @@ void GameScene::update(float dt)
 
     // テーブルが伸びるイベント
     if (this->isInEvent && this->eventId == EVENT_LOGN) {
-                log("大が伸びる");
-      if(tableY == TABLE_TOP_Y - 100) {
-          isTableBack = true;
-          isTableFoward = false; 
-          this->isInEvent = false;
-      }
+        if(tableY == TABLE_TOP_Y - 100) {
+            isTableBack = true;
+            isTableFoward = false; 
+            this->isInEvent = false;
+        }
     } else {
-      if(tableY == TABLE_TOP_Y - 40) {
-          isTableBack = true;
-          isTableFoward = false; 
-      }
+        if(tableY == TABLE_TOP_Y - 40) {
+            isTableBack = true;
+            isTableFoward = false; 
+        }
+    }
+
+    // 増殖イベント
+    if (this->isInEvent && this->eventId == EVENT_INCREMENT) {
+        this->incrementChara();
+        this->isInEvent = false;
     }
 
     // 上のテーブルから落ちる
@@ -340,12 +344,13 @@ void GameScene::removeCharas()
 // 下に落ちたキャラを消す
 void GameScene::dropCharas()
 {
+    // 15は台の側面の部分
+    Rect tableRect = this->tableBottom->boundingBox();
+    int tableY = tableRect.getMinY() + 15;
+
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
         auto chara = (Chara*)(*itr);
         if (chara->isLowerTable && !chara->isDropping) {
-            Rect tableRect = tableBottom->boundingBox();
-            // 15は台の側面の部分
-            int tableY = tableRect.getMinY() + 15;
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMinY();
             if (tableY > charaY) {
@@ -360,16 +365,17 @@ void GameScene::dropCharas()
 
 void GameScene::detectUfoCollision()
 {
+    Rect tableRect = tableBottom->boundingBox();
+    int tableY = tableRect.getMinY();
+    int ufoX = ufo->getPositionX();
+
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
         auto chara = (Chara*)(*itr);
         if (chara->isLowerTable) {
-            Rect tableRect = tableBottom->boundingBox();
-            int tableY = tableRect.getMinY();
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMidY();
             if (tableY > charaY) {
                 int charaX = chara->getPositionX();
-                int ufoX = ufo->getPositionX();
                 int diff = ufoX - charaX;
                 
                 //UFOとの衝突判定スタート
@@ -387,7 +393,6 @@ void GameScene::detectUfoCollision()
             }
         }
     }
-    
 }
 
 void GameScene::moveCharas(int dst)
@@ -417,18 +422,8 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     
     Rect tableRect = tableTop->getBoundingBox();
     int tableMidY = tableRect.getMidY();
-
-    // TODO: キャラ出現ロジック
-    int r = arc4random() % 10;
-    int num;
-    if (r < 8) {
-        num = 0;
-    } else {
-        num = 1;
-    }
-
-    CHARA charaData = CHARA_DATA[num];
-    auto chara = Chara::create(charaData);
+    int charaId = this->getCharaId();
+    auto chara = Chara::create(CHARA_DATA[charaId]);
     chara->show(Vec2(touchPoint.x, tableMidY + 50));
     // 先頭に追加
     charas.insert(0, chara);
@@ -447,8 +442,6 @@ void GameScene::swapZOerder()
         i++;
     }
 }
-
-
 
 // 上のテーブルに押し出される
 // 引数はテーブルの移動距離
@@ -470,6 +463,25 @@ void GameScene::sweep(int dst)
     }
 }
 
+void GameScene::incrementChara()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    int width = (int)visibleSize.width;
+    Rect tableRect = GameScene::tableTop->getBoundingBox();
+    int tableMidY = tableRect.getMidY();
+
+    for (int i = 0; i < 10; i++) {
+        int charaId = this->getCharaId();
+        int randX = arc4random() % width;
+        auto chara = Chara::create(CHARA_DATA[charaId]);
+        chara->show(Vec2(randX, tableMidY + 50));
+        // 先頭に追加
+        this->charas.insert(0, chara);
+        this->addChild(chara);
+    }
+  
+    this->swapZOerder();
+}
 
 void GameScene::btnToHomeCallback(Ref* pSender)
 {
@@ -507,3 +519,16 @@ int GameScene::updateScore()
     return this->score;
 }
 
+int GameScene::getCharaId()
+{
+    // TODO: キャラ出現ロジック
+    int r = arc4random() % 10;
+    int num;
+    if (r < 8) {
+        num = 0;
+    } else {
+        num = 1;
+    }
+
+    return num;
+}

@@ -43,6 +43,7 @@ public:
     void swapZOerder();
     void dropCharas();
     void detectUfoCollision();
+    void incrementChara();
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
@@ -54,6 +55,9 @@ public:
     // スロット
     Slot* slot;
     Ufo* ufo;
+
+    // キャラID取得関数
+    int getCharaId();
 
     // イベント周り
     std::vector<int> eventQueue;
