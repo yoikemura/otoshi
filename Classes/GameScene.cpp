@@ -11,6 +11,7 @@
 #include "Config.h"
 #include "Chara.h"
 #include "SimpleAudioEngine.h"
+#include <time.h>
 
 USING_NS_CC;
 
@@ -138,8 +139,8 @@ bool GameScene::init()
     this->addChild(ufo);
     
     // UFOを永遠に左右に動かす
-    MoveTo* gogo =  MoveTo::create(1.0f, Point(visibleSize.width, ufo->getBoundingBox().size.height));
-    MoveTo* goback = MoveTo::create(1.0f, Point(0, ufo->getBoundingBox().size.height));
+    MoveTo* gogo =  MoveTo::create(3.0f, Point(visibleSize.width, ufo->getBoundingBox().size.height));
+    MoveTo* goback = MoveTo::create(3.0f, Point(0, ufo->getBoundingBox().size.height));
     auto spawn = Spawn::create(gogo, goback, NULL);
     auto repeatForever = RepeatForever::create(spawn);
     ufo->runAction(repeatForever);
@@ -359,8 +360,7 @@ void GameScene::dropCharas()
                 CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");
                 chara->isDropping = true;
                 chara->drop();
-                score += 1;
-                scoreLabel->setString(StringUtils::toString(score));
+                this->updateScore();
             }
         }
         i++;
@@ -420,25 +420,40 @@ void GameScene::moveCharas(int dst)
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    //クリック音
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
+
+    //合計値マイナス
     score -= 1;
     scoreLabel->setString(StringUtils::toString(score));
     
+    //Touch 取得
     Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
     Rect tableRect = tableTop->getBoundingBox();
     int tableMaxY = tableRect.getMaxY();
-    //int randX = arc4random() % ((int)visibleSize.width);
-    CHARA charaData = CHARA_DATA[0];
+
+    int r = arc4random() % 10;
+    int num;
+    if (r < 8) {
+        num = 0;
+    }else{
+        num = 1;
+    }
+
+    CHARA charaData = CHARA_DATA[num];
     auto chara = Chara::create(charaData);
-    chara->setPosition(Vec2(touchPoint.x, tableMaxY - 50));
+    chara->setPosition(Vec2(touchPoint.x, tableMaxY + 50));
     // 先頭に追加
     charas.insert(0, chara);
     // あとから追加されたやつは絶対上のテーブル
     chara->isUpperTable = true;
     
     this->addChild(chara);
+    
+    MoveTo* fallDown =  MoveTo::create(0.1f, Point(touchPoint.x, tableMaxY));
+    chara->runAction(fallDown);
+    
     this->swapZOerder();
     
     return true;
@@ -485,6 +500,8 @@ void GameScene::btnToHomeCallback(Ref* pSender)
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic("bgm_game.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_normal.mp3", true);
+
+    this->setScore();
     
     Scene* scene = Home::createScene();
     Director::getInstance()->replaceScene(scene);
@@ -504,5 +521,11 @@ int GameScene::getScore()
     const char* scoreKey = "highScore";
     int currentScore = userDefault->getIntegerForKey(scoreKey, 0);
     return currentScore;
+}
+
+int GameScene::updateScore()
+{
+    score += 1;
+    scoreLabel->setString(StringUtils::toString(score));
 }
 

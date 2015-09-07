@@ -11,8 +11,6 @@
 		020519C01B9B0AC700911F04 /* table_under.png in Resources */ = {isa = PBXBuildFile; fileRef = 020519BE1B9B0AC700911F04 /* table_under.png */; };
 		020519C21B9B11A300911F04 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 020519C11B9B11A300911F04 /* bg.png */; };
 		020519C31B9B11A300911F04 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 020519C11B9B11A300911F04 /* bg.png */; };
-		020519C61B9B1C5500911F04 /* bgm_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 020519C51B9B1C5500911F04 /* bgm_normal.mp3 */; };
-		020519C71B9B1C5500911F04 /* bgm_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 020519C51B9B1C5500911F04 /* bgm_normal.mp3 */; };
 		020519C91B9B1C6700911F04 /* effect_clicked.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 020519C81B9B1C6700911F04 /* effect_clicked.mp3 */; };
 		020519CA1B9B1C6700911F04 /* effect_clicked.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 020519C81B9B1C6700911F04 /* effect_clicked.mp3 */; };
 		020708511B9ACB95009E53E3 /* Slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0207084F1B9ACB95009E53E3 /* Slot.cpp */; };
@@ -34,6 +32,9 @@
 		02ADFFBC1B9C06FE00C9D567 /* effect_drop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFB91B9C06FE00C9D567 /* effect_drop.mp3 */; };
 		02ADFFBD1B9C06FE00C9D567 /* effect_put.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFBA1B9C06FE00C9D567 /* effect_put.mp3 */; };
 		02ADFFBE1B9C06FE00C9D567 /* effect_put.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFBA1B9C06FE00C9D567 /* effect_put.mp3 */; };
+		02ADFFC21B9C22CA00C9D567 /* chara_medjed.png in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */; };
+		02ADFFC41B9C234400C9D567 /* bgm_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFC31B9C234400C9D567 /* bgm_normal.mp3 */; };
+		02ADFFC51B9C234400C9D567 /* bgm_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFC31B9C234400C9D567 /* bgm_normal.mp3 */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -142,7 +143,6 @@
 		020519BD1B9B0AC700911F04 /* table_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table_top.png; sourceTree = "<group>"; };
 		020519BE1B9B0AC700911F04 /* table_under.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table_under.png; sourceTree = "<group>"; };
 		020519C11B9B11A300911F04 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
-		020519C51B9B1C5500911F04 /* bgm_normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm_normal.mp3; sourceTree = "<group>"; };
 		020519C81B9B1C6700911F04 /* effect_clicked.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = effect_clicked.mp3; sourceTree = "<group>"; };
 		0207084F1B9ACB95009E53E3 /* Slot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slot.cpp; sourceTree = "<group>"; };
 		020708501B9ACB95009E53E3 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
@@ -156,6 +156,8 @@
 		02ADFFB51B9C067D00C9D567 /* bgm_game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm_game.mp3; sourceTree = "<group>"; };
 		02ADFFB91B9C06FE00C9D567 /* effect_drop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = effect_drop.mp3; sourceTree = "<group>"; };
 		02ADFFBA1B9C06FE00C9D567 /* effect_put.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = effect_put.mp3; sourceTree = "<group>"; };
+		02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chara_medjed.png; sourceTree = "<group>"; };
+		02ADFFC31B9C234400C9D567 /* bgm_normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm_normal.mp3; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -352,11 +354,12 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				02ADFFC31B9C234400C9D567 /* bgm_normal.mp3 */,
 				02ADFFB91B9C06FE00C9D567 /* effect_drop.mp3 */,
+				02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */,
 				02ADFFBA1B9C06FE00C9D567 /* effect_put.mp3 */,
 				02ADFFB51B9C067D00C9D567 /* bgm_game.mp3 */,
 				020519C81B9B1C6700911F04 /* effect_clicked.mp3 */,
-				020519C51B9B1C5500911F04 /* bgm_normal.mp3 */,
 				020519C11B9B11A300911F04 /* bg.png */,
 				020519BD1B9B0AC700911F04 /* table_top.png */,
 				020519BE1B9B0AC700911F04 /* table_under.png */,
@@ -564,12 +567,12 @@
 				815F6A311B9ABAA0008FE936 /* goma.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
-				020519C61B9B1C5500911F04 /* bgm_normal.mp3 in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				020519C91B9B1C6700911F04 /* effect_clicked.mp3 in Resources */,
 				02ADFFB61B9C067D00C9D567 /* bgm_game.mp3 in Resources */,
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				02ADFFC41B9C234400C9D567 /* bgm_normal.mp3 in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
@@ -585,6 +588,7 @@
 				020519C01B9B0AC700911F04 /* table_under.png in Resources */,
 				815F6A2D1B9AABC3008FE936 /* start.png in Resources */,
 				810FB3831B9C26F60056690B /* slot_rare.png in Resources */,
+				02ADFFC21B9C22CA00C9D567 /* chara_medjed.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				0207085F1B9ADC5B009E53E3 /* slot_fever.png in Resources */,
@@ -605,10 +609,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				02ADFFBC1B9C06FE00C9D567 /* effect_drop.mp3 in Resources */,
-				020519C71B9B1C5500911F04 /* bgm_normal.mp3 in Resources */,
 				02ADFFB71B9C067D00C9D567 /* bgm_game.mp3 in Resources */,
 				020519C31B9B11A300911F04 /* bg.png in Resources */,
 				46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */,
+				02ADFFC51B9C234400C9D567 /* bgm_normal.mp3 in Resources */,
 				020708601B9ADC5B009E53E3 /* slot_fever.png in Resources */,
 				02ADFFBE1B9C06FE00C9D567 /* effect_put.mp3 in Resources */,
 				020708681B9AE2BF009E53E3 /* ufo.png in Resources */,

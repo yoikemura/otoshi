@@ -59,6 +59,12 @@ void Chara::drop()
     int x = this->getPositionX();
     MoveTo* drop = MoveTo::create(1.0f, Point(x, -100));
     RotateTo* rotate = RotateTo::create( 0.0f, 20.0f);
+    TintTo* tint = TintTo::create(2.0, 255, 0, 0);
     auto spawn = Spawn::create(rotate, drop, NULL);
-    this->runAction(spawn);
+    this->runAction(Sequence::create(
+                                     tint,
+                                     spawn,
+                                     NULL
+                                     ));
+//    this->runAction(spawn);
 }
