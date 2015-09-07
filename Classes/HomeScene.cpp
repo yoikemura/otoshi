@@ -35,7 +35,7 @@ bool Home::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     // わかりづらいので色をつける
-    auto bg = LayerColor::create(Color4B::RED, visibleSize.width, visibleSize.height);
+    auto bg = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
     this->addChild(bg);
     
     //音楽設定
@@ -53,8 +53,7 @@ bool Home::init()
                                            "start.png",
                                            CC_CALLBACK_1(Home::btnToGameCallback, this));
     
-    btnToGame->setPosition(Vec2(visibleSize.width,
-                                origin.y + btnToGame->getContentSize().height/2));
+    btnToGame->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 50));
     auto menu2 = Menu::create(btnToGame, NULL);
     menu2->setPosition(Vec2::ZERO);
     this->addChild(menu2, 1);

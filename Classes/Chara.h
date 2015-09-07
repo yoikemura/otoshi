@@ -19,7 +19,11 @@ public:
     // 下の台にいる
     bool isLowerTable = false;
     // 落ちている途中
-    bool isDropping;
+    bool isDroppingFromUpperTable = false;
+    // 上の台から落ちている途中
+    bool isDropping = false;
+    // 現れ中
+    bool isShowing = false;
 
     // 作成
     static Chara* create(struct CHARA);
@@ -28,9 +32,10 @@ public:
     void update(float dt);
 
     // 画面に現れる
-    void show();
+    void show(Vec2 vec);
     // 下に落ちる
     void drop();
+    void dropFromUpperTable();
     
     // 判定用のNODE
     

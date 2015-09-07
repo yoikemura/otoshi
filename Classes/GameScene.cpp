@@ -72,6 +72,10 @@ bool GameScene::init()
     tableTop->setPosition(visibleSize.width*0.5, TABLE_TOP_Y);
     this->addChild(tableTop);
 
+    // NOTE:キャラ配置マップを作るためのログ
+    int tb = tableBottom->getBoundingBox().getMinY();
+    int tt = tableTop->getBoundingBox().getMaxY();
+    log("table top maxY: %i, table bottom minY: %i", tt, tb);
     
     // ホーム画面へ移動ボタン
     auto btnToGame = MenuItemImage::create(
@@ -105,8 +109,6 @@ bool GameScene::init()
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
     Rect rect2 = tableTop->getBoundingBox();
-    int yMin = rect.getMinY();
-    int hoge = rect2.getMaxY();
 
     for(int i = 0; i < 30; i++) {
         srand((unsigned int)time(NULL));
@@ -125,6 +127,9 @@ bool GameScene::init()
         charas.pushBack(chara);
         this->addChild(chara);
     }
+
+    // キャラをばらまいた時点で落ちる奴は落ちるｗ
+    this->dropCharas();
     
     // add the label as a child to this layer
     this->scheduleUpdate();
@@ -283,20 +288,17 @@ void GameScene::detectCollision()
 // キャラが上のテーブルから落ちたか判定
 void GameScene::dropFromUpperTable()
 {
-    int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++)
     {
-        auto chara = (Chara*)charas.at(i);
-        if (chara->isUpperTable)
+        auto chara = (Chara*)(*itr);
+        if (chara->isUpperTable && !chara->isDroppingFromUpperTable)
         {
             if (!this->isInUpperTable(chara)) {
-              // log("上テーブルから落ちる");
+              chara->dropFromUpperTable();
               chara->isUpperTable = false;
               chara->isLowerTable = true;
             }
         }
-        
-        i++;
     }
 }
 
@@ -327,18 +329,18 @@ bool GameScene::isInUpperTable(Chara* chara)
 // 下に落ちたキャラを消す
 void GameScene::removeCharas()
 {
-    auto itr2 = charas.begin();
-    while (itr2 != charas.end()) {
-        auto chara = (*itr2);
+    auto itr = charas.begin();
+    while (itr != charas.end()) {
+        auto chara = (*itr);
         int y = chara->getPositionY();
 
         if (y <= -30) {
-            itr2 = charas.erase(itr2);
+            itr = charas.erase(itr);
             this->removeChild(chara);
         }
         else
         {
-            itr2++;
+            itr++;
         }
     }
 }
@@ -346,24 +348,20 @@ void GameScene::removeCharas()
 // 下に落ちたキャラを消す
 void GameScene::dropCharas()
 {
-    
-    int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
-        auto chara = (Chara*)charas.at(i);
-        if (chara->isLowerTable) {
+        auto chara = (Chara*)(*itr);
+        if (chara->isLowerTable && !chara->isDropping) {
             Rect tableRect = tableBottom->boundingBox();
             // 15は台の側面の部分
             int tableY = tableRect.getMinY() + 15;
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMinY();
             if (tableY > charaY) {
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");
                 chara->isDropping = true;
                 chara->drop();
                 this->updateScore();
             }
         }
-        i++;
     }
     
 }
@@ -431,31 +429,24 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
     
     Rect tableRect = tableTop->getBoundingBox();
-    int tableMaxY = tableRect.getMaxY();
+    int tableMidY = tableRect.getMidY();
 
+    // TODO: キャラ出現ロジック
     int r = arc4random() % 10;
     int num;
     if (r < 8) {
         num = 0;
-    }else{
+    } else {
         num = 1;
     }
 
     CHARA charaData = CHARA_DATA[num];
     auto chara = Chara::create(charaData);
-    chara->setPosition(Vec2(touchPoint.x, tableMaxY + 50));
+    chara->show(Vec2(touchPoint.x, tableMidY + 50));
     // 先頭に追加
     charas.insert(0, chara);
-    // あとから追加されたやつは絶対上のテーブル
-    chara->isUpperTable = true;
-    
     this->addChild(chara);
-    
-    MoveTo* fallDown =  MoveTo::create(0.1f, Point(touchPoint.x, tableMaxY));
-    chara->runAction(fallDown);
-    
     this->swapZOerder();
-    
     return true;
 }
 
@@ -525,7 +516,9 @@ int GameScene::getScore()
 
 int GameScene::updateScore()
 {
-    score += 1;
-    scoreLabel->setString(StringUtils::toString(score));
+    this->score += 1;
+    this->scoreLabel->setString(StringUtils::toString(score));
+    
+    return this->score;
 }
 
