@@ -34,26 +34,25 @@ bool Home::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    // わかりづらいので色をつける
-    auto bg = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
-    this->addChild(bg);
-    
     //音楽設定
     CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.8);
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("bgm_normal.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("bgm_game.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("effect_clicked.mp3");
-
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_normal.mp3", true);
-
     
+    // わかりづらいので色をつける
+    auto bg = Sprite::create("bg.png");
+    bg->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    this->addChild(bg);
+
     // ゲーム画面へ移動ボタン
     auto btnToGame = MenuItemImage::create(
                                            "start.png",
                                            "start.png",
                                            CC_CALLBACK_1(Home::btnToGameCallback, this));
     
-    btnToGame->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 50));
+    btnToGame->setPosition(Vec2(visibleSize.width/2 - 50, 150));
     auto menu2 = Menu::create(btnToGame, NULL);
     menu2->setPosition(Vec2::ZERO);
     this->addChild(menu2, 1);
@@ -64,36 +63,16 @@ bool Home::init()
                                            "zukan.png",
                                            CC_CALLBACK_1(Home::btnToLibraryCallback, this));
     
-    btnToLibrary->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 100));
+    btnToLibrary->setPosition(Vec2(visibleSize.width/2 + 50, 150));
     auto menu3 = Menu::create(btnToLibrary, NULL);
     menu3->setPosition(Vec2::ZERO);
     this->addChild(menu3, 1);
 
-
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = Label::createWithTTF("月のゴマービィ", "fonts/Osaka.ttf", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-
-    // add the label as a child to this layer
-    this->addChild(label, 1);
-
-    // add "HelloWorld" splash screen"
+    // ロゴ
     auto sprite = Sprite::create("logo.png");
-
-    // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
-
-    // add the sprite as a child to this layer
+    sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 30));
     this->addChild(sprite, 0);
-    
+
     return true;
 }
 

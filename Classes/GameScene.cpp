@@ -233,18 +233,10 @@ void GameScene::detectCollision()
 
         j = 0;
         for (auto itr2 = charas.begin(); itr2 != charas.end(); itr2++) {
+            auto chara1 = (Chara*)(*itr);
+            auto chara2 = (Chara*)(*itr2);
 
-            auto chara1 = (Chara*)charas.at(i);
-            auto chara2 = (Chara*)charas.at(j);
-
-            // TODO: 処理軽く
-            /*
-            if (!((chara1->isUpperTable && chara2->isUpperTable) ||
-                (chara1->isLowerTable && chara2->isLowerTable))) {
-                j++;
-                continue;
-            }
-            */
+            // TODO: 同じテーブル内でしか衝突しないようにしたい
 
             // 配列の先頭程奥にある
             // 奥にあるので自分より手前(配列のindexが大きい物)に対してのみ衝突判定をするべき
@@ -368,9 +360,8 @@ void GameScene::dropCharas()
 
 void GameScene::detectUfoCollision()
 {
-    int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
-        auto chara = (Chara*)charas.at(i);
+        auto chara = (Chara*)(*itr);
         if (chara->isLowerTable) {
             Rect tableRect = tableBottom->boundingBox();
             int tableY = tableRect.getMinY();
@@ -395,24 +386,20 @@ void GameScene::detectUfoCollision()
                 }
             }
         }
-        i++;
     }
     
 }
 
 void GameScene::moveCharas(int dst)
 {
-    int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++)
     {
-        auto chara = (Chara*)charas.at(i);
+        auto chara = (Chara*)(*itr);
         if (chara->isUpperTable)
         {
             Vec2 vec = chara->getPosition();
             chara->setPositionY(vec.y + dst);
         }
-        
-        i++;
     }
 }
 
@@ -455,7 +442,7 @@ void GameScene::swapZOerder()
     int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++)
     {
-        auto chara = (Chara*)charas.at(i);
+        auto chara = (Chara*)(*itr);
         this->reorderChild(chara, i);
         i++;
     }
@@ -467,10 +454,9 @@ void GameScene::swapZOerder()
 // 引数はテーブルの移動距離
 void GameScene::sweep(int dst)
 {
-    int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++)
     {
-        auto chara = (Chara*)charas.at(i);
+        auto chara = (Chara*)(*itr);
         if (chara->isLowerTable)
         {
             Rect tableRect = tableTop->boundingBox();
@@ -481,7 +467,6 @@ void GameScene::sweep(int dst)
               chara->setPositionY(charaRect.getMidY() - dst);
             }
         }
-        i++;
     }
 }
 
