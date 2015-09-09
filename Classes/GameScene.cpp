@@ -12,6 +12,7 @@
 #include "Chara.h"
 #include "SimpleAudioEngine.h"
 #include <time.h>
+#include <stdio.h>
 
 USING_NS_CC;
 
@@ -91,20 +92,12 @@ bool GameScene::init()
     this->addChild(menu, 1);
 
     // スタート！みたいなのをだす
-    score = getScore();
-    if (score > 30){
-        score = getScore();
-        log("getscore is %i", score);
-    }else{
-        score = 30;
-        log("score is %i", score);
-    }
-    
-    scoreLabel = Label::createWithSystemFont(StringUtils::toString(score),"arial", 24);
-    scoreLabel->setPosition(Vec2(visibleSize.width*0.9, visibleSize.height*0.9));
-    scoreLabel->setColor(Color3B::WHITE);
+    char text[20];
+    sprintf(text, "フィーバーまであと%i体", this->score);
+    this->scoreLabel = Label::createWithSystemFont(text, "arial", 12);
+    this->scoreLabel->setPosition(Vec2(230, visibleSize.height*0.9));
+    this->scoreLabel->setColor(Color3B::WHITE);
     this->addChild(scoreLabel);
-    
     
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
@@ -131,24 +124,20 @@ bool GameScene::init()
     // キャラをばらまいた時点で落ちる奴は落ちるｗ
     this->dropCharas();
     
-    // add the label as a child to this layer
-    this->scheduleUpdate();
+    this->slot = Slot::create();
+    this->slot->setPosition(Vec2(visibleSize.width*0.5, 384));
     
-    slot = Slot::create();
-    slot->setPosition(Vec2(visibleSize.width*0.5, 384));
-    
-    ufo = Ufo::create();
+    this->ufo = Ufo::create();
     ufo->setPosition(Vec2(0, ufo->getBoundingBox().size.height));
     
     this->addChild(slot);
     this->addChild(ufo);
-    
+
     // UFOを永遠に左右に動かす
-    MoveTo* gogo =  MoveTo::create(3.0f, Point(visibleSize.width, ufo->getBoundingBox().size.height));
-    MoveTo* goback = MoveTo::create(3.0f, Point(0, ufo->getBoundingBox().size.height));
-    auto spawn = Spawn::create(gogo, goback, NULL);
-    auto repeatForever = RepeatForever::create(spawn);
-    ufo->runAction(repeatForever);
+    this->ufo->move();
+
+    // メインループ開始
+    this->scheduleUpdate();
     
     return true;
 }
@@ -164,7 +153,9 @@ void GameScene::update(float dt)
         auto itr = this->eventQueue.begin();
         this->eventId = *this->eventQueue.erase(itr);
         
-        // 一旦「台が伸びるのみ実装」
+        // NOTE: 実装済み
+        // - 台が伸びるのみ実装
+        // - キャラ増殖
         if (this->eventId == EVENT_LOGN || this->eventId == EVENT_INCREMENT) {
             this->isInEvent = true;
         }
@@ -251,7 +242,6 @@ void GameScene::detectCollision()
 
                 // 斜辺
                 float delt = rect2.size.width * rect2.size.width  - 500.0f;
-
                 float ab_x = rect1.getMidX() - rect2.getMidX();
                 float ab_y = rect1.getMidY() - rect2.getMidY();
 
@@ -270,9 +260,12 @@ void GameScene::detectCollision()
                         ny = 1.0f;
                     }
 
-                    // 自分より手前(chara2)を移動させる
-                    // 移動量はchara1とのめり込み分
-                    chara2->setPosition(Vec2(vec.x - nx, vec.y - ny));
+                    // 落下中は衝突判定しない;w
+                    if (!chara2->isDropping) {
+                      // 自分より手前(chara2)を移動させる
+                      // 移動量はchara1とのめり込み分
+                      chara2->setPosition(Vec2(vec.x - nx, vec.y - ny));
+                    }
                 }
             }
             j++;
@@ -346,7 +339,7 @@ void GameScene::dropCharas()
 {
     // 15は台の側面の部分
     Rect tableRect = this->tableBottom->boundingBox();
-    int tableY = tableRect.getMinY() + 15;
+    int tableY = tableRect.getMinY() + 10;
 
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
         auto chara = (Chara*)(*itr);
@@ -356,7 +349,7 @@ void GameScene::dropCharas()
             if (tableY > charaY) {
                 chara->isDropping = true;
                 chara->drop();
-                this->updateScore();
+                this->updateCharaCount();
             }
         }
     }
@@ -367,29 +360,18 @@ void GameScene::detectUfoCollision()
 {
     Rect tableRect = tableBottom->boundingBox();
     int tableY = tableRect.getMinY();
-    int ufoX = ufo->getPositionX();
 
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
         auto chara = (Chara*)(*itr);
         if (chara->isLowerTable) {
             Rect charaRect = chara->boundingBox();
             int charaY = charaRect.getMidY();
-            if (tableY > charaY) {
-                int charaX = chara->getPositionX();
-                int diff = ufoX - charaX;
-                
-                //UFOとの衝突判定スタート
-                if (abs(diff) < 10 && !slot->isRotating) {
-                    // スロットが回り終わったあとのコールバック
-                    auto cb = CallFunc::create([this](){
-                        int eventId = this->slot->getLastEventId();
-                        log("スロット終わり eventId:%i", eventId);
-                        this->eventQueue.push_back(eventId);
-                        this->slot->isRotating = false;
-                    });
-    
-                    this->slot->rotate(cb);
-                }
+            if (tableY > charaY && this->ufo->detectCollision(chara) && !chara->isAbducting) {
+                log("ufoに衝突!");
+                auto cb = CallFunc::create([chara](){
+                    chara->removeFromParent();
+                });
+                this->ufo->abductChara(chara, cb);
             }
         }
     }
@@ -413,13 +395,8 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     //クリック音
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
 
-    //合計値マイナス
-    score -= 1;
-    scoreLabel->setString(StringUtils::toString(score));
-    
     //Touch 取得
     Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
-    
     Rect tableRect = tableTop->getBoundingBox();
     int tableMidY = tableRect.getMidY();
     int charaId = this->getCharaId();
@@ -511,12 +488,27 @@ int GameScene::getScore()
     return currentScore;
 }
 
-int GameScene::updateScore()
+void GameScene::updateCharaCount()
 {
-    this->score += 1;
-    this->scoreLabel->setString(StringUtils::toString(score));
-    
-    return this->score;
+    this->score -= 1;
+
+    if (this->score <= 0) {
+        this->score = FEVER_NUM;
+        // スロットが回り終わったあとのコールバック
+        // NOTE: スロットが回ってなかったら判定がいるかも
+        auto cb = CallFunc::create([this](){
+            int eventId = this->slot->getLastEventId();
+            log("スロット終わり eventId:%i", eventId);
+            this->eventQueue.push_back(eventId);
+            this->slot->isRotating = false;
+        });
+
+        this->slot->rotate(cb);
+    }
+
+    char text[20];
+    sprintf(text, "フィーバーまであと%i体", this->score);
+    this->scoreLabel->setString(text);
 }
 
 int GameScene::getCharaId()

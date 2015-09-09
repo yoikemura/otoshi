@@ -48,16 +48,16 @@ void Chara::update(float dt)
 
 void Chara::show(Vec2 vec)
 {
-  this->isShowing = true;
-  this->setPosition(vec);
-  MoveTo* fallDown =  MoveTo::create(0.1f, Point(vec.x, vec.y - 20));
-  auto cb = CallFunc::create([this](){
-      // あとから追加されたやつは絶対上のテーブル
-      this->isUpperTable = true;
-      this->isShowing = false;
-  });
-  auto seq = Sequence::create(fallDown, cb, NULL);
-  this->runAction(seq);
+    this->isShowing = true;
+    this->setPosition(vec);
+    MoveTo* fallDown =  MoveTo::create(0.1f, Point(vec.x, vec.y - 20));
+    auto cb = CallFunc::create([this](){
+        // あとから追加されたやつは絶対上のテーブル
+        this->isUpperTable = true;
+        this->isShowing = false;
+    });
+    auto seq = Sequence::create(fallDown, cb, NULL);
+    this->runAction(seq);
 }
 
 void Chara::dropFromUpperTable()

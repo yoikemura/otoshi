@@ -24,6 +24,8 @@ public:
     bool isDropping = false;
     // 現れ中
     bool isShowing = false;
+    // UFOにさらわれ中
+    bool isAbducting = false;
 
     // 作成
     static Chara* create(struct CHARA);

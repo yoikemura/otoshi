@@ -60,6 +60,7 @@ static struct CHARA CHARA_DATA[] = {
     
 };
 
+// キャラの初期配置
 static int DEFAULT_CHARA_MAP[] = {
   281,
   280,
@@ -92,5 +93,8 @@ static int DEFAULT_CHARA_MAP[] = {
   50,
   47
 };
+
+// フィーバーまでのキャラ数
+const int FEVER_NUM = 20;
 
 #endif

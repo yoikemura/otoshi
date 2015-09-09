@@ -10,6 +10,7 @@
 #define __MaruOtoshi__Ufo__
 
 #include <stdio.h>
+#include "Chara.h"
 
 using namespace cocos2d;
 
@@ -19,23 +20,14 @@ public:
     // コンストラクタ
     Ufo();
     
-    // 作成
     static Ufo* create();
     bool initWithFile();
     
-    // 画面表示
     void show();
     void hide();
     void move();
-    void update(float dt);
-    
-    Size size;
-
-    
-    
-private:
-    Sprite* pSprite;
-    
+    bool detectCollision(Sprite *chara);
+    void abductChara(Chara *chara, CallFunc *cb);
 };
 
 

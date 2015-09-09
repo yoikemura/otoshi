@@ -15,6 +15,7 @@
 #include "Slot.h"
 #include "Ufo.h"
 #include "Chara.h"
+#include "Config.h"
 
 using namespace cocos2d;
 
@@ -34,7 +35,7 @@ public:
     
     void setScore();
     int getScore();
-    int updateScore();
+    void updateCharaCount();
     
     bool isInUpperTable(Chara* chara);
     void dropFromUpperTable();
@@ -49,7 +50,7 @@ public:
     Vector<Sprite*> charas;
     
     //変数
-    int score;
+    int score = FEVER_NUM;
     Label* scoreLabel;
     
     // スロット
@@ -70,7 +71,7 @@ public:
     static const int TABLE_TOP_Y = 300;
     bool isTableFoward = true;
     bool isTableBack = false;
-    
+
     CREATE_FUNC(GameScene);
 };
 

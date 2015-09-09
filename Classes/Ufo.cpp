@@ -32,7 +32,6 @@ Ufo* Ufo::create()
 bool Ufo::initWithFile()
 {
     Sprite::initWithFile("ufo.png");
-    size = Director::getInstance()->getWinSize();
     this->setScale(0.5f);
     
     return true;
@@ -49,8 +48,46 @@ void Ufo::hide() {
 
 void Ufo::move()
 {
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    MoveTo* gogo =  MoveTo::create(3.0f, Point(visibleSize.width, this->getBoundingBox().size.height));
+    MoveTo* goback = MoveTo::create(3.0f, Point(0, this->getBoundingBox().size.height));
+    auto spawn = Spawn::create(gogo, goback, NULL);
+    auto repeatForever = RepeatForever::create(spawn);
+    this->runAction(repeatForever);
 }
 
+bool Ufo::detectCollision(Sprite *chara)
+{
+    Rect charaRect = chara->getBoundingBox();
+    Rect ufoRect = this->getBoundingBox();
 
-void Ufo::update(float dt) {
+    int charaMinY = charaRect.getMinY();
+    int ufoMinY = ufoRect.getMinY();
+
+    int ufoMaxX = ufoRect.getMaxX();
+    int ufoMinX = ufoRect.getMinX();
+    int charaMaxX = charaRect.getMaxX();
+    int charaMinX = charaRect.getMinX();
+
+    if (charaMinY <= ufoMinY &&
+        (charaMaxX >= ufoMinX && charaMinX <= ufoMaxX)) {
+        return true;
+    }
+
+    return false;
+}
+
+void Ufo::abductChara(Chara *chara, CallFunc *cb)
+{
+    chara->isAbducting = true;
+    chara->stopAllActions();
+
+    int x = this->getBoundingBox().getMidX();
+    int y = this->getBoundingBox().getMidY();
+
+    MoveTo* abduct = MoveTo::create(0.2f, Point(x, y));
+    ScaleTo* scale = ScaleTo::create(0.2, 0);
+    auto spawn = Spawn::create(abduct, scale, NULL);
+    auto seq = Sequence::create(spawn, cb, NULL);
+    chara->runAction(seq);
 }
