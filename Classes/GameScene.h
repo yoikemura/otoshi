@@ -45,6 +45,7 @@ public:
     void dropCharas();
     void detectUfoCollision();
     void incrementChara();
+    void popPlus1();
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;

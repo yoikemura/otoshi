@@ -488,6 +488,20 @@ int GameScene::getScore()
     return currentScore;
 }
 
+void GameScene::popPlus1()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    
+    auto plus1 = Sprite::create("plus1_green.png");
+    plus1->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    this->addChild(plus1);
+    
+    auto fadeOut = FadeOut::create(1);
+    auto remove = RemoveSelf::create(true);
+    plus1->runAction(Sequence::create(fadeOut, remove, NULL));
+    
+}
+
 void GameScene::updateCharaCount()
 {
     this->score -= 1;
@@ -519,7 +533,7 @@ int GameScene::getCharaId()
     if (r < 8) {
         num = 0;
     } else {
-        num = 1;
+        num = 6;
     }
 
     return num;
