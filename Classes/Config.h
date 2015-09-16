@@ -56,8 +56,52 @@ static struct CHARA CHARA_DATA[] = {
         "メジェドさん",
         "chara_medjed.png",
         20
+    },
+    {
+        "アオゴマ",
+        "goma_blue.png",
+        20
+    },
+    {
+        "ピンクゴマ",
+        "goma_pink.png",
+        20
+    },
+    {
+        "ノッポゴマ",
+        "goma_noppo.png",
+        20
+    },
+    {
+        "ロボゴマ",
+        "goma_robot.png",
+        20
+    },
+    {
+        "ビッグゴマ",
+        "goma_big.png",
+        20
+    },
+    {
+        "オレンジカッパ",
+        "orengekappa.png",
+        20
+    },
+    {
+        "メロンモンキー",
+        "melonmonkey.png",
+        20
+    },
+    {
+        "シャザービー",
+        "shadow.png",
+        20
+    },
+    {
+        "azaby.png",
+        "azaby.png",
+        20
     }
-    
 };
 
 // キャラの初期配置
