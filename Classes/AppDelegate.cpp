@@ -1,5 +1,7 @@
 #include "AppDelegate.h"
 #include "HomeScene.h"
+#include "LibraryManager.h"
+#include "Config.h"
 
 USING_NS_CC;
 
@@ -55,6 +57,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setContentScaleFactor(2.0f);
 
     register_all_packages();
+    
+    // キャラデータ初期化
+    LibraryManager::create();
+    auto libraryManager = LibraryManager::getInstance();
+    libraryManager->init();
+    if (libraryManager->hasGotten(CHARA_DATA[0].id.c_str())) {
+        log("0001はget済");
+    } else {
+        log("0001はgetしてない");
+    }
+    libraryManager->save(CHARA_DATA[0].id.c_str());
 
     // create a scene. it's an autorelease object
     auto scene = Home::createScene();

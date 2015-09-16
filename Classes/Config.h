@@ -39,6 +39,7 @@ static struct SLOT SLOT_DATA[] = {
 };
 
 struct CHARA{
+    std::string id;
     char name[30];
     char fileName[30];
     int percent;
@@ -48,11 +49,13 @@ struct CHARA{
 // キャラのデータ
 static struct CHARA CHARA_DATA[] = {
     {
+        "0001",
         "ゴマ-ビィ",
         "goma.png",
         80
     },
     {
+        "0002",
         "メジェドさん",
         "chara_medjed.png",
         20
