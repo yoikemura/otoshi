@@ -42,13 +42,14 @@ public:
     void dropFromUpperTable();
     void detectCollision();
     void sweep(int dst);
-    void swapZOerder();
+    void swapZOrder();
     void dropCharas();
     void detectUfoCollision();
     void incrementChara();
     void popPlus1(int x);
     void popGet(int x, int y);
     void getChara(Chara* chara);
+    void sortCharaWithYPosition();
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;

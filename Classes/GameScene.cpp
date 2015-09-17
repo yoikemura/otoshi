@@ -142,6 +142,7 @@ bool GameScene::init()
 
 void GameScene::update(float dt)
 {
+    log("%f", dt);
     // イベントキューに値があればイベントスタート
     // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
     // TODO: Must refactor!
@@ -158,6 +159,9 @@ void GameScene::update(float dt)
             this->isInEvent = true;
         }
     }
+    
+    // キャラの前後関係を整理
+    this->sortCharaWithYPosition();
 
     Vec2 tableVec = tableTop->getPosition();
     int tableY = tableVec.y;
@@ -216,7 +220,20 @@ void GameScene::update(float dt)
     this->detectUfoCollision();
 }
 
-void GameScene::detectCollision() 
+void GameScene::sortCharaWithYPosition()
+{
+    sort(this->charas.begin(),
+         this->charas.end(),
+         [](Sprite* a, Sprite* b){
+             float aY = a->getBoundingBox().getMinY();
+             float bY = b->getBoundingBox().getMinY();
+             return aY > bY;}
+         );
+    
+    this->swapZOrder();
+}
+
+void GameScene::detectCollision()
 {
     // iteratorで内部要素を回し、該当値であればその要素を削除
     int i = 0;
@@ -406,11 +423,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     // 先頭に追加
     charas.insert(0, chara);
     this->addChild(chara);
-    this->swapZOerder();
+    this->swapZOrder();
     return true;
 }
 
-void GameScene::swapZOerder()
+void GameScene::swapZOrder()
 {
     int i = 0;
     for (auto itr = charas.begin(); itr != charas.end(); itr++)
@@ -458,7 +475,7 @@ void GameScene::incrementChara()
         this->addChild(chara);
     }
   
-    this->swapZOerder();
+    this->swapZOrder();
 }
 
 void GameScene::btnToHomeCallback(Ref* pSender)
