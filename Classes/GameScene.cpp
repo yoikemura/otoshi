@@ -5,14 +5,14 @@
 //  Created by JoHazumu on 2015/09/05.
 //
 //
-
+#include <time.h>
+#include <stdio.h>
 #include "GameScene.h"
 #include "HomeScene.h"
 #include "Config.h"
 #include "Chara.h"
 #include "SimpleAudioEngine.h"
-#include <time.h>
-#include <stdio.h>
+#include "LibraryManager.h"
 
 USING_NS_CC;
 
@@ -34,8 +34,6 @@ Scene* GameScene::createScene()
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
     if ( !Layer::init() )
     {
         return false;
@@ -55,7 +53,7 @@ bool GameScene::init()
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
-    //BACK GROUND LAYER
+    // BACK GROUND LAYER
     auto bgLayer = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
     this->addChild(bgLayer);
     auto centerpos = visibleSize / 2;
@@ -63,12 +61,12 @@ bool GameScene::init()
     spritebg->setPosition(centerpos);
     bgLayer->addChild(spritebg);
     
-    //Table BOTTOM
+    // Table BOTTOM
     tableBottom = Sprite::create("table_under.png");
     tableBottom->setPosition(visibleSize.width*0.5, 210);
     this->addChild(tableBottom);
     
-    //Table TOP
+    // Table TOP
     tableTop = Sprite::create("table_top.png");
     tableTop->setPosition(visibleSize.width*0.5, TABLE_TOP_Y);
     this->addChild(tableTop);
@@ -79,15 +77,15 @@ bool GameScene::init()
     log("table top maxY: %i, table bottom minY: %i", tt, tb);
     
     // ホーム画面へ移動ボタン
-    auto btnToGame = MenuItemImage::create(
+    auto btnToHome = MenuItemImage::create(
                                            "back.png",
                                            "back.png",
                                            CC_CALLBACK_1(GameScene::btnToHomeCallback, this));
     
-    btnToGame->setPosition(Vec2(visibleSize.width,
-                                origin.y + btnToGame->getContentSize().height/2));
+    btnToHome->setPosition(Vec2(visibleSize.width,
+                                origin.y + btnToHome->getContentSize().height/2));
     
-    auto menu = Menu::create(btnToGame, NULL);
+    auto menu = Menu::create(btnToHome, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
@@ -326,9 +324,8 @@ void GameScene::removeCharas()
         if (y <= -30) {
             itr = charas.erase(itr);
             this->removeChild(chara);
-        }
-        else
-        {
+            this->popPlus1(chara->getBoundingBox().getMidX());
+        } else {
             itr++;
         }
     }
@@ -337,7 +334,7 @@ void GameScene::removeCharas()
 // 下に落ちたキャラを消す
 void GameScene::dropCharas()
 {
-    // 15は台の側面の部分
+    // 10は台の側面の部分
     Rect tableRect = this->tableBottom->boundingBox();
     int tableY = tableRect.getMinY() + 10;
 
@@ -368,10 +365,13 @@ void GameScene::detectUfoCollision()
             int charaY = charaRect.getMidY();
             if (tableY > charaY && this->ufo->detectCollision(chara) && !chara->isAbducting) {
                 log("ufoに衝突!");
-                auto cb = CallFunc::create([chara](){
+                auto cb = CallFunc::create([this, chara](){
+                    Rect ufoRect = this->ufo->getBoundingBox();
+                    this->popGet(ufoRect.getMidX(), ufoRect.getMidY());
                     chara->removeFromParent();
                 });
                 this->ufo->abductChara(chara, cb);
+                this->getChara(chara);
             }
         }
     }
@@ -399,7 +399,8 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
     Rect tableRect = tableTop->getBoundingBox();
     int tableMidY = tableRect.getMidY();
-    int charaId = this->getCharaId();
+    int charaId = this->getCharaIdx();
+    log("chara %s", CHARA_DATA[charaId].name);
     auto chara = Chara::create(CHARA_DATA[charaId]);
     chara->show(Vec2(touchPoint.x, tableMidY + 50));
     // 先頭に追加
@@ -448,7 +449,7 @@ void GameScene::incrementChara()
     int tableMidY = tableRect.getMidY();
 
     for (int i = 0; i < 10; i++) {
-        int charaId = this->getCharaId();
+        int charaId = this->getCharaIdx();
         int randX = arc4random() % width;
         auto chara = Chara::create(CHARA_DATA[charaId]);
         chara->show(Vec2(randX, tableMidY + 50));
@@ -488,18 +489,36 @@ int GameScene::getScore()
     return currentScore;
 }
 
-void GameScene::popPlus1()
+void GameScene::popPlus1(int x)
 {
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    
-    auto plus1 = Sprite::create("plus1_green.png");
-    plus1->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    int idx = arc4random() % 3 + 1;
+    auto plus1 = Sprite::create(PLUS1_IMAGE[idx]);
+    plus1->setPosition(x, -5);
     this->addChild(plus1);
-    
-    auto fadeOut = FadeOut::create(1);
+    MoveTo* move =  MoveTo::create(0.3f, Vec2(x, 35));
+    auto easeAction = EaseOut::create(move, 2);
     auto remove = RemoveSelf::create(true);
-    plus1->runAction(Sequence::create(fadeOut, remove, NULL));
-    
+    plus1->runAction(Sequence::create(move, remove, NULL));
+}
+
+void GameScene::popGet(int x, int y)
+{
+    auto get = Sprite::create("get.png");
+    get->setPosition(x, y);
+    this->addChild(get);
+    MoveTo* move =  MoveTo::create(0.3f, Vec2(x, y+20));
+    auto easeAction = EaseOut::create(move, 2);
+    auto remove = RemoveSelf::create(true);
+    get->runAction(Sequence::create(easeAction, remove, NULL));
+}
+
+void GameScene::getChara(Chara* chara)
+{
+    auto libraryManager = LibraryManager::getInstance();
+    const char* charaId = chara->getId().c_str();
+    if (!libraryManager->hasGotten(charaId)) {
+        libraryManager->save(charaId);
+    }
 }
 
 void GameScene::updateCharaCount()
@@ -525,16 +544,24 @@ void GameScene::updateCharaCount()
     this->scoreLabel->setString(text);
 }
 
-int GameScene::getCharaId()
+int GameScene::getCharaIdx()
 {
-    // TODO: キャラ出現ロジック
-    int r = arc4random() % 10;
-    int num;
-    if (r < 8) {
-        num = 0;
+    // TODO: レベル設計
+    float r = this->generateRandom(0, 1);
+
+    int idx;
+    // レア出現率
+    if (r < RARE_PROBABILITY_RATE) {
+        idx = arc4random() % 10 + 1;
     } else {
-        num = 6;
+        idx = 0;
     }
 
-    return num;
+    return idx;
+}
+
+float GameScene::generateRandom(float min, float max)
+{
+  std::uniform_real_distribution<float> dest(min, max);
+  return dest(_engine);
 }

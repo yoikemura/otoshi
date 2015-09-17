@@ -10,6 +10,7 @@
 #define __MaruOtoshi__GameScene__
 
 #include <stdio.h>
+#include <random>
 #include "cocos2d.h"
 #include <vector>
 #include "Slot.h"
@@ -45,7 +46,9 @@ public:
     void dropCharas();
     void detectUfoCollision();
     void incrementChara();
-    void popPlus1();
+    void popPlus1(int x);
+    void popGet(int x, int y);
+    void getChara(Chara* chara);
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
@@ -59,7 +62,7 @@ public:
     Ufo* ufo;
 
     // キャラID取得関数
-    int getCharaId();
+    int getCharaIdx();
 
     // イベント周り
     std::vector<int> eventQueue;
@@ -72,6 +75,10 @@ public:
     static const int TABLE_TOP_Y = 300;
     bool isTableFoward = true;
     bool isTableBack = false;
+
+    // Util
+    CC_SYNTHESIZE(std::mt19937, _engine, Engine);
+    float generateRandom(float min, float max);
 
     CREATE_FUNC(GameScene);
 };

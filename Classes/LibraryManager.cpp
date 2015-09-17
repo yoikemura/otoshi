@@ -47,7 +47,7 @@ void LibraryManager::save(const char* charaId)
 bool LibraryManager::hasGotten(const char* charaId)
 {
     log("call hasGotten charaId: %s", charaId);
-    bool res = this->libraryData["0001"].GetBool();
+    bool res = this->libraryData[charaId].GetBool();
     return res;
 }
 

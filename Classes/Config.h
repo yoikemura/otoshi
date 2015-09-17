@@ -45,7 +45,6 @@ struct CHARA{
     int percent;
 };
 
-
 // キャラのデータ
 static struct CHARA CHARA_DATA[] = {
     {
@@ -61,47 +60,56 @@ static struct CHARA CHARA_DATA[] = {
         20
     },
     {
+        "0003",
         "アオゴマ",
         "goma_blue.png",
         20
     },
     {
+        "0004",
         "ピンクゴマ",
         "goma_pink.png",
         20
     },
     {
+        "0005",
         "ノッポゴマ",
         "goma_noppo.png",
         20
     },
     {
+        "0006",
         "ロボゴマ",
         "goma_robot.png",
         20
     },
     {
+        "0007",
         "ビッグゴマ",
         "goma_big.png",
         20
     },
     {
+        "0008",
         "オレンジカッパ",
         "orengekappa.png",
         20
     },
     {
+        "0009",
         "メロンモンキー",
         "melonmonkey.png",
         20
     },
     {
+        "0010",
         "シャザービー",
         "shadow.png",
         20
     },
     {
-        "azaby.png",
+        "0011",
+        "アザビー",
         "azaby.png",
         20
     }
@@ -141,7 +149,19 @@ static int DEFAULT_CHARA_MAP[] = {
   47
 };
 
+// ポップアップ画像
+static const char* PLUS1_IMAGE[] = {
+    "plus1_yellow.png",
+    "plus1_pink.png",
+    "plus1_green.png",
+    "plus1_blue.png"
+};
+
 // フィーバーまでのキャラ数
 const int FEVER_NUM = 20;
+
+// レベルデザイン
+const float RARE_PROBABILITY_RATE = 0.05;
+
 
 #endif

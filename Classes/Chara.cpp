@@ -42,6 +42,11 @@ const char* Chara::getName()
     return charaData.name;
 }
 
+std::string Chara::getId()
+{
+    return charaData.id;
+}
+
 void Chara::update(float dt)
 {
 }
@@ -50,7 +55,7 @@ void Chara::show(Vec2 vec)
 {
     this->isShowing = true;
     this->setPosition(vec);
-    MoveTo* fallDown =  MoveTo::create(0.1f, Point(vec.x, vec.y - 20));
+    MoveTo* fallDown =  MoveTo::create(0.1f, Point(vec.x, vec.y - 40));
     auto cb = CallFunc::create([this](){
         // あとから追加されたやつは絶対上のテーブル
         this->isUpperTable = true;
@@ -69,7 +74,7 @@ void Chara::dropFromUpperTable()
     auto cb = CallFunc::create([this](){
         this->isDroppingFromUpperTable = false;
     });
-    this->runAction(Sequence::create(drop, cb,NULL));
+    this->runAction(Sequence::create(drop, cb, NULL));
 }
 
 void Chara::drop()
@@ -85,7 +90,7 @@ void Chara::drop()
     this->runAction(Sequence::create(
                                      tint,
                                      cb,
-                                    spawn,
+                                     spawn,
                                      NULL
                                      ));
 }

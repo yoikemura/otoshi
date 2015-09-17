@@ -42,7 +42,9 @@ public:
     // 判定用のNODE
     
     
+    // アクセサ
     const char* getName();
+    std::string getId();
 };
 
 #endif
