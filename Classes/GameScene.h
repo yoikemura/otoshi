@@ -16,6 +16,7 @@
 #include "Slot.h"
 #include "Ufo.h"
 #include "Chara.h"
+#include "ProgressBar.h"
 #include "Config.h"
 
 using namespace cocos2d;
@@ -54,13 +55,14 @@ public:
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
     
-    //変数
+    // スコア関係
     int score = FEVER_NUM;
-    Label* scoreLabel;
+    // Label* scoreLabel;
     
-    // スロット
+    // スロット関係
     Slot* slot;
     Ufo* ufo;
+    ProgressBar* progressBar;
 
     // キャラID取得関数
     int getCharaIdx();

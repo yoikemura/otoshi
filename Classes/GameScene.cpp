@@ -11,6 +11,7 @@
 #include "HomeScene.h"
 #include "Config.h"
 #include "Chara.h"
+#include "ProgressBar.h"
 #include "SimpleAudioEngine.h"
 #include "LibraryManager.h"
 
@@ -61,6 +62,12 @@ bool GameScene::init()
     spritebg->setPosition(centerpos);
     bgLayer->addChild(spritebg);
     
+    // ProgressBar
+    this->progressBar = ProgressBar::create();
+    this->progressBar->setPosition(visibleSize.width - 105, visibleSize.height - 31);
+    this->addChild(this->progressBar);
+    
+    
     // Table BOTTOM
     tableBottom = Sprite::create("table_under.png");
     tableBottom->setPosition(visibleSize.width*0.5, 210);
@@ -89,13 +96,14 @@ bool GameScene::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    // スタート！みたいなのをだす
+    /*
     char text[20];
     sprintf(text, "フィーバーまであと%i体", this->score);
     this->scoreLabel = Label::createWithSystemFont(text, "arial", 12);
     this->scoreLabel->setPosition(Vec2(230, visibleSize.height*0.9));
     this->scoreLabel->setColor(Color3B::WHITE);
     this->addChild(scoreLabel);
+    */
     
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
@@ -142,7 +150,6 @@ bool GameScene::init()
 
 void GameScene::update(float dt)
 {
-    log("%f", dt);
     // イベントキューに値があればイベントスタート
     // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
     // TODO: Must refactor!
@@ -540,7 +547,12 @@ void GameScene::getChara(Chara* chara)
 
 void GameScene::updateCharaCount()
 {
+
     this->score -= 1;
+
+    // 進捗
+    float feverRate = ((float)(FEVER_NUM - this->score)) / (float)(FEVER_NUM);
+    this->progressBar->setWidth(feverRate);
 
     if (this->score <= 0) {
         this->score = FEVER_NUM;
@@ -557,8 +569,8 @@ void GameScene::updateCharaCount()
     }
 
     char text[20];
-    sprintf(text, "フィーバーまであと%i体", this->score);
-    this->scoreLabel->setString(text);
+    // sprintf(text, "フィーバーまであと%i体", this->score);
+    // this->scoreLabel->setString(text);
 }
 
 int GameScene::getCharaIdx()

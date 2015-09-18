@@ -109,6 +109,8 @@
 		815F6A2F1B9ABA97008FE936 /* goma_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2E1B9ABA97008FE936 /* goma_home.png */; };
 		815F6A311B9ABAA0008FE936 /* goma.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A301B9ABAA0008FE936 /* goma.png */; };
 		815F6A381B9ACF70008FE936 /* Chara.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A361B9ACF70008FE936 /* Chara.cpp */; };
+		8176478B1BAB7E1100EAFF03 /* ProgressBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817647891BAB7E1100EAFF03 /* ProgressBar.cpp */; };
+		8176478D1BAB7F5000EAFF03 /* progress_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8176478C1BAB7F5000EAFF03 /* progress_bar.png */; };
 		819A051F1BA33E8E0059143A /* LibraryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819A051D1BA33E8E0059143A /* LibraryManager.cpp */; };
 		81D4F33B1B9AFA6000CBE49C /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D4F33A1B9AFA6000CBE49C /* back.png */; };
 		81D4F33D1B9B0F7300CBE49C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D4F33C1B9B0F7300CBE49C /* bg.png */; };
@@ -253,6 +255,9 @@
 		815F6A351B9ACD4F008FE936 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		815F6A361B9ACF70008FE936 /* Chara.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chara.cpp; sourceTree = "<group>"; };
 		815F6A371B9ACF70008FE936 /* Chara.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chara.h; sourceTree = "<group>"; };
+		817647891BAB7E1100EAFF03 /* ProgressBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressBar.cpp; sourceTree = "<group>"; };
+		8176478A1BAB7E1100EAFF03 /* ProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBar.h; sourceTree = "<group>"; };
+		8176478C1BAB7F5000EAFF03 /* progress_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress_bar.png; sourceTree = "<group>"; };
 		819A051D1BA33E8E0059143A /* LibraryManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LibraryManager.cpp; sourceTree = "<group>"; };
 		819A051E1BA33E8E0059143A /* LibraryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryManager.h; sourceTree = "<group>"; };
 		81D4F33A1B9AFA6000CBE49C /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -394,6 +399,7 @@
 				02DAEF3E1BA9ADE800C444C3 /* medjed.png */,
 				02DAEF3F1BA9ADE800C444C3 /* melonmonkey.png */,
 				02DAEF401BA9ADE800C444C3 /* orengekappa.png */,
+				8176478C1BAB7F5000EAFF03 /* progress_bar.png */,
 				02DAEF411BA9ADE800C444C3 /* goma_big.png */,
 				02DAEF421BA9ADE800C444C3 /* goma_robot.png */,
 				02DAEF431BA9ADE800C444C3 /* goma_noppo.png */,
@@ -447,6 +453,8 @@
 				815F6A351B9ACD4F008FE936 /* Config.h */,
 				815F6A201B9AA6B1008FE936 /* GameScene.cpp */,
 				815F6A211B9AA6B1008FE936 /* GameScene.h */,
+				817647891BAB7E1100EAFF03 /* ProgressBar.cpp */,
+				8176478A1BAB7E1100EAFF03 /* ProgressBar.h */,
 				815F6A361B9ACF70008FE936 /* Chara.cpp */,
 				815F6A371B9ACF70008FE936 /* Chara.h */,
 				815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */,
@@ -645,6 +653,7 @@
 				0207085D1B9ADC5B009E53E3 /* slot_fuck.png in Resources */,
 				810FB3801B9C21250056690B /* slot_increment.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
+				8176478D1BAB7F5000EAFF03 /* progress_bar.png in Resources */,
 				020519C01B9B0AC700911F04 /* table_under.png in Resources */,
 				815F6A2D1B9AABC3008FE936 /* start.png in Resources */,
 				02DAEF5A1BA9ADE800C444C3 /* plus1_blue.png in Resources */,
@@ -704,6 +713,7 @@
 			files = (
 				020708641B9AE260009E53E3 /* Ufo.cpp in Sources */,
 				815F6A381B9ACF70008FE936 /* Chara.cpp in Sources */,
+				8176478B1BAB7E1100EAFF03 /* ProgressBar.cpp in Sources */,
 				815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HomeScene.cpp in Sources */,
