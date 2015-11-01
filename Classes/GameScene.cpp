@@ -134,6 +134,7 @@ bool GameScene::init()
 
     // メインループ開始
     this->scheduleUpdate();
+    log("update開始");
     
     return true;
 }
@@ -549,7 +550,7 @@ void GameScene::getChara(Chara* chara)
     if (!libraryManager->hasGotten(charaId)) {
         libraryManager->save(charaId);
         // キャラクター取得のポップアップ
-        //this->showGetRareGomabi(chara);
+        this->showGetRareGomabi(chara);
     }
 }
 
