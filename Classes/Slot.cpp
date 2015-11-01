@@ -8,6 +8,7 @@
 
 #include "Slot.h"
 #include "Config.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 using namespace cocos2d;
@@ -35,7 +36,6 @@ bool Slot::initWithFile()
     
     Sprite::initWithFile("slot_increment.png");
     size = Director::getInstance()->getWinSize();
-    this->setScale(0.5f);
     slot_size = this->getContentSize();
     
     return true;
@@ -74,6 +74,7 @@ void Slot::rotate(CallFunc *cb)
     Animate* rotate = Animate::create(animation);
     auto seq = Sequence::create(rotate, cb, NULL);
     this->runAction(seq);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("itemslot.mp3");
 }
 
 int Slot::getLastEventId()

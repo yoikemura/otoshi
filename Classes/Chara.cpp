@@ -42,6 +42,21 @@ const char* Chara::getName()
     return charaData.name;
 }
 
+const char* Chara::getExplainFimeName()
+{
+    return charaData.explainFileName;
+}
+
+const char* Chara::getFileName()
+{
+    return charaData.fileName;
+}
+
+const char* Chara::getDescription()
+{
+    return charaData.description;
+}
+
 std::string Chara::getId()
 {
     return charaData.id;
