@@ -8,6 +8,7 @@
 
 #include "Slot.h"
 #include "Config.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 using namespace cocos2d;
@@ -74,6 +75,7 @@ void Slot::rotate(CallFunc *cb)
     Animate* rotate = Animate::create(animation);
     auto seq = Sequence::create(rotate, cb, NULL);
     this->runAction(seq);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("itemslot.mp3");
 }
 
 int Slot::getLastEventId()

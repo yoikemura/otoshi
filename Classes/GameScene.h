@@ -31,6 +31,8 @@ public:
     void btnToHomeCallback(cocos2d::Ref* pSender);
 
     void update(float dt);
+    void stop();
+    void resume();
     void removeCharas();
     void moveCharas(int dst);
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
@@ -51,6 +53,16 @@ public:
     void popGet(int x, int y);
     void getChara(Chara* chara);
     void sortCharaWithYPosition();
+    void showGetRareGomabi(Chara* chara);
+    void closePopup(Ref* pSender);
+
+    // share
+    void shareWithTwitter(Ref* pSender);
+    void shareWithFacebook(Ref* pSender);
+    void shareWithLine(Ref* pSender);
+
+    // 進捗管理
+    bool playing = true;
         
     // キャラクターを格納する配列
     Vector<Sprite*> charas;
@@ -82,6 +94,9 @@ public:
     // Util
     CC_SYNTHESIZE(std::mt19937, _engine, Engine);
     float generateRandom(float min, float max);
+
+    // ポップアップ類
+    LayerColor* overlayLaery;   
 
     CREATE_FUNC(GameScene);
 };

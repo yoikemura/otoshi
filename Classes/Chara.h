@@ -39,12 +39,11 @@ public:
     void drop();
     void dropFromUpperTable();
     
-    // 判定用のNODE
-    
-    
     // アクセサ
     const char* getName();
     std::string getId();
+    const char* getExplainFimeName();
+    const char* getDescription();
 };
 
 #endif

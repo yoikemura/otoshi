@@ -84,8 +84,7 @@ bool GameScene::init()
     log("table top maxY: %i, table bottom minY: %i", tt, tb);
     
     // ホーム画面へ移動ボタン
-    auto btnToHome = MenuItemImage::create(
-                                           "back.png",
+    auto btnToHome = MenuItemImage::create("back.png",
                                            "back.png",
                                            CC_CALLBACK_1(GameScene::btnToHomeCallback, this));
     
@@ -96,15 +95,6 @@ bool GameScene::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    /*
-    char text[20];
-    sprintf(text, "フィーバーまであと%i体", this->score);
-    this->scoreLabel = Label::createWithSystemFont(text, "arial", 12);
-    this->scoreLabel->setPosition(Vec2(230, visibleSize.height*0.9));
-    this->scoreLabel->setColor(Color3B::WHITE);
-    this->addChild(scoreLabel);
-    */
-    
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
     Rect rect2 = tableTop->getBoundingBox();
@@ -148,8 +138,24 @@ bool GameScene::init()
     return true;
 }
 
+// ゲーム再開
+void GameScene::resume()
+{
+    this->playing = true;
+}
+
+// ゲーム停止
+void GameScene::stop()
+{
+    this->playing = false;
+}
+
 void GameScene::update(float dt)
 {
+    log("update");
+    // ポップアップが出ている場合など
+    if (!this->playing) { return; };
+
     // イベントキューに値があればイベントスタート
     // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
     // TODO: Must refactor!
@@ -282,7 +288,7 @@ void GameScene::detectCollision()
                         ny = 1.0f;
                     }
 
-                    // 落下中は衝突判定しない;w
+                    // 落下中は衝突判定しない
                     if (!chara2->isDropping) {
                       // 自分より手前(chara2)を移動させる
                       // 移動量はchara1とのめり込み分
@@ -374,7 +380,6 @@ void GameScene::dropCharas()
             }
         }
     }
-    
 }
 
 void GameScene::detectUfoCollision()
@@ -416,6 +421,7 @@ void GameScene::moveCharas(int dst)
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    log("touch!!");
     //クリック音
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
 
@@ -542,12 +548,13 @@ void GameScene::getChara(Chara* chara)
     const char* charaId = chara->getId().c_str();
     if (!libraryManager->hasGotten(charaId)) {
         libraryManager->save(charaId);
+        // キャラクター取得のポップアップ
+        //this->showGetRareGomabi(chara);
     }
 }
 
 void GameScene::updateCharaCount()
 {
-
     this->score -= 1;
 
     // 進捗
@@ -567,10 +574,6 @@ void GameScene::updateCharaCount()
 
         this->slot->rotate(cb);
     }
-
-    char text[20];
-    // sprintf(text, "フィーバーまであと%i体", this->score);
-    // this->scoreLabel->setString(text);
 }
 
 int GameScene::getCharaIdx()
@@ -594,3 +597,99 @@ float GameScene::generateRandom(float min, float max)
   std::uniform_real_distribution<float> dest(min, max);
   return dest(_engine);
 }
+
+void GameScene::showGetRareGomabi(Chara* chara)
+{
+    // ゲーム停止
+    this->stop();
+
+    Size size = Director::getInstance()->getWinSize();
+    this->overlayLaery = LayerColor::create(Color4B::BLACK);
+    this->overlayLaery->setOpacity(128);
+    this->overlayLaery->setContentSize(size);
+    this->addChild(this->overlayLaery);
+    
+    auto popup = Sprite::create("popup_bg.png");
+    popup->setPosition(Point(0.0, 0.0));
+    popup->setCascadeOpacityEnabled(true);
+    popup->setOpacity(0);
+
+    // 閉じるボタン
+    auto btnClose = MenuItemImage::create("popup_close.png",
+                                          "popup_close.png",
+                                           CC_CALLBACK_1(GameScene::closePopup, this));
+    Menu* pMenu = Menu::create(btnClose, NULL);
+    pMenu->setPosition(size.width*0.25, size.height*0.3);
+    popup->addChild(pMenu);
+
+    // Twitterボタン
+    auto pTwitterItem = MenuItemImage::create("popup_tw.png",
+                                              "popup_tw.png",
+                                              this,
+                                              menu_selector(GameScene::shareWithTwitter));
+    Menu* pMenuTwitter = Menu::create(pTwitterItem, NULL);
+    pMenuTwitter->setPosition(Point(size.width*0.75, size.height*0.3));
+    popup->addChild(pMenuTwitter);
+
+    // Lineボタン
+    auto pLineItem = MenuItemImage::create("popup_line.png",
+                                           "popup_line.png",
+                                           this,
+                                           menu_selector(GameScene::shareWithLine));
+    Menu* pMenuLine = Menu::create(pLineItem, NULL);
+    pMenuLine->setPosition(Point(size.width*0.75, size.height*0.3));
+    popup->addChild(pMenuLine);
+
+    // Facebookボタン
+    auto pFacebookItem = MenuItemImage::create("popup_fb.png",
+                                               "popup_fb.png",
+                                               this,
+                                               menu_selector(GameScene::shareWithFacebook));
+    Menu* pMenuFacebook = Menu::create(pFacebookItem, NULL);
+    pMenuFacebook->setPosition(Point(size.width*0.75, size.height*0.3));
+    popup->addChild(pMenuFacebook);
+
+    // キャラ画像
+    auto fileName = chara->getExplainFimeName();
+    Sprite* explainImage = Sprite::create(fileName);
+    explainImage->setScale(0.4);
+    explainImage->setPosition(Point(0.0, 0.0));
+    popup->addChild(explainImage);
+    
+    // キャラ説明
+    auto charaDesc = Label::createWithSystemFont(chara->getDescription(), "HiraKakuProN-W6", 24);
+    charaDesc->setWidth(400);
+    popup->addChild(charaDesc);
+
+    CCActionInterval *action = CCFadeIn::create(0.3);
+    popup->runAction(action);
+    this->overlayLaery->addChild(popup);
+}
+
+// ゲーム再開
+void GameScene::closePopup(Ref* pSender)
+{
+    if (this->overlayLaery != NULL) {
+        this->removeChild(this->overlayLaery);
+        this->overlayLaery = NULL;
+    }
+
+    this->resume();
+}
+
+void GameScene::shareWithTwitter(Ref* pSender)
+{
+  log("シェアする");
+  // char tweet[500];
+  // sprintf(tweet , "最高の技「%s」をゲット！！ #GOGOメジェドくん", medjed->getSkill().name);
+  // NativeLauncher::openTweetDialog(tweet, medjed->getSkill().fileName);
+}
+
+void GameScene::shareWithFacebook(Ref* pSender)
+{
+}
+
+void GameScene::shareWithLine(Ref* pSender)
+{
+}
+
