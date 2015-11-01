@@ -67,7 +67,6 @@ bool GameScene::init()
     this->progressBar->setPosition(visibleSize.width - 105, visibleSize.height - 31);
     this->addChild(this->progressBar);
     
-    
     // Table BOTTOM
     tableBottom = Sprite::create("table_under.png");
     tableBottom->setPosition(visibleSize.width*0.5, 210);
@@ -134,26 +133,25 @@ bool GameScene::init()
 
     // メインループ開始
     this->scheduleUpdate();
-    log("update開始");
     
     return true;
 }
 
+
 // ゲーム再開
-void GameScene::resume()
+void GameScene::resumeBg()
 {
     this->playing = true;
 }
 
 // ゲーム停止
-void GameScene::stop()
+void GameScene::stopBg()
 {
     this->playing = false;
 }
 
 void GameScene::update(float dt)
 {
-    log("update");
     // ポップアップが出ている場合など
     if (!this->playing) { return; };
 
@@ -527,7 +525,6 @@ void GameScene::popPlus1(int x)
     plus1->setPosition(x, -5);
     this->addChild(plus1);
     MoveTo* move =  MoveTo::create(0.3f, Vec2(x, 35));
-    auto easeAction = EaseOut::create(move, 2);
     auto remove = RemoveSelf::create(true);
     plus1->runAction(Sequence::create(move, remove, NULL));
 }
@@ -601,17 +598,17 @@ float GameScene::generateRandom(float min, float max)
 
 void GameScene::showGetRareGomabi(Chara* chara)
 {
-    // ゲーム停止
-    this->stop();
+    // ゲームシーンを止める
+    this->stopBg();
 
     Size size = Director::getInstance()->getWinSize();
     this->overlayLaery = LayerColor::create(Color4B::BLACK);
     this->overlayLaery->setOpacity(128);
     this->overlayLaery->setContentSize(size);
-    this->addChild(this->overlayLaery);
+    this->addChild(this->overlayLaery, 1000);
     
     auto popup = Sprite::create("popup_bg.png");
-    popup->setPosition(Point(0.0, 0.0));
+    popup->setPosition(Point(size.width*0.5, size.height*0.5));
     popup->setCascadeOpacityEnabled(true);
     popup->setOpacity(0);
 
@@ -620,49 +617,54 @@ void GameScene::showGetRareGomabi(Chara* chara)
                                           "popup_close.png",
                                            CC_CALLBACK_1(GameScene::closePopup, this));
     Menu* pMenu = Menu::create(btnClose, NULL);
-    pMenu->setPosition(size.width*0.25, size.height*0.3);
+    pMenu->setPosition(Point(221.0, 30.0));
     popup->addChild(pMenu);
 
     // Twitterボタン
     auto pTwitterItem = MenuItemImage::create("popup_tw.png",
                                               "popup_tw.png",
-                                              this,
-                                              menu_selector(GameScene::shareWithTwitter));
+                                              CC_CALLBACK_1(GameScene::shareWithTwitter, this));
     Menu* pMenuTwitter = Menu::create(pTwitterItem, NULL);
-    pMenuTwitter->setPosition(Point(size.width*0.75, size.height*0.3));
+    pMenuTwitter->setPosition(Point(33.0, 30.0));
     popup->addChild(pMenuTwitter);
-
-    // Lineボタン
-    auto pLineItem = MenuItemImage::create("popup_line.png",
-                                           "popup_line.png",
-                                           this,
-                                           menu_selector(GameScene::shareWithLine));
-    Menu* pMenuLine = Menu::create(pLineItem, NULL);
-    pMenuLine->setPosition(Point(size.width*0.75, size.height*0.3));
-    popup->addChild(pMenuLine);
 
     // Facebookボタン
     auto pFacebookItem = MenuItemImage::create("popup_fb.png",
                                                "popup_fb.png",
-                                               this,
-                                               menu_selector(GameScene::shareWithFacebook));
+                                               CC_CALLBACK_1(GameScene::shareWithFacebook, this));
     Menu* pMenuFacebook = Menu::create(pFacebookItem, NULL);
-    pMenuFacebook->setPosition(Point(size.width*0.75, size.height*0.3));
+    pMenuFacebook->setPosition(Point(86.0, 30.0));
     popup->addChild(pMenuFacebook);
+
+    // Lineボタン
+    auto pLineItem = MenuItemImage::create("popup_line.png",
+                                           "popup_line.png",
+                                           CC_CALLBACK_1(GameScene::shareWithLine, this));
+    Menu* pMenuLine = Menu::create(pLineItem, NULL);
+    pMenuLine->setPosition(Point(140.0, 30.0));
+    popup->addChild(pMenuLine);
 
     // キャラ画像
     auto fileName = chara->getExplainFimeName();
     Sprite* explainImage = Sprite::create(fileName);
-    explainImage->setScale(0.4);
-    explainImage->setPosition(Point(0.0, 0.0));
+    explainImage->setPosition(Point(139.0, 235.0));
     popup->addChild(explainImage);
     
     // キャラ説明
-    auto charaDesc = Label::createWithSystemFont(chara->getDescription(), "HiraKakuProN-W6", 24);
-    charaDesc->setWidth(400);
+    auto charaDesc = Label::createWithSystemFont(chara->getDescription(), "HiraKakuProN-W6", 12);
+    charaDesc->setWidth(260);
+    charaDesc->setColor(Color3B(0, 0, 0));
+    charaDesc->setPosition(Point(139.0, 131.0));
     popup->addChild(charaDesc);
 
-    CCActionInterval *action = CCFadeIn::create(0.3);
+    // コンプリートまでxx対
+    auto completeLabel = Label::createWithSystemFont("コンプリートまで後XX対", "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
+    completeLabel->setWidth(260);
+    completeLabel->setColor(Color3B(0, 0, 0));
+    completeLabel->setPosition(Point(139.0, 75.0));
+    popup->addChild(completeLabel);
+
+    ActionInterval *action = FadeIn::create(0.3);
     popup->runAction(action);
     this->overlayLaery->addChild(popup);
 }
@@ -675,7 +677,7 @@ void GameScene::closePopup(Ref* pSender)
         this->overlayLaery = NULL;
     }
 
-    this->resume();
+    this->resumeBg();
 }
 
 void GameScene::shareWithTwitter(Ref* pSender)

@@ -31,8 +31,8 @@ public:
     void btnToHomeCallback(cocos2d::Ref* pSender);
 
     void update(float dt);
-    void stop();
-    void resume();
+    void stopBg(); // stopだと親の関数とかぶる
+    void resumeBg();
     void removeCharas();
     void moveCharas(int dst);
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
