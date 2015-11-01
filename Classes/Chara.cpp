@@ -47,6 +47,11 @@ const char* Chara::getExplainFimeName()
     return charaData.explainFileName;
 }
 
+const char* Chara::getFileName()
+{
+    return charaData.fileName;
+}
+
 const char* Chara::getDescription()
 {
     return charaData.description;

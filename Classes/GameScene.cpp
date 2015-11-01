@@ -14,6 +14,7 @@
 #include "ProgressBar.h"
 #include "SimpleAudioEngine.h"
 #include "LibraryManager.h"
+#include "NativeLauncher.h" 
 
 USING_NS_CC;
 
@@ -598,6 +599,8 @@ float GameScene::generateRandom(float min, float max)
 
 void GameScene::showGetRareGomabi(Chara* chara)
 {
+    // 現在取得したキャラを保存
+    this->currentGetChara = chara;
     // ゲームシーンを止める
     this->stopBg();
 
@@ -624,6 +627,7 @@ void GameScene::showGetRareGomabi(Chara* chara)
     auto pTwitterItem = MenuItemImage::create("popup_tw.png",
                                               "popup_tw.png",
                                               CC_CALLBACK_1(GameScene::shareWithTwitter, this));
+
     Menu* pMenuTwitter = Menu::create(pTwitterItem, NULL);
     pMenuTwitter->setPosition(Point(33.0, 30.0));
     popup->addChild(pMenuTwitter);
@@ -682,10 +686,9 @@ void GameScene::closePopup(Ref* pSender)
 
 void GameScene::shareWithTwitter(Ref* pSender)
 {
-  log("シェアする");
-  // char tweet[500];
-  // sprintf(tweet , "最高の技「%s」をゲット！！ #GOGOメジェドくん", medjed->getSkill().name);
-  // NativeLauncher::openTweetDialog(tweet, medjed->getSkill().fileName);
+  char tweet[500];
+  sprintf(tweet , "「%s」を捕獲！！ ", this->currentGetChara->getName());
+  NativeLauncher::openTweetDialog(tweet, this->currentGetChara->getFileName());
 }
 
 void GameScene::shareWithFacebook(Ref* pSender)

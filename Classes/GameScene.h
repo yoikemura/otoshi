@@ -60,6 +60,7 @@ public:
     void shareWithTwitter(Ref* pSender);
     void shareWithFacebook(Ref* pSender);
     void shareWithLine(Ref* pSender);
+    Chara* currentGetChara;
 
     // 進捗管理
     bool playing = true;

@@ -42,6 +42,7 @@ public:
     // アクセサ
     const char* getName();
     std::string getId();
+    const char* getFileName();
     const char* getExplainFimeName();
     const char* getDescription();
 };

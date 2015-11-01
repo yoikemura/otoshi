@@ -36,7 +36,6 @@ bool Slot::initWithFile()
     
     Sprite::initWithFile("slot_increment.png");
     size = Director::getInstance()->getWinSize();
-    this->setScale(0.5f);
     slot_size = this->getContentSize();
     
     return true;

@@ -109,6 +109,8 @@
 		812D90AA1BE5F7D900A1BDBE /* popup_goma.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A41BE5F7D900A1BDBE /* popup_goma.png */; };
 		812D90AB1BE5F7D900A1BDBE /* popup_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A51BE5F7D900A1BDBE /* popup_line.png */; };
 		812D90AC1BE5F7D900A1BDBE /* popup_tw.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A61BE5F7D900A1BDBE /* popup_tw.png */; };
+		81423FC81BE61A6E00261789 /* NativeLauncher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 81423FC71BE61A6E00261789 /* NativeLauncher.mm */; };
+		81423FCB1BE6219600261789 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81423FCA1BE6219600261789 /* Social.framework */; };
 		815F6A221B9AA6B1008FE936 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A201B9AA6B1008FE936 /* GameScene.cpp */; };
 		815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */; };
 		815F6A2C1B9AABC3008FE936 /* zukan.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2A1B9AABC3008FE936 /* zukan.png */; };
@@ -258,6 +260,9 @@
 		812D90A41BE5F7D900A1BDBE /* popup_goma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_goma.png; sourceTree = "<group>"; };
 		812D90A51BE5F7D900A1BDBE /* popup_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_line.png; sourceTree = "<group>"; };
 		812D90A61BE5F7D900A1BDBE /* popup_tw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_tw.png; sourceTree = "<group>"; };
+		81423FC71BE61A6E00261789 /* NativeLauncher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeLauncher.mm; sourceTree = "<group>"; };
+		81423FC91BE61AA200261789 /* NativeLauncher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeLauncher.h; sourceTree = "<group>"; };
+		81423FCA1BE6219600261789 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/Social.framework; sourceTree = DEVELOPER_DIR; };
 		815F6A201B9AA6B1008FE936 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		815F6A211B9AA6B1008FE936 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LibraryScene.cpp; sourceTree = "<group>"; };
@@ -294,6 +299,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81423FCB1BE6219600261789 /* Social.framework in Frameworks */,
 				EDD7E3241B58AE00009F9DEB /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
@@ -382,6 +388,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				81423FCA1BE6219600261789 /* Social.framework */,
 				EDD7E3251B58AE07009F9DEB /* libiconv.dylib */,
 				EDD7E3231B58AE00009F9DEB /* libiconv.dylib */,
 				8262943D1AAF051F00CB7CF7 /* Security.framework */,
@@ -473,6 +480,8 @@
 				46880B8719C43A87006E1F66 /* HomeScene.h */,
 				815F6A351B9ACD4F008FE936 /* Config.h */,
 				815F6A201B9AA6B1008FE936 /* GameScene.cpp */,
+				81423FC71BE61A6E00261789 /* NativeLauncher.mm */,
+				81423FC91BE61AA200261789 /* NativeLauncher.h */,
 				815F6A211B9AA6B1008FE936 /* GameScene.h */,
 				817647891BAB7E1100EAFF03 /* ProgressBar.cpp */,
 				8176478A1BAB7E1100EAFF03 /* ProgressBar.h */,
@@ -746,6 +755,7 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HomeScene.cpp in Sources */,
 				819A051F1BA33E8E0059143A /* LibraryManager.cpp in Sources */,
+				81423FC81BE61A6E00261789 /* NativeLauncher.mm in Sources */,
 				020708511B9ACB95009E53E3 /* Slot.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
