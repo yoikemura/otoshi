@@ -24,12 +24,18 @@ public:
     // carousel
     Layer *carouselLayer;
     Point carouselCurrentPoint;
+    int current = 0;
+    float dist = 0.0f;
+    bool moving = false;
 
     // Touchイベント用
     Point touchPoint;
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchEnded(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
+    
+    void next();
+    void prev();
 
     
     CREATE_FUNC(LibraryScene);
