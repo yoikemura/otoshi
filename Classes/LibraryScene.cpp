@@ -14,6 +14,15 @@
 
 USING_NS_CC;
 
+template
+<
+    typename TYPE,
+    int SIZE
+>
+int arrayLength(const TYPE (&)[SIZE])
+{
+    return SIZE;
+}
 
 Scene* LibraryScene::createScene()
 {
@@ -48,8 +57,6 @@ bool LibraryScene::init()
         return false;
     }
     
-    this->setTouchEnabled(true);
-    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
@@ -73,25 +80,21 @@ bool LibraryScene::init()
     carouselLayer->setAnchorPoint(Vec2(0, 0));
     this->addChild(carouselLayer);
 
-    auto group1 = LayerColor::create(Color4B::RED);
-    group1->setContentSize(Size(320, 280));
-    group1->setPosition(Vec2(layerX, 0));
-    carouselLayer->addChild(group1);
-    layerX = layerX + 320;
+    int charaCount = arrayLength(CHARA_DATA);
+    int groupCount = ceil(((double)charaCount / 4)); 
+    
+    std::vector<LayerColor*> layerGroups;
+    
+    for (int i = 0; i < groupCount; i++) {
+        auto group = LayerColor::create(Color4B::RED);
+        group->setContentSize(Size(320, 280));
+        group->setPosition(Vec2(layerX, 0));
+        carouselLayer->addChild(group);
+        layerX = layerX + 320;
+        layerGroups.push_back(group);
+    }
 
-    auto group2 = LayerColor::create(Color4B::BLUE);
-    group2->setContentSize(Size(320, 280));
-    group2->setPosition(Vec2(layerX, 0));
-    carouselLayer->addChild(group2);
-    layerX = layerX + 320;
-
-    auto group3 = LayerColor::create(Color4B::GREEN);
-    group3->setContentSize(Size(320, 280));
-    group3->setPosition(Vec2(layerX, 0));
-    carouselLayer->addChild(group3);
-    layerX = layerX + 320;
-
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < charaCount; i++) {
 
         CHARA charaData = CHARA_DATA[i];
 
@@ -113,17 +116,8 @@ bool LibraryScene::init()
         auto chara = Chara::create(charaData);
         chara->setPosition(Vec2(charaX, charaY));
 
-        if (i < 4) {
-          group1->addChild(chara);
-        }
-
-        if (4 <= i && i < 8) {
-          group2->addChild(chara);
-        }
-
-        if (8 <= i && i < 12) {
-          group3->addChild(chara);
-        }
+        int groupNum = i / 4;
+        layerGroups[groupNum]->addChild(chara);
 
         // if (libraryManager->hasGotten(charaData.id.c_str())) {
 
@@ -152,6 +146,8 @@ bool LibraryScene::onTouchBegan(Touch* touch, Event* event)
 {
     log("touch start");
     touchPoint = touch->getLocation();
+    this->dist = 0.0f;
+
     return true;
 }
 
@@ -161,29 +157,112 @@ void LibraryScene::onTouchEnded(Touch* touch, Event* event)
     log("touch end");
     carouselCurrentPoint = this->carouselLayer->getPosition();
     Point endPoint = touch->getLocation();
+    
+    float flick = 35.0f;
+    log("dist %f", this->dist);
+    if (this->dist >= flick) {
+        next();
+    } else if (this->dist <= -flick){
+        prev();
+    } else {
+        // どこにも行かない
+        this->moving = true;
+        MoveTo* back = MoveTo::create(0.2f, Point(this->current * -320, 106));
+        auto backEase = EaseInOut::create(back->clone(), 2);
+        auto cb = CallFunc::create([this](){
+            this->moving = false;
+            this->carouselCurrentPoint = this->carouselLayer->getPosition();
+        });
+        auto seq = Sequence::create(backEase, cb, NULL);
+        this->carouselLayer->runAction(seq);
+    }
+    
+    return;
 }
 
 void LibraryScene::onTouchMoved(Touch* touch, Event* event)
 {
+    // 移動中はなにもしない
+    if (this->moving) { return;}
+
     Point movePoint = touch->getLocation();
     
-    auto dist = touchPoint.x - movePoint.x;
+    this->dist = touchPoint.x - movePoint.x;
     auto deltX = 0;
-    log("moved %f", movePoint.x);
-    log("touchX %f", touchPoint.x);
-    log("carouselX %f", this->carouselLayer->getPositionX());
-    log("dist %f", dist);
 
-    if (dist > 0) {
-        log("レイヤーは左へ移動");
-        deltX = carouselCurrentPoint.x - abs(dist);
+    if (this->dist > 0) {
+        deltX = carouselCurrentPoint.x - abs(this->dist);
     } else {
-        log("レイヤーは右へ移動");
-        deltX = carouselCurrentPoint.x + abs(dist);
+        deltX = carouselCurrentPoint.x + abs(this->dist);
     }
 
     this->carouselLayer->setPositionX(deltX);
-    log("carouselX移動後 %f", this->carouselLayer->getPositionX());
+}
+
+void LibraryScene::next()
+{
+    log("next!");
+    this->current++;
+    this->moving = true;
+
+    int charaCount = arrayLength(CHARA_DATA);
+    int last = ceil(((double)charaCount / 4)) - 1; 
+
+    // 右端
+    if (this->current > last) { // TODO:仮実装のためマジックナンバー
+        MoveTo* next = MoveTo::create(0.5f, Point(last * -320, 106));
+        auto nextEase = EaseInOut::create(next->clone(), 2);
+        auto cb = CallFunc::create([this](){
+            this->moving = false;
+            this->carouselCurrentPoint = this->carouselLayer->getPosition();
+            this->current--;
+        });
+        auto seq = Sequence::create(nextEase, cb, NULL);
+        this->carouselLayer->runAction(seq);
+        
+    // スライド可能
+    } else {
+        MoveTo* next = MoveTo::create(0.5f, Point(this->current * -320, 106));
+        auto nextEase = EaseInOut::create(next->clone(), 2);
+        auto cb = CallFunc::create([this](){
+            this->moving = false;
+            this->carouselCurrentPoint = this->carouselLayer->getPosition();
+        });
+        auto seq = Sequence::create(nextEase, cb, NULL);
+        this->carouselLayer->runAction(seq);
+    }
+}
+
+void LibraryScene::prev()
+{
+    log("prev!");
+    this->current--;
+    this->moving = true;
+    log("%i", this->current);
+    
+    
+    // 左端
+    if (this->current < 0) {
+        MoveTo* prev = MoveTo::create(0.5f, Point(0, 106));
+        auto prevEase = EaseInOut::create(prev->clone(), 2);
+        auto cb = CallFunc::create([this](){
+            this->moving = false;
+            this->carouselCurrentPoint = this->carouselLayer->getPosition();
+            this->current++;
+        });
+        auto seq = Sequence::create(prevEase, cb, NULL);
+        this->carouselLayer->runAction(seq);
+    // スライド可能
+    } else {
+        MoveTo* prev = MoveTo::create(0.5f, Point(this->current * -320, 106));
+        auto prevEase = EaseInOut::create(prev->clone(), 2);
+        auto cb = CallFunc::create([this](){
+            this->moving = false;
+            this->carouselCurrentPoint = this->carouselLayer->getPosition();
+        });
+        auto seq = Sequence::create(prevEase, cb, NULL);
+        this->carouselLayer->runAction(seq);
+    }
 }
 
 void LibraryScene::btnToHomeCallback(Ref* pSender)
