@@ -825,6 +825,7 @@
 				);
 				PROVISIONING_PROFILE = "1254476b-d227-4a89-bbcb-a52c136c073b";
 				SDKROOT = iphoneos;
+				STRIP_PNG_TEXT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Classes/MaruOtoshi-mobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -865,6 +866,7 @@
 				);
 				PROVISIONING_PROFILE = "1254476b-d227-4a89-bbcb-a52c136c073b";
 				SDKROOT = iphoneos;
+				STRIP_PNG_TEXT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "../Classes/MaruOtoshi-mobile-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
