@@ -666,7 +666,12 @@ void GameScene::showGetRareGomabi(Chara* chara)
     popup->addChild(charaDesc);
 
     // コンプリートまでxx対
-    auto completeLabel = Label::createWithSystemFont("コンプリートまで後XX対", "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
+    char str[16];
+    auto charaId = chara->getId();
+    int charInt = std::stoi(charaId);
+    int restId = 10 - charInt;
+    sprintf(str,"コンプリートまで残り%d種類", restId);
+    auto completeLabel = Label::createWithSystemFont(str, "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
     completeLabel->setWidth(260);
     completeLabel->setColor(Color3B(0, 0, 0));
     completeLabel->setPosition(Point(139.0, 75.0));
