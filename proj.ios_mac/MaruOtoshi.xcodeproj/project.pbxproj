@@ -132,6 +132,10 @@
 		812D90AC1BE5F7D900A1BDBE /* popup_tw.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A61BE5F7D900A1BDBE /* popup_tw.png */; };
 		81423FC81BE61A6E00261789 /* NativeLauncher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 81423FC71BE61A6E00261789 /* NativeLauncher.mm */; };
 		81423FCB1BE6219600261789 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81423FCA1BE6219600261789 /* Social.framework */; };
+		814F20B31DF3F8B000152F28 /* img_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 814F20B01DF3F8B000152F28 /* img_logo.png */; };
+		814F20B41DF3F8B000152F28 /* btn_start.png in Resources */ = {isa = PBXBuildFile; fileRef = 814F20B11DF3F8B000152F28 /* btn_start.png */; };
+		814F20B51DF3F8B000152F28 /* btn_karte.png in Resources */ = {isa = PBXBuildFile; fileRef = 814F20B21DF3F8B000152F28 /* btn_karte.png */; };
+		814F20B91DF401FE00152F28 /* goma _free.png in Resources */ = {isa = PBXBuildFile; fileRef = 814F20B81DF401FE00152F28 /* goma _free.png */; };
 		815461FA1DF3C8AE00E1B21B /* karte_allow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F51DF3C8AE00E1B21B /* karte_allow_right.png */; };
 		815461FB1DF3C8AE00E1B21B /* karte_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F61DF3C8AE00E1B21B /* karte_bg.png */; };
 		815461FC1DF3C8AE00E1B21B /* karte_title.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F71DF3C8AE00E1B21B /* karte_title.png */; };
@@ -306,6 +310,10 @@
 		81423FC71BE61A6E00261789 /* NativeLauncher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeLauncher.mm; sourceTree = "<group>"; };
 		81423FC91BE61AA200261789 /* NativeLauncher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeLauncher.h; sourceTree = "<group>"; };
 		81423FCA1BE6219600261789 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/Social.framework; sourceTree = DEVELOPER_DIR; };
+		814F20B01DF3F8B000152F28 /* img_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_logo.png; sourceTree = "<group>"; };
+		814F20B11DF3F8B000152F28 /* btn_start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_start.png; sourceTree = "<group>"; };
+		814F20B21DF3F8B000152F28 /* btn_karte.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_karte.png; sourceTree = "<group>"; };
+		814F20B81DF401FE00152F28 /* goma _free.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goma _free.png"; sourceTree = "<group>"; };
 		815461F51DF3C8AE00E1B21B /* karte_allow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_allow_right.png; sourceTree = "<group>"; };
 		815461F61DF3C8AE00E1B21B /* karte_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_bg.png; sourceTree = "<group>"; };
 		815461F71DF3C8AE00E1B21B /* karte_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_title.png; sourceTree = "<group>"; };
@@ -410,6 +418,7 @@
 				027514AD1DF3E76B0050FBC1 /* yukimigoma.png */,
 				02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */,
 				02DAEF421BA9ADE800C444C3 /* goma_robot.png */,
+				814F20B81DF401FE00152F28 /* goma _free.png */,
 				02DAEF431BA9ADE800C444C3 /* goma_noppo.png */,
 				02DAEF441BA9ADE800C444C3 /* goma_pink.png */,
 				02DAEF451BA9ADE800C444C3 /* goma_blue.png */,
@@ -558,6 +567,9 @@
 				81D4F33E1B9B119D00CBE49C /* logo.png */,
 				020708551B9ADC5B009E53E3 /* slot_jap.png */,
 				020708561B9ADC5B009E53E3 /* slot_jp.png */,
+				814F20B01DF3F8B000152F28 /* img_logo.png */,
+				814F20B11DF3F8B000152F28 /* btn_start.png */,
+				814F20B21DF3F8B000152F28 /* btn_karte.png */,
 				81D4F33A1B9AFA6000CBE49C /* back.png */,
 				020708571B9ADC5B009E53E3 /* slot_fuck.png */,
 				020708581B9ADC5B009E53E3 /* slot_fever.png */,
@@ -791,7 +803,9 @@
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
 				02DAEF5B1BA9ADE800C444C3 /* barzero.png in Resources */,
 				815461FE1DF3C8AE00E1B21B /* icn_hokaku.png in Resources */,
+				814F20B51DF3F8B000152F28 /* btn_karte.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				814F20B91DF401FE00152F28 /* goma _free.png in Resources */,
 				02ADFFC41B9C234400C9D567 /* bgm_normal.mp3 in Resources */,
 				02DAEF561BA9ADE800C444C3 /* get.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
@@ -828,6 +842,7 @@
 				02DAEF4C1BA9ADE800C444C3 /* shadow.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				814F20B31DF3F8B000152F28 /* img_logo.png in Resources */,
 				023EAFEF1DF3C462001465C0 /* karte_title.png in Resources */,
 				0207085F1B9ADC5B009E53E3 /* slot_fever.png in Resources */,
 				02DAEF4E1BA9ADE800C444C3 /* medjed.png in Resources */,
@@ -853,6 +868,7 @@
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				02DAEF501BA9ADE800C444C3 /* orengekappa.png in Resources */,
 				027514A21DF3D8CD0050FBC1 /* btn_help_on.png in Resources */,
+				814F20B41DF3F8B000152F28 /* btn_start.png in Resources */,
 				02BFE1531DF3F305005CD05F /* goma _free.png in Resources */,
 				812D90A81BE5F7D900A1BDBE /* popup_close.png in Resources */,
 			);

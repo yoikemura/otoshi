@@ -49,22 +49,22 @@ bool Home::init()
 
     // ゲーム画面へ移動ボタン
     auto btnToGame = MenuItemImage::create(
-                                           "start.png",
-                                           "start.png",
+                                           "btn_start.png",
+                                           "btn_start.png",
                                            CC_CALLBACK_1(Home::btnToGameCallback, this));
     
-    btnToGame->setPosition(Vec2(visibleSize.width/2 - 50, 150));
+    btnToGame->setPosition(Vec2(visibleSize.width/2, 120));
     auto menu2 = Menu::create(btnToGame, NULL);
     menu2->setPosition(Vec2::ZERO);
     this->addChild(menu2, 1);
     
     // 図鑑画面へ移動ボタン
     auto btnToLibrary = MenuItemImage::create(
-                                           "zukan.png",
-                                           "zukan.png",
+                                           "btn_karte.png",
+                                           "btn_karte.png",
                                            CC_CALLBACK_1(Home::btnToLibraryCallback, this));
     
-    btnToLibrary->setPosition(Vec2(visibleSize.width/2 + 50, 150));
+    btnToLibrary->setPosition(Vec2(visibleSize.width/2 , 50));
     auto menu3 = Menu::create(btnToLibrary, NULL);
     menu3->setPosition(Vec2::ZERO);
     this->addChild(menu3, 1);
@@ -80,7 +80,7 @@ bool Home::init()
     
 
     // ロゴ
-    auto sprite = Sprite::create("logo.png");
+    auto sprite = Sprite::create("img_logo.png");
     sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 30));
     this->addChild(sprite, 0);
 
