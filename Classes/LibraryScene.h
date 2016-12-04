@@ -10,6 +10,8 @@
 #define __MaruOtoshi__LibraryScene__
 
 #include <stdio.h>
+#include "Chara.h"
+
 
 using namespace cocos2d;
 
@@ -19,6 +21,12 @@ public:
     static cocos2d::Scene* createScene();
     virtual bool init();
     void btnToHomeCallback(cocos2d::Ref* pSender);
+
+    //Popup用
+    void showDetail(Chara* chara);
+    LayerColor* overlayLaery;
+    Chara* distChara;
+    void closePopup(Ref* pSender);
     
     
     // carousel

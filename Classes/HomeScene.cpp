@@ -1,3 +1,4 @@
+#include "Story.hpp"
 #include "HomeScene.h"
 #include "GameScene.h"
 #include "LibraryScene.h"
@@ -67,6 +68,16 @@ bool Home::init()
     auto menu3 = Menu::create(btnToLibrary, NULL);
     menu3->setPosition(Vec2::ZERO);
     this->addChild(menu3, 1);
+    
+    //Storyのやつ
+    auto pHelpItem = MenuItemImage::create(
+                                           "btn_help.png",
+                                           "btn_help_on.png",
+                                           CC_CALLBACK_1(Home::startHelp, this));
+    Menu* pMenuHelp = Menu::create(pHelpItem, NULL);
+    pMenuHelp->setPosition(visibleSize.width*0.9, visibleSize.height*0.95);
+    this->addChild(pMenuHelp);
+    
 
     // ロゴ
     auto sprite = Sprite::create("logo.png");
@@ -91,6 +102,14 @@ void Home::btnToLibraryCallback(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     auto scene = LibraryScene::createScene();
+    Director::getInstance()->replaceScene(scene);
+}
+
+void Home::startHelp(Ref* pSender)
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
+    CCLOG("start Help on Home");
+    Scene* scene = Story::createScene();
     Director::getInstance()->replaceScene(scene);
 }
 

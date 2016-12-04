@@ -97,6 +97,7 @@ bool LibraryScene::init()
     for (int i = 0; i < charaCount; i++) {
 
         CHARA charaData = CHARA_DATA[i];
+        log("-----------//");
 
         // キャラ配置
         if (i % 4 == 0) {

@@ -632,6 +632,7 @@ void GameScene::showGetRareGomabi(Chara* chara)
     pMenuTwitter->setPosition(Point(33.0, 30.0));
     popup->addChild(pMenuTwitter);
 
+/*
     // Facebookボタン
     auto pFacebookItem = MenuItemImage::create("popup_fb.png",
                                                "popup_fb.png",
@@ -644,9 +645,12 @@ void GameScene::showGetRareGomabi(Chara* chara)
     auto pLineItem = MenuItemImage::create("popup_line.png",
                                            "popup_line.png",
                                            CC_CALLBACK_1(GameScene::shareWithLine, this));
+ 
+    
     Menu* pMenuLine = Menu::create(pLineItem, NULL);
     pMenuLine->setPosition(Point(140.0, 30.0));
-    popup->addChild(pMenuLine);
+    popup->addChild(pMenuLine); 
+*/
 
     // キャラ画像
     auto fileName = chara->getExplainFimeName();
