@@ -193,7 +193,7 @@ bool LibraryScene::init()
         
         // キャラクター
         auto chara = Chara::create(charaData);
-        chara->setPosition(Vec2(charaX, charaY));
+        chara->setPosition(Vec2(charaX, charaY - 10));
         layerGroups[groupNum]->addChild(chara);
         charas.pushBack(chara);
         

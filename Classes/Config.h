@@ -42,7 +42,6 @@ struct CHARA{
     std::string id;
     char name[50];
     char fileName[30];
-    char explainFileName[30];
     char description[500];
     int percent;
 };
@@ -51,9 +50,8 @@ struct CHARA{
 static struct CHARA CHARA_DATA[] = {
     {
         "0001",
-        "ゴマ-ビィ",
+        "ゴマビィ",
         "goma.png",
-        "popup_goma.png",
         "仙台名物「萩の月」と「ゴマフアザラシ」の量産型合成生物(キメラ)である。博士の実験台として使われるとこに嫌気が差しているらしい。鳴き声は『キュ〜』。",
         22
     },
@@ -61,7 +59,6 @@ static struct CHARA CHARA_DATA[] = {
         "0002",
         "メジェドさん",
         "chara_medjed.png",
-        "popup_goma.png",
         "エジプトの神様。博士の実験とはなんの関係もない。このゲームの製作者が開発した別のゲームの主人公でもあり宣伝のためにこの場に登場しているのだ。https://itunes.apple.com/tr/app/go!-go!-mejedoadobencha/id926799955",
         12
     },
@@ -69,7 +66,6 @@ static struct CHARA CHARA_DATA[] = {
         "0003",
         "アオゴマ",
         "goma_blue.png",
-        "popup_goma.png",
         "「ゴマフアザラシ」と「ラピスラズリ」の合成生物(キメラ)である。好きな映画は 「耳をすませば(1995年)」。つい先週、聖蹟桜ヶ丘に行ってきたところ。青い。",
         28
     },
@@ -77,7 +73,6 @@ static struct CHARA CHARA_DATA[] = {
         "0004",
         "ピンクゴマ",
         "goma_pink.png",
-        "popup_goma.png",
         "「ゴマフアザラシ」と「アメリカンレッドローズ」の合成生物(キメラ)である彼は、役者を目指してをり日々努力を惜しまない。演技力は中の上程度でるは向上心なら誰にも負けちゃいなんだから!",
         23
     },
@@ -85,7 +80,6 @@ static struct CHARA CHARA_DATA[] = {
         "0005",
         "ノッポゴマ",
         "goma_noppo.png",
-        "popup_goma.png",
         "チェ・ホンマンに憧れ、牛乳を飲み続けた結果身長のみ高くなった。上背はあるが筋肉が追いついていないので一発の重さにかける。目指すところはミルコ・クロコップか!?",
         18
     },
@@ -93,7 +87,6 @@ static struct CHARA CHARA_DATA[] = {
         "0006",
         "ロボゴマ",
         "goma_robot.png",
-        "popup_goma.png",
         "世田谷に住む独身博士(64)が寂しさを紛らわすために作った人造ゴマアザラシ。3時間充電で32時間ほど稼働する。博士曰く「iPhoneより長持ち」",
         15
     },
@@ -101,7 +94,6 @@ static struct CHARA CHARA_DATA[] = {
         "0007",
         "ビッグゴマ",
         "goma_big.png",
-        "popup_goma.png",
         "でかいが正義なのはアメリカだけでなく、ゴマアザラシの世界でも通用する。ただ大きくなることだけに特化しているためオツムが弱い。",
         14
     },
@@ -109,7 +101,6 @@ static struct CHARA CHARA_DATA[] = {
         "0008",
         "オレンジカッパ",
         "orengekappa.png",
-        "popup_goma.png",
         "河童とゴマアザラシが合成するとオレンジ色になることが確認されているが、こいつもその例外ではない。好きな飲物は「なっちゃん」",
         12
     },
@@ -117,7 +108,6 @@ static struct CHARA CHARA_DATA[] = {
         "0009",
         "メロンモンキー",
         "melonmonkey.png",
-        "popup_goma.png",
         "メロンでメロゥなモンキーGUY!! フルーツ界の神であ、音楽の王様でもある彼は、ゴマアザラシ界のジャスティン・ビーバー。カーネギーメロン大学卒。",
         10
     },
@@ -125,7 +115,6 @@ static struct CHARA CHARA_DATA[] = {
         "0010",
         "シャザービー",
         "shadow.png",
-        "popup_goma.png",
         "真っ黒な見た目と裏腹に、好きな言葉は「純血」。仲間を大事にするのはいいとこだが、グローバル化した昨今では敬遠されがち。",
         10
     },
@@ -133,7 +122,6 @@ static struct CHARA CHARA_DATA[] = {
         "0011",
         "アザビー",
         "azaby.png",
-        "popup_goma.png",
         "アザラシとゴマアザラシのハーフ（アザラシ界では禁断の組み合わせ）。親戚の大反対を押し切って駆け落ちした両親の性欲を憎んでいる。",
         7
     },
@@ -141,7 +129,6 @@ static struct CHARA CHARA_DATA[] = {
         "0012",
         "雪見ゴマ",
         "yukimigoma.png",
-        "popup_goma.png",
         "みんな大好き雪見だいふく。白くてふわふわのカノジョは、多くのゴマアザラシから求婚を受けている。",
         12
     },
@@ -149,17 +136,8 @@ static struct CHARA CHARA_DATA[] = {
         "0013",
         "民衆を導きし自由のごまびぃ",
         "goma_free.png",
-        "popup_goma.png",
         "ついに現れた。彼こそが今回の事件の首謀者であり、カリスマ、民衆を導きし自由のごまびぃだ！憧れはメタナイト。",
         1
-    },
-    {
-        "0012",
-        "雪見ゴマ",
-        "yukimigoma.png",
-        "popup_goma.png",
-        "みんな大好き雪見だいふく。白くてふわふわのカノジョは、多くのゴマアザラシから求婚を受けている。",
-        12
     }
 };
 

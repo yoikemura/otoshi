@@ -529,6 +529,7 @@ void GameScene::popPlus1(int x)
 
 void GameScene::popGet(int x, int y)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("get.mp3");
     auto get = Sprite::create("get.png");
     get->setPosition(x, y);
     this->addChild(get);
@@ -580,7 +581,7 @@ int GameScene::getCharaIdx()
     int idx;
     // レア出現率
     if (r < RARE_PROBABILITY_RATE) {
-        idx = arc4random() % 10 + 1;
+        idx = arc4random() % 12 + 1;
     } else {
         idx = 0;
     }
