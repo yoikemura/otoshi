@@ -37,6 +37,7 @@ bool Story::init()
     
     Size size = Director::getInstance()->getWinSize();
     
+    
     //背景作成
     pBG = Sprite::create("bg_story.png");
     pBG->setPosition(Point(size.width * 0.5, size.height * 0.5));
@@ -60,7 +61,7 @@ bool Story::init()
                                            CC_CALLBACK_1(Story::backToHome, this));
     
     Menu* pMenu = Menu::create(startHome, NULL);
-    pMenu->setPosition(size.width*0.5, size.height*0.15);
+    pMenu->setPosition(size.width*0.1, size.height*0.95);
     pMenu->alignItemsHorizontally();
     this->addChild(pMenu);
     
