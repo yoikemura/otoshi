@@ -24,7 +24,6 @@ public:
     void backToHome(cocos2d::Ref* pSender);
 
     //Popup用
-    void showDetail(Chara* chara);
     LayerColor* overlayLaery;
     Chara* distChara;
     void closePopup(Ref* pSender);

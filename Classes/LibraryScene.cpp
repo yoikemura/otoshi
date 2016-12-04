@@ -334,7 +334,7 @@ void LibraryScene::next()
         auto seq = Sequence::create(nextEase, cb, NULL);
         this->carouselLayer->runAction(seq);
         
-    // スライド可能
+    // スライド可overlayLaery能
     } else {
         MoveTo* next = MoveTo::create(0.5f, Point(this->current * -320, 106));
         auto nextEase = EaseInOut::create(next->clone(), 2);
