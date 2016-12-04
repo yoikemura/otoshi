@@ -9,6 +9,7 @@
 #ifndef __MaruOtoshi__LibraryScene__
 #define __MaruOtoshi__LibraryScene__
 
+#include "chara.h"
 #include <stdio.h>
 
 using namespace cocos2d;
@@ -19,7 +20,6 @@ public:
     static cocos2d::Scene* createScene();
     virtual bool init();
     void btnToHomeCallback(cocos2d::Ref* pSender);
-    
     
     // carousel
     Layer *carouselLayer;
@@ -36,7 +36,13 @@ public:
     
     void next();
     void prev();
-
+    
+    
+    // 詳細表示用キャラ配列
+    Point detailTouchPoint;
+    Vector<Chara*> charas = Vector<Chara*>();
+    void showDetail(Chara* chara);
+    bool detailMoving = false;
     
     CREATE_FUNC(LibraryScene);
 };
