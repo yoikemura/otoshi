@@ -54,6 +54,7 @@
 		02ADFFC21B9C22CA00C9D567 /* chara_medjed.png in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */; };
 		02ADFFC41B9C234400C9D567 /* bgm_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFC31B9C234400C9D567 /* bgm_normal.mp3 */; };
 		02ADFFC51B9C234400C9D567 /* bgm_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02ADFFC31B9C234400C9D567 /* bgm_normal.mp3 */; };
+		02BFE1531DF3F305005CD05F /* goma _free.png in Resources */ = {isa = PBXBuildFile; fileRef = 02BFE1521DF3F305005CD05F /* goma _free.png */; };
 		02DAEF4C1BA9ADE800C444C3 /* shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DAEF3C1BA9ADE800C444C3 /* shadow.png */; };
 		02DAEF4D1BA9ADE800C444C3 /* azaby.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DAEF3D1BA9ADE800C444C3 /* azaby.png */; };
 		02DAEF4E1BA9ADE800C444C3 /* medjed.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DAEF3E1BA9ADE800C444C3 /* medjed.png */; };
@@ -70,6 +71,7 @@
 		02DAEF591BA9ADE800C444C3 /* plus1_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DAEF491BA9ADE800C444C3 /* plus1_green.png */; };
 		02DAEF5A1BA9ADE800C444C3 /* plus1_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DAEF4A1BA9ADE800C444C3 /* plus1_blue.png */; };
 		02DAEF5B1BA9ADE800C444C3 /* barzero.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DAEF4B1BA9ADE800C444C3 /* barzero.png */; };
+		02FF8E4B1DF3EBB000384357 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02FF8E4A1DF3EBB000384357 /* Images.xcassets */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -225,6 +227,7 @@
 		02ADFFBA1B9C06FE00C9D567 /* effect_put.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = effect_put.mp3; sourceTree = "<group>"; };
 		02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chara_medjed.png; sourceTree = "<group>"; };
 		02ADFFC31B9C234400C9D567 /* bgm_normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm_normal.mp3; sourceTree = "<group>"; };
+		02BFE1521DF3F305005CD05F /* goma _free.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goma _free.png"; sourceTree = "<group>"; };
 		02DAEF3C1BA9ADE800C444C3 /* shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow.png; sourceTree = "<group>"; };
 		02DAEF3D1BA9ADE800C444C3 /* azaby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = azaby.png; sourceTree = "<group>"; };
 		02DAEF3E1BA9ADE800C444C3 /* medjed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medjed.png; sourceTree = "<group>"; };
@@ -241,6 +244,7 @@
 		02DAEF491BA9ADE800C444C3 /* plus1_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus1_green.png; sourceTree = "<group>"; };
 		02DAEF4A1BA9ADE800C444C3 /* plus1_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus1_blue.png; sourceTree = "<group>"; };
 		02DAEF4B1BA9ADE800C444C3 /* barzero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barzero.png; sourceTree = "<group>"; };
+		02FF8E4A1DF3EBB000384357 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "MaruOtoshi-mobile/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -402,6 +406,7 @@
 		0280273B1DF3A64900E15CB6 /* chara */ = {
 			isa = PBXGroup;
 			children = (
+				02BFE1521DF3F305005CD05F /* goma _free.png */,
 				027514AD1DF3E76B0050FBC1 /* yukimigoma.png */,
 				02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */,
 				02DAEF421BA9ADE800C444C3 /* goma_robot.png */,
@@ -520,6 +525,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				02FF8E4A1DF3EBB000384357 /* Images.xcassets */,
 				027514A41DF3D9100050FBC1 /* button */,
 				0275149C1DF3D1590050FBC1 /* bg_story.png */,
 				023EAFE21DF3C462001465C0 /* icn_hokaku.png */,
@@ -828,6 +834,7 @@
 				02DAEF541BA9ADE800C444C3 /* goma_pink.png in Resources */,
 				027514AE1DF3E76B0050FBC1 /* yukimigoma.png in Resources */,
 				02ADFFBD1B9C06FE00C9D567 /* effect_put.mp3 in Resources */,
+				02FF8E4B1DF3EBB000384357 /* Images.xcassets in Resources */,
 				023EAFE71DF3C462001465C0 /* icn_hokaku.png in Resources */,
 				02DAEF531BA9ADE800C444C3 /* goma_noppo.png in Resources */,
 				020519BF1B9B0AC700911F04 /* table_top.png in Resources */,
@@ -846,6 +853,7 @@
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				02DAEF501BA9ADE800C444C3 /* orengekappa.png in Resources */,
 				027514A21DF3D8CD0050FBC1 /* btn_help_on.png in Resources */,
+				02BFE1531DF3F305005CD05F /* goma _free.png in Resources */,
 				812D90A81BE5F7D900A1BDBE /* popup_close.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -934,6 +942,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -981,6 +990,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
