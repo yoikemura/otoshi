@@ -132,6 +132,13 @@
 		812D90AC1BE5F7D900A1BDBE /* popup_tw.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A61BE5F7D900A1BDBE /* popup_tw.png */; };
 		81423FC81BE61A6E00261789 /* NativeLauncher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 81423FC71BE61A6E00261789 /* NativeLauncher.mm */; };
 		81423FCB1BE6219600261789 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81423FCA1BE6219600261789 /* Social.framework */; };
+		815461FA1DF3C8AE00E1B21B /* karte_allow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F51DF3C8AE00E1B21B /* karte_allow_right.png */; };
+		815461FB1DF3C8AE00E1B21B /* karte_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F61DF3C8AE00E1B21B /* karte_bg.png */; };
+		815461FC1DF3C8AE00E1B21B /* karte_title.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F71DF3C8AE00E1B21B /* karte_title.png */; };
+		815461FD1DF3C8AE00E1B21B /* karte_allow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F81DF3C8AE00E1B21B /* karte_allow_left.png */; };
+		815461FE1DF3C8AE00E1B21B /* icn_hokaku.png in Resources */ = {isa = PBXBuildFile; fileRef = 815461F91DF3C8AE00E1B21B /* icn_hokaku.png */; };
+		815462011DF3DCEA00E1B21B /* karte_detail_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 815462001DF3DCEA00E1B21B /* karte_detail_bg.png */; };
+		8154620A1DF3F4A100E1B21B /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 815462091DF3F4A100E1B21B /* libz.1.dylib */; };
 		815F6A221B9AA6B1008FE936 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A201B9AA6B1008FE936 /* GameScene.cpp */; };
 		815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */; };
 		815F6A2C1B9AABC3008FE936 /* zukan.png in Resources */ = {isa = PBXBuildFile; fileRef = 815F6A2A1B9AABC3008FE936 /* zukan.png */; };
@@ -299,6 +306,16 @@
 		81423FC71BE61A6E00261789 /* NativeLauncher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeLauncher.mm; sourceTree = "<group>"; };
 		81423FC91BE61AA200261789 /* NativeLauncher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeLauncher.h; sourceTree = "<group>"; };
 		81423FCA1BE6219600261789 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/Social.framework; sourceTree = DEVELOPER_DIR; };
+		815461F51DF3C8AE00E1B21B /* karte_allow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_allow_right.png; sourceTree = "<group>"; };
+		815461F61DF3C8AE00E1B21B /* karte_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_bg.png; sourceTree = "<group>"; };
+		815461F71DF3C8AE00E1B21B /* karte_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_title.png; sourceTree = "<group>"; };
+		815461F81DF3C8AE00E1B21B /* karte_allow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_allow_left.png; sourceTree = "<group>"; };
+		815461F91DF3C8AE00E1B21B /* icn_hokaku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icn_hokaku.png; sourceTree = "<group>"; };
+		815462001DF3DCEA00E1B21B /* karte_detail_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_detail_bg.png; sourceTree = "<group>"; };
+		815462031DF3F2A700E1B21B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		815462051DF3F2C400E1B21B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
+		815462071DF3F45600E1B21B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
+		815462091DF3F4A100E1B21B /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		815F6A201B9AA6B1008FE936 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		815F6A211B9AA6B1008FE936 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		815F6A231B9AA6D1008FE936 /* LibraryScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LibraryScene.cpp; sourceTree = "<group>"; };
@@ -335,6 +352,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8154620A1DF3F4A100E1B21B /* libz.1.dylib in Frameworks */,
 				81423FCB1BE6219600261789 /* Social.framework in Frameworks */,
 				EDD7E3241B58AE00009F9DEB /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
@@ -476,6 +494,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				815462091DF3F4A100E1B21B /* libz.1.dylib */,
+				815462071DF3F45600E1B21B /* libsqlite3.dylib */,
+				815462051DF3F2C400E1B21B /* libsqlite3.0.tbd */,
+				815462031DF3F2A700E1B21B /* libsqlite3.tbd */,
 				81423FCA1BE6219600261789 /* Social.framework */,
 				EDD7E3251B58AE07009F9DEB /* libiconv.dylib */,
 				EDD7E3231B58AE00009F9DEB /* libiconv.dylib */,
@@ -547,6 +569,8 @@
 				81D4F33C1B9B0F7300CBE49C /* bg.png */,
 				815F6A2A1B9AABC3008FE936 /* zukan.png */,
 				815F6A2B1B9AABC3008FE936 /* start.png */,
+				815461FF1DF3C8B900E1B21B /* karute */,
+				815461F91DF3C8AE00E1B21B /* icn_hokaku.png */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -629,6 +653,18 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		815461FF1DF3C8B900E1B21B /* karute */ = {
+			isa = PBXGroup;
+			children = (
+				815461F51DF3C8AE00E1B21B /* karte_allow_right.png */,
+				815462001DF3DCEA00E1B21B /* karte_detail_bg.png */,
+				815461F61DF3C8AE00E1B21B /* karte_bg.png */,
+				815461F81DF3C8AE00E1B21B /* karte_allow_left.png */,
+				815461F71DF3C8AE00E1B21B /* karte_title.png */,
+			);
+			name = karute;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -744,6 +780,7 @@
 				815F6A311B9ABAA0008FE936 /* goma.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				815462011DF3DCEA00E1B21B /* karte_detail_bg.png in Resources */,
 				02DAEF551BA9ADE800C444C3 /* goma_blue.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				020519C91B9B1C6700911F04 /* effect_clicked.mp3 in Resources */,
@@ -753,16 +790,19 @@
 				812D90AC1BE5F7D900A1BDBE /* popup_tw.png in Resources */,
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
 				02DAEF5B1BA9ADE800C444C3 /* barzero.png in Resources */,
+				815461FE1DF3C8AE00E1B21B /* icn_hokaku.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				02ADFFC41B9C234400C9D567 /* bgm_normal.mp3 in Resources */,
 				02DAEF561BA9ADE800C444C3 /* get.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				812D90A91BE5F7D900A1BDBE /* popup_fb.png in Resources */,
+				815461FB1DF3C8AE00E1B21B /* karte_bg.png in Resources */,
 				027514A31DF3D8CD0050FBC1 /* btn_help.png in Resources */,
 				02DAEF581BA9ADE800C444C3 /* plus1_pink.png in Resources */,
 				02DAEF4F1BA9ADE800C444C3 /* melonmonkey.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
+				815461FA1DF3C8AE00E1B21B /* karte_allow_right.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				812D90A71BE5F7D900A1BDBE /* popup_bg.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
@@ -806,7 +846,9 @@
 				0275149D1DF3D1590050FBC1 /* bg_story.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				812D90A01BE5DE3D00A1BDBE /* itemslot.mp3 in Resources */,
+				815461FC1DF3C8AE00E1B21B /* karte_title.png in Resources */,
 				02ADFFBB1B9C06FE00C9D567 /* effect_drop.mp3 in Resources */,
+				815461FD1DF3C8AE00E1B21B /* karte_allow_left.png in Resources */,
 				02DAEF511BA9ADE800C444C3 /* goma_big.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				02DAEF501BA9ADE800C444C3 /* orengekappa.png in Resources */,
@@ -924,7 +966,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -970,7 +1012,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (

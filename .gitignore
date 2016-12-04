@@ -49,3 +49,6 @@ proj.ios_mac/build/
 *.tar
 *.tgz
 *.gtgz
+
+*.swp
+

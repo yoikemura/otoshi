@@ -44,6 +44,9 @@ Scene* LibraryScene::createScene()
     listener->onTouchMoved = CC_CALLBACK_2(LibraryScene::onTouchMoved, layer);
     eventDispatcher->addEventListenerWithSceneGraphPriority(listener, layer);
     
+    // 詳細表示用キャラ配列
+    Vector<Sprite*> v1 = Vector<Sprite*>(); 
+    
     // return the scene
     return scene;
 }
@@ -61,10 +64,17 @@ bool LibraryScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto label = Label::createWithTTF("図鑑画面", "fonts/Osaka.ttf", 24);
+    //　背景
+    auto bg = Sprite::create("bg.png");
+    bg->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    this->addChild(bg);
+    
+    // タイトル画像
+    auto titleImg = Sprite::create("karte_title.png");
     // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
+    titleImg->setPosition(Vec2(origin.x + visibleSize.width/2,
+                            origin.y + visibleSize.height - titleImg->getContentSize().height));
+    this->addChild(titleImg);
     
 
     auto libraryManager = LibraryManager::getInstance();
@@ -75,7 +85,7 @@ bool LibraryScene::init()
 
     // TODO: 雑過ぎリファクタ
     // carousel layer
-    this->carouselLayer = LayerColor::create(Color4B::BLACK);
+    this->carouselLayer = LayerColor::create();
     carouselLayer->setPosition(Vec2(0, 106));
     carouselLayer->setContentSize(Size(320 * 3, 280));
     carouselLayer->setAnchorPoint(Vec2(0, 0));
@@ -87,7 +97,7 @@ bool LibraryScene::init()
     std::vector<LayerColor*> layerGroups;
     
     for (int i = 0; i < groupCount; i++) {
-        auto group = LayerColor::create(Color4B::RED);
+        auto group = LayerColor::create();
         group->setContentSize(Size(320, 280));
         group->setPosition(Vec2(layerX, 0));
         carouselLayer->addChild(group);
@@ -96,37 +106,103 @@ bool LibraryScene::init()
     }
 
     for (int i = 0; i < charaCount; i++) {
-
         CHARA charaData = CHARA_DATA[i];
-        log("-----------//");
+        
+        int leftEdge = 19;
 
         // キャラ配置
         if (i % 4 == 0) {
-            charaX = 43 + 68;
+            charaX = leftEdge + 68;
             charaY = 138 + 8 + 68;
         } else if (i % 4 == 1) {
-            charaX = 43 + 136 + 9 + 68;
+            charaX = leftEdge + 136 + 9 + 68;
             charaY = 138 + 8 + 68;
         } else if (i % 4 == 2) {
-            charaX = 43 + 68;
+            charaX = leftEdge + 68;
             charaY = 68;
         } else if (i % 4 == 3) {
-            charaX = 43 + 136 + 9 + 68;
+            charaX = leftEdge + 136 + 9 + 68;
             charaY = 68;
         }
+        
+        // 配置対象レイヤー　
+        int groupNum = i / 4;
 
+        // キャラクターを置く背景
+        auto karuteBg = Sprite::create("karte_bg.png");
+        karuteBg->setPosition(Vec2(charaX, charaY));
+        layerGroups[groupNum]->addChild(karuteBg);
+        karuteBg->setTag(i);
+        
+        // タッチしたら詳細を表示する処理
+        auto listener = EventListenerTouchOneByOne::create();
+        
+        // onTouchBeganイベントコールバック関数実装のラムダ式の例
+        listener->onTouchBegan = [=](Touch* touch, Event* event) {
+            log("タッチ開始");
+            this->detailTouchPoint = touch->getLocation();
+            
+            auto target = static_cast<Sprite*>(event->getCurrentTarget());
+            
+            // ボタンに対する相対的な位置を取得する。
+            Point locationInNode = target->convertToNodeSpace(touch->getLocation());
+            // コンテンツのサイズを取得する。
+            Size s = target->getContentSize();
+            // コンテンツ矩形を作成する。
+            Rect rect = Rect(0, 0, s.width, s.height);
+            
+            // クリックエリアをチェックする。
+            if (rect.containsPoint(locationInNode))
+            {
+                log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
+                return true;
+            }
+            return false;
+        };
+        
+        // タッチが移動した場合
+        listener->onTouchMoved = [=](Touch* touch, Event* event) {
+            log("タッチ move");
+            this->detailMoving = true;
+        };
+        
+        // タッチイベントが終了した場合
+        listener->onTouchEnded = [=](Touch* touch, Event* event) {
+            Point p = touch->getLocation();
+            
+            auto deltX = this->detailTouchPoint.x - abs(p.x);
+            log(this->detailTouchPoint.x);
+            log(p.x);
+            
+            if (deltX >= 20 && this->detailMoving) {
+                return;
+            }
+            
+            this->detailMoving = false;
+            
+            log("タッチ 終わり");
+            log(deltX);
+            auto target = static_cast<Sprite*>(event->getCurrentTarget());
+            int charaIdx = target->getTag();
+            auto targetChara = charas.at(charaIdx);
+            this->showDetail(targetChara);
+        };
+        
+        // イベントリスナーをスプライトに追加する。
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, karuteBg);
+        
+        // キャラクター
         auto chara = Chara::create(charaData);
         chara->setPosition(Vec2(charaX, charaY));
-
-        int groupNum = i / 4;
         layerGroups[groupNum]->addChild(chara);
-
-        // if (libraryManager->hasGotten(charaData.id.c_str())) {
-
+        charas.pushBack(chara);
+        
+        // キャラ名前
+        auto charaName = Label::createWithTTF(charaData.name, "fonts/Osaka.ttf", 15);
+        charaName->setColor(ccc3(0,0,0));
+        charaName->setPosition(Vec2(charaX, charaY+50));
+        layerGroups[groupNum]->addChild(charaName);
     }
-    
-    // add the label as a child to this layer
-    this->addChild(label, 1);
 
     // ホーム画面へ移動ボタン
     auto startHome = MenuItemImage::create(
@@ -141,10 +217,51 @@ bool LibraryScene::init()
     return true;
 }
 
+void LibraryScene::showDetail(Chara* chara)
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    // 詳細用モーダルオーバーレイ
+    auto dialogLayer = LayerColor::create(Color4B::BLACK);
+    dialogLayer->setOpacity(128);
+    dialogLayer->setContentSize(visibleSize);
+    
+    // 詳細用モーダルオーバーレイ
+    auto dialogBox = Sprite::create("karte_detail_bg.png");
+    dialogBox->setPosition(Point(visibleSize.width * 0.5, visibleSize.height * 0.5));
+    dialogLayer->addChild(dialogBox);
+    
+    // 画像
+    auto charaImg = Sprite::create(chara->getFileName());
+    charaImg->setPosition(Vec2(70, 340));
+    dialogLayer->addChild(charaImg);
+    
+    // 説明文
+    auto descLabel = Label::createWithSystemFont(chara->getDescription(), "fonts/Osaka.ttf", 15);
+    descLabel->setWidth(240);
+    descLabel->setColor(ccc3(0,0,0));
+    descLabel->setPosition(Point(visibleSize.width * 0.5, 150));
+    dialogLayer->addChild(descLabel);
+   
+    // タッチしたら詳細を非表示にする処理
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = [](Touch* touch, Event* event) {
+        auto target = static_cast<Sprite*>(event->getCurrentTarget());
+        target->removeFromParentAndCleanup(true);
+        return false;
+    };
+    
+    // イベントリスナーをスプライトに追加する。
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, dialogLayer);
+    
+    this->addChild(dialogLayer);
+}
 
 bool LibraryScene::onTouchBegan(Touch* touch, Event* event)
 {
-    log("touch start");
     touchPoint = touch->getLocation();
     this->dist = 0.0f;
 
@@ -154,12 +271,10 @@ bool LibraryScene::onTouchBegan(Touch* touch, Event* event)
 
 void LibraryScene::onTouchEnded(Touch* touch, Event* event)
 {
-    log("touch end");
     carouselCurrentPoint = this->carouselLayer->getPosition();
     Point endPoint = touch->getLocation();
     
     float flick = 35.0f;
-    log("dist %f", this->dist);
     if (this->dist >= flick) {
         next();
     } else if (this->dist <= -flick){
@@ -201,7 +316,6 @@ void LibraryScene::onTouchMoved(Touch* touch, Event* event)
 
 void LibraryScene::next()
 {
-    log("next!");
     this->current++;
     this->moving = true;
 
@@ -220,7 +334,7 @@ void LibraryScene::next()
         auto seq = Sequence::create(nextEase, cb, NULL);
         this->carouselLayer->runAction(seq);
         
-    // スライド可能
+    // スライド可overlayLaery能
     } else {
         MoveTo* next = MoveTo::create(0.5f, Point(this->current * -320, 106));
         auto nextEase = EaseInOut::create(next->clone(), 2);
@@ -235,11 +349,8 @@ void LibraryScene::next()
 
 void LibraryScene::prev()
 {
-    log("prev!");
     this->current--;
     this->moving = true;
-    log("%i", this->current);
-    
     
     // 左端
     if (this->current < 0) {

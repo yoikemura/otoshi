@@ -9,6 +9,7 @@
 #ifndef __MaruOtoshi__LibraryScene__
 #define __MaruOtoshi__LibraryScene__
 
+#include "chara.h"
 #include <stdio.h>
 #include "Chara.h"
 
@@ -23,11 +24,9 @@ public:
     void backToHome(cocos2d::Ref* pSender);
 
     //Popup用
-    void showDetail(Chara* chara);
     LayerColor* overlayLaery;
     Chara* distChara;
     void closePopup(Ref* pSender);
-    
     
     // carousel
     Layer *carouselLayer;
@@ -44,7 +43,13 @@ public:
     
     void next();
     void prev();
-
+    
+    
+    // 詳細表示用キャラ配列
+    Point detailTouchPoint;
+    Vector<Chara*> charas = Vector<Chara*>();
+    void showDetail(Chara* chara);
+    bool detailMoving = false;
     
     CREATE_FUNC(LibraryScene);
 };
