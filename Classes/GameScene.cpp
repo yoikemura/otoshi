@@ -84,16 +84,13 @@ bool GameScene::init()
     log("table top maxY: %i, table bottom minY: %i", tt, tb);
     
     // ホーム画面へ移動ボタン
-    auto btnToHome = MenuItemImage::create("back.png",
-                                           "back.png",
-                                           CC_CALLBACK_1(GameScene::btnToHomeCallback, this));
-    
-    btnToHome->setPosition(Vec2(visibleSize.width,
-                                origin.y + btnToHome->getContentSize().height/2));
-    
-    auto menu = Menu::create(btnToHome, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+    auto startHome = MenuItemImage::create(
+                                           "btn_back.png", "btn_back_on.png",
+                                           CC_CALLBACK_1(GameScene::backToHome, this));
+    Menu* pMenu = Menu::create(startHome, NULL);
+    pMenu->setPosition(visibleSize.width*0.1, visibleSize.height*0.95);
+    pMenu->alignItemsHorizontally();
+    this->addChild(pMenu);
 
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
@@ -491,7 +488,7 @@ void GameScene::incrementChara()
     this->swapZOrder();
 }
 
-void GameScene::btnToHomeCallback(Ref* pSender)
+void GameScene::backToHome(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic("bgm_game.mp3");
@@ -653,10 +650,18 @@ void GameScene::showGetRareGomabi(Chara* chara)
 */
 
     // キャラ画像
-    auto fileName = chara->getExplainFimeName();
-    Sprite* explainImage = Sprite::create(fileName);
-    explainImage->setPosition(Point(139.0, 235.0));
-    popup->addChild(explainImage);
+    auto fileName = chara->getFileName();
+    Sprite* charaImage = Sprite::create(fileName);
+    charaImage->setPosition(Point(139.0, 250.0));
+    popup->addChild(charaImage);
+    
+    //キャラ名
+    auto name = Label::createWithSystemFont(chara->getName(), "HiraKakuProN-W6", 24);
+    name->setWidth(260);
+    name->setColor(Color3B(0, 0, 0));
+    name->setPosition(Point(139.0, 200.0));
+    popup->addChild(name);
+
     
     // キャラ説明
     auto charaDesc = Label::createWithSystemFont(chara->getDescription(), "HiraKakuProN-W6", 12);
