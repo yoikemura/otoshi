@@ -8,6 +8,7 @@
 
 #include "LibraryScene.h"
 #include "LibraryManager.h"
+#include "SimpleAudioEngine.h"
 #include "HomeScene.h"
 #include "config.h"
 #include "chara.h"
@@ -203,7 +204,16 @@ bool LibraryScene::init()
         layerGroups[groupNum]->addChild(charaName);
     }
 
-
+    // ホーム画面へ移動ボタン
+    auto startHome = MenuItemImage::create(
+                                           "btn_back.png", "btn_back_on.png",
+                                           CC_CALLBACK_1(LibraryScene::backToHome, this));
+    
+    Menu* pMenu = Menu::create(startHome, NULL);
+    pMenu->setPosition(visibleSize.width*0.1, visibleSize.height*0.95);
+    pMenu->alignItemsHorizontally();
+    this->addChild(pMenu);
+    
     return true;
 }
 
@@ -366,8 +376,9 @@ void LibraryScene::prev()
     }
 }
 
-void LibraryScene::btnToHomeCallback(Ref* pSender)
+void LibraryScene::backToHome(Ref* pSender)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     Scene* scene = Home::createScene();
     Director::getInstance()->replaceScene(scene);
 }

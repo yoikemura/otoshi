@@ -1,6 +1,8 @@
 #include "AppDelegate.h"
 #include "HomeScene.h"
 #include "LibraryManager.h"
+#include "Story.hpp"
+
 
 USING_NS_CC;
 
@@ -62,11 +64,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto libraryManager = LibraryManager::getInstance();
     libraryManager->init();
 
-    // create a scene. it's an autorelease object
-    auto scene = Home::createScene();
+    // 初期のごまーびーがいればHomeに投げる。
+    if (!libraryManager->hasGotten("0001")) {
+        auto scene = Story::createScene();
+        director->runWithScene(scene);
+    }else{
+        auto scene = Home::createScene();
+        director->runWithScene(scene);
+        
+    }
+
 
     // run
-    director->runWithScene(scene);
 
     return true;
 }

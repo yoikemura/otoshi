@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 
+
 class Home : public cocos2d::Layer
 {
 public:
@@ -16,6 +17,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     void btnToGameCallback(cocos2d::Ref* pSender);
     void btnToLibraryCallback(cocos2d::Ref* pSender);
+    void startHelp(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
     CREATE_FUNC(Home);

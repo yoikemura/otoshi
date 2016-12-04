@@ -632,6 +632,7 @@ void GameScene::showGetRareGomabi(Chara* chara)
     pMenuTwitter->setPosition(Point(33.0, 30.0));
     popup->addChild(pMenuTwitter);
 
+/*
     // Facebookボタン
     auto pFacebookItem = MenuItemImage::create("popup_fb.png",
                                                "popup_fb.png",
@@ -644,9 +645,12 @@ void GameScene::showGetRareGomabi(Chara* chara)
     auto pLineItem = MenuItemImage::create("popup_line.png",
                                            "popup_line.png",
                                            CC_CALLBACK_1(GameScene::shareWithLine, this));
+ 
+    
     Menu* pMenuLine = Menu::create(pLineItem, NULL);
     pMenuLine->setPosition(Point(140.0, 30.0));
-    popup->addChild(pMenuLine);
+    popup->addChild(pMenuLine); 
+*/
 
     // キャラ画像
     auto fileName = chara->getExplainFimeName();
@@ -662,7 +666,12 @@ void GameScene::showGetRareGomabi(Chara* chara)
     popup->addChild(charaDesc);
 
     // コンプリートまでxx対
-    auto completeLabel = Label::createWithSystemFont("コンプリートまで後XX対", "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
+    char str[16];
+    auto charaId = chara->getId();
+    int charInt = std::stoi(charaId);
+    int restId = 10 - charInt;
+    sprintf(str,"コンプリートまで残り%d種類", restId);
+    auto completeLabel = Label::createWithSystemFont(str, "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
     completeLabel->setWidth(260);
     completeLabel->setColor(Color3B(0, 0, 0));
     completeLabel->setPosition(Point(139.0, 75.0));
