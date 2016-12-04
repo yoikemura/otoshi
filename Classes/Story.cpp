@@ -56,7 +56,7 @@ bool Story::init()
     
     //ITEM表示
     auto startHome = MenuItemImage::create(
-                                           "btn_home.png", "btn_home_on.png",
+                                           "btn_back.png", "btn_back_on.png",
                                            CC_CALLBACK_1(Story::backToHome, this));
     
     Menu* pMenu = Menu::create(startHome, NULL);
