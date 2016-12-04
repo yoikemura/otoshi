@@ -28,7 +28,7 @@ public:
     
     virtual bool init();
     
-    void btnToHomeCallback(cocos2d::Ref* pSender);
+    void backToHome(cocos2d::Ref* pSender);
 
     void update(float dt);
     void stopBg(); // stopだと親の関数とかぶる

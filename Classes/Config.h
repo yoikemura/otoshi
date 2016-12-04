@@ -62,7 +62,7 @@ static struct CHARA CHARA_DATA[] = {
         "メジェドさん",
         "chara_medjed.png",
         "popup_goma.png",
-        "彼はいわゆるエジプトの神様であり、博士の実験とはなんの関係もない。このゲームの製作者が開発した別のゲームの主人公でもあり宣伝のためにこの場に登場しているのだ。https://itunes.apple.com/tr/app/go!-go!-mejedoadobencha/id926799955",
+        "エジプトの神様。博士の実験とはなんの関係もない。このゲームの製作者が開発した別のゲームの主人公でもあり宣伝のためにこの場に登場しているのだ。https://itunes.apple.com/tr/app/go!-go!-mejedoadobencha/id926799955",
         12
     },
     {
