@@ -171,10 +171,11 @@ bool LibraryScene::init()
             Point p = touch->getLocation();
             
             auto deltX = this->detailTouchPoint.x - abs(p.x);
-            log(this->detailTouchPoint.x);
-            log(p.x);
+            log("%f",this->detailTouchPoint.x);
+            log("%f", p.x);
+            log("%f", abs(deltX));
             
-            if (deltX >= 20 && this->detailMoving) {
+            if (abs(deltX) >= 5 && this->detailMoving) {
                 return;
             }
             
@@ -249,6 +250,10 @@ void LibraryScene::showDetail(Chara* chara)
     listener->setSwallowTouches(true);
     
     listener->onTouchBegan = [](Touch* touch, Event* event) {
+        return true;
+    };
+    
+    listener->onTouchEnded = [](Touch* touch, Event* event) {
         auto target = static_cast<Sprite*>(event->getCurrentTarget());
         target->removeFromParentAndCleanup(true);
         return false;
