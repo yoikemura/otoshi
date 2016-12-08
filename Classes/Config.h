@@ -13,6 +13,9 @@ const int EVENT_LOGN      = 0;
 const int EVENT_INCREMENT = 1;
 const int EVENT_RARE      = 2;
 
+// ゲーム開始時のゴマビィの数
+const int GOMA_LIMIT      = 30;
+
 // Slotのデータ
 struct SLOT {
     int id;

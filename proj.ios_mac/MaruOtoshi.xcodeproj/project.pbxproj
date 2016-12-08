@@ -127,6 +127,7 @@
 		812D90A81BE5F7D900A1BDBE /* popup_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A21BE5F7D900A1BDBE /* popup_close.png */; };
 		812D90AA1BE5F7D900A1BDBE /* popup_goma.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A41BE5F7D900A1BDBE /* popup_goma.png */; };
 		812D90AC1BE5F7D900A1BDBE /* popup_tw.png in Resources */ = {isa = PBXBuildFile; fileRef = 812D90A61BE5F7D900A1BDBE /* popup_tw.png */; };
+		8135D27D1DF97C6300DB7816 /* karte_unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = 8135D27C1DF97C6300DB7816 /* karte_unknown.png */; };
 		81423FC81BE61A6E00261789 /* NativeLauncher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 81423FC71BE61A6E00261789 /* NativeLauncher.mm */; };
 		81423FCB1BE6219600261789 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81423FCA1BE6219600261789 /* Social.framework */; };
 		814F20B31DF3F8B000152F28 /* img_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 814F20B01DF3F8B000152F28 /* img_logo.png */; };
@@ -302,6 +303,7 @@
 		812D90A21BE5F7D900A1BDBE /* popup_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_close.png; sourceTree = "<group>"; };
 		812D90A41BE5F7D900A1BDBE /* popup_goma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_goma.png; sourceTree = "<group>"; };
 		812D90A61BE5F7D900A1BDBE /* popup_tw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_tw.png; sourceTree = "<group>"; };
+		8135D27C1DF97C6300DB7816 /* karte_unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_unknown.png; sourceTree = "<group>"; };
 		81423FC71BE61A6E00261789 /* NativeLauncher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeLauncher.mm; sourceTree = "<group>"; };
 		81423FC91BE61AA200261789 /* NativeLauncher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeLauncher.h; sourceTree = "<group>"; };
 		81423FCA1BE6219600261789 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/Social.framework; sourceTree = DEVELOPER_DIR; };
@@ -665,6 +667,7 @@
 			children = (
 				815461F51DF3C8AE00E1B21B /* karte_allow_right.png */,
 				815462001DF3DCEA00E1B21B /* karte_detail_bg.png */,
+				8135D27C1DF97C6300DB7816 /* karte_unknown.png */,
 				815461F61DF3C8AE00E1B21B /* karte_bg.png */,
 				815461F81DF3C8AE00E1B21B /* karte_allow_left.png */,
 				815461F71DF3C8AE00E1B21B /* karte_title.png */,
@@ -819,6 +822,7 @@
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				815F6A2F1B9ABA97008FE936 /* goma_home.png in Resources */,
 				02DAEF591BA9ADE800C444C3 /* plus1_green.png in Resources */,
+				8135D27D1DF97C6300DB7816 /* karte_unknown.png in Resources */,
 				0207085D1B9ADC5B009E53E3 /* slot_fuck.png in Resources */,
 				810FB3801B9C21250056690B /* slot_increment.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,

@@ -43,6 +43,9 @@ bool GameScene::init()
     
     log("start game!");
     
+    // 利用可能ゴマビィの設定
+    this->usableGomaCount = GOMA_LIMIT;
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
@@ -351,7 +354,7 @@ void GameScene::removeCharas()
         if (y <= -30) {
             itr = charas.erase(itr);
             this->removeChild(chara);
-            this->popPlus1(chara->getBoundingBox().getMidX());
+            // this->popPlus1(chara->getBoundingBox().getMidX());
         } else {
             itr++;
         }
@@ -373,7 +376,6 @@ void GameScene::dropCharas()
             if (tableY > charaY) {
                 chara->isDropping = true;
                 chara->drop();
-                this->updateCharaCount();
             }
         }
     }
@@ -393,7 +395,20 @@ void GameScene::detectUfoCollision()
                 log("ufoに衝突!");
                 auto cb = CallFunc::create([this, chara](){
                     Rect ufoRect = this->ufo->getBoundingBox();
-                    this->popGet(ufoRect.getMidX(), ufoRect.getMidY());
+                    const char* charaId = chara->getId().c_str();
+                    auto libraryManager = LibraryManager::getInstance();
+                    if (libraryManager->hasGotten(charaId)) {
+                        // 取得済の場合は+1
+                        this->popPlus1(ufoRect.getMidX(), ufoRect.getMidY());
+                    } else {
+                        // 未取得の場合はGet!
+                        this->popGet(ufoRect.getMidX(), ufoRect.getMidY());
+                    }
+                    
+                    // フィーバー用のバーを伸ばす
+                    this->updateCharaCount();
+                    
+                    // キャラを消す
                     chara->removeFromParent();
                 });
                 this->ufo->abductChara(chara, cb);
@@ -418,6 +433,10 @@ void GameScene::moveCharas(int dst)
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    if (this->usableGomaCount <= 0) {
+        return true;
+    }
+    
     log("touch!!");
     //クリック音
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
@@ -434,6 +453,10 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     charas.insert(0, chara);
     this->addChild(chara);
     this->swapZOrder();
+    
+    this->usableGomaCount--;
+    log("残りの利用可能キャラ数: %d", this->usableGomaCount);
+    
     return true;
 }
 
@@ -516,11 +539,11 @@ int GameScene::getScore()
     return currentScore;
 }
 
-void GameScene::popPlus1(int x)
+void GameScene::popPlus1(int x, int y)
 {
     int idx = arc4random() % 3 + 1;
     auto plus1 = Sprite::create(PLUS1_IMAGE[idx]);
-    plus1->setPosition(x, -5);
+    plus1->setPosition(x, y);
     this->addChild(plus1);
     MoveTo* move =  MoveTo::create(0.3f, Vec2(x, 35));
     auto remove = RemoveSelf::create(true);
@@ -545,9 +568,13 @@ void GameScene::getChara(Chara* chara)
     const char* charaId = chara->getId().c_str();
     if (!libraryManager->hasGotten(charaId)) {
         libraryManager->save(charaId);
-        // キャラクター取得のポップアップ
+        // 取得していない場合キャラクター取得のポップアップを表示
         this->showGetRareGomabi(chara);
     }
+    
+    // 利用可能キャラ数を増やす
+    this->usableGomaCount++;
+    log("残りの利用可能キャラ数: %d", this->usableGomaCount);
 }
 
 void GameScene::updateCharaCount()

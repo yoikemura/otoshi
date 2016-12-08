@@ -49,7 +49,7 @@ public:
     void dropCharas();
     void detectUfoCollision();
     void incrementChara();
-    void popPlus1(int x);
+    void popPlus1(int x, int y);
     void popGet(int x, int y);
     void getChara(Chara* chara);
     void sortCharaWithYPosition();
@@ -61,6 +61,9 @@ public:
     void shareWithFacebook(Ref* pSender);
     void shareWithLine(Ref* pSender);
     Chara* currentGetChara;
+    
+    // 上限管理
+    int usableGomaCount;
 
     // 進捗管理
     bool playing = true;

@@ -75,7 +75,6 @@ bool LibraryScene::init()
     titleImg->setPosition(Vec2(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - titleImg->getContentSize().height));
     this->addChild(titleImg);
-    
 
     auto libraryManager = LibraryManager::getInstance();
 
@@ -134,6 +133,7 @@ bool LibraryScene::init()
         layerGroups[groupNum]->addChild(karuteBg);
         karuteBg->setTag(i);
         
+        
         // タッチしたら詳細を表示する処理
         auto listener = EventListenerTouchOneByOne::create();
         
@@ -171,9 +171,6 @@ bool LibraryScene::init()
             Point p = touch->getLocation();
             
             auto deltX = this->detailTouchPoint.x - abs(p.x);
-            log("%f",this->detailTouchPoint.x);
-            log("%f", p.x);
-            log("%f", abs(deltX));
             
             if (abs(deltX) >= 5 && this->detailMoving) {
                 return;
@@ -181,12 +178,19 @@ bool LibraryScene::init()
             
             this->detailMoving = false;
             
-            log("タッチ 終わり");
-            log(deltX);
             auto target = static_cast<Sprite*>(event->getCurrentTarget());
             int charaIdx = target->getTag();
             auto targetChara = charas.at(charaIdx);
-            this->showDetail(targetChara);
+            
+            const char* charaId = targetChara->getId().c_str();
+            if (libraryManager->hasGotten(charaId)) {
+                // キャラを取得していたら詳細表示
+                this->showDetail(targetChara);
+            } else {
+                // キャラを取得していなければ何もしない
+                return;
+            }
+            
         };
         
         // イベントリスナーをスプライトに追加する。
@@ -194,15 +198,34 @@ bool LibraryScene::init()
         
         // キャラクター
         auto chara = Chara::create(charaData);
-        chara->setPosition(Vec2(charaX, charaY - 10));
-        layerGroups[groupNum]->addChild(chara);
+        // ポップアップデータの参照用
         charas.pushBack(chara);
         
-        // キャラ名前
-        auto charaName = Label::createWithTTF(charaData.name, "fonts/Osaka.ttf", 15);
-        charaName->setColor(ccc3(0,0,0));
-        charaName->setPosition(Vec2(charaX, charaY+50));
-        layerGroups[groupNum]->addChild(charaName);
+        // キャラを取得していた場合と取得してない場合で大きく処理がわかれる
+        const char* charaId = chara->getId().c_str();
+        if (libraryManager->hasGotten(charaId)) {
+            // キャラ自身の配置
+            chara->setPosition(Vec2(charaX, charaY - 10));
+            layerGroups[groupNum]->addChild(chara);
+            
+            // キャラ名前
+            auto charaName = Label::createWithTTF(charaData.name, "fonts/Osaka.ttf", 15);
+            charaName->setColor(ccc3(0,0,0));
+            charaName->setPosition(Vec2(charaX, charaY+50));
+            layerGroups[groupNum]->addChild(charaName);
+        } else {
+            //
+            auto unkownGoma = Sprite::create("karte_unknown.png");
+            unkownGoma->setPosition(Vec2(charaX, charaY-11));
+            layerGroups[groupNum]->addChild(unkownGoma);
+            
+            // キャラ名前
+            auto charaName = Label::createWithTTF("？？？", "fonts/Osaka.ttf", 15);
+            charaName->setColor(ccc3(0,0,0));
+            charaName->setPosition(Vec2(charaX, charaY+50));
+            layerGroups[groupNum]->addChild(charaName);
+        }
+        
     }
 
     // ホーム画面へ移動ボタン
