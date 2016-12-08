@@ -16,6 +16,9 @@
 #include "LibraryManager.h"
 #include "NativeLauncher.h"
 
+#define call_after(callback, delay) \
+runAction(Sequence::create(DelayTime::create(delay), CallFunc::create(callback), NULL))
+
 USING_NS_CC;
 
 Scene* GameScene::createScene()
@@ -609,9 +612,9 @@ void GameScene::updateCharaCount()
             log("スロット終わり eventId:%i", eventId);
             this->eventQueue.push_back(eventId);
             this->slot->isRotating = false;
-            this->runAction(Sequence::create(DelayTime::create(1.5),CallFunc::create([this](){
+            call_after([this](){
                 this->slot->setVisible(false);
-            }), NULL);
+            }, 1.5);
         });
         
         this->slot->setVisible(true);
