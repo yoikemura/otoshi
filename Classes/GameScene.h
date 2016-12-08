@@ -64,6 +64,9 @@ public:
     
     // 上限管理
     int usableGomaCount;
+    void showGameOver();
+    Label* scoreLabel;
+    
 
     // 進捗管理
     bool playing = true;

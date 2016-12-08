@@ -14,7 +14,7 @@ const int EVENT_INCREMENT = 1;
 const int EVENT_RARE      = 2;
 
 // ゲーム開始時のゴマビィの数
-const int GOMA_LIMIT      = 30;
+const int GOMA_LIMIT      = 70;
 
 // Slotのデータ
 struct SLOT {
@@ -190,7 +190,7 @@ static const char* PLUS1_IMAGE[] = {
 const int FEVER_NUM = 20;
 
 // レベルデザイン
-const float RARE_PROBABILITY_RATE = 0.05;
+const float RARE_PROBABILITY_RATE = 0.10;
 
 
 #endif

@@ -89,8 +89,8 @@ bool GameScene::init()
     // スコアを記述する。
     int score = getScore();
     std::string score_str = std::to_string(score);
-    auto scoreLabel = Label::createWithSystemFont(score_str, "HiraKakuProN-W6", 24);
-    scoreLabel->setPosition(visibleSize.width*0.1, visibleSize.height*0.90);
+    this->scoreLabel = Label::createWithSystemFont(score_str, "HiraKakuProN-W6", 24);
+    this->scoreLabel->setPosition(visibleSize.width*0.3, visibleSize.height*0.95);
     this->addChild(scoreLabel);
     
     // ホーム画面へ移動ボタン
@@ -129,6 +129,7 @@ bool GameScene::init()
     
     this->slot = Slot::create();
     this->slot->setPosition(Vec2(visibleSize.width*0.5, 384));
+    this->slot->setVisible(false);
     
     this->ufo = Ufo::create();
     ufo->setPosition(Vec2(0, ufo->getBoundingBox().size.height));
@@ -160,8 +161,15 @@ void GameScene::stopBg()
 
 void GameScene::update(float dt)
 {
+    std::string score_str = std::to_string(this->usableGomaCount);
+    this->scoreLabel->setString(score_str);
+    
     // ポップアップが出ている場合など
     if (!this->playing) { return; };
+    
+    if (this->usableGomaCount == 0) {
+        showGameOver();
+    }
     
     // イベントキューに値があればイベントスタート
     // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
@@ -601,8 +609,12 @@ void GameScene::updateCharaCount()
             log("スロット終わり eventId:%i", eventId);
             this->eventQueue.push_back(eventId);
             this->slot->isRotating = false;
+            this->runAction(Sequence::create(DelayTime::create(1.5),CallFunc::create([this](){
+                this->slot->setVisible(false);
+            }), NULL);
         });
         
+        this->slot->setVisible(true);
         this->slot->rotate(cb);
     }
 }
@@ -724,7 +736,7 @@ void GameScene::showGetRareGomabi(Chara* chara)
 
 
 //GAMEOVERになったら出るポップアップ
-void GameScene::showGameOver(Chara* chara)
+void GameScene::showGameOver()
 {
     // ゲームシーンを止める
     this->stopBg();
