@@ -44,6 +44,7 @@ public:
     std::string getId();
     const char* getFileName();
     const char* getDescription();
+    const int getRarity();
 };
 
 #endif

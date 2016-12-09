@@ -84,7 +84,7 @@ public:
     ProgressBar* progressBar;
 
     // キャラID取得関数
-    int getCharaIdx();
+    std::string getCharaId();
 
     // イベント周り
     std::vector<int> eventQueue;

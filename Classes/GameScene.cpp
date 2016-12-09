@@ -19,6 +19,16 @@
 #define call_after(callback, delay) \
 runAction(Sequence::create(DelayTime::create(delay), CallFunc::create(callback), NULL))
 
+template
+<
+    typename TYPE,
+    int SIZE
+>
+int arrayLength(const TYPE (&)[SIZE])
+{
+    return SIZE;
+}
+
 USING_NS_CC;
 
 Scene* GameScene::createScene()
@@ -463,9 +473,16 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     Point touchPoint = Vec2(touch->getLocationInView().x, touch->getLocationInView().y);
     Rect tableRect = tableTop->getBoundingBox();
     int tableMidY = tableRect.getMidY();
-    int charaId = this->getCharaIdx();
-    log("chara %s", CHARA_DATA[charaId].name);
-    auto chara = Chara::create(CHARA_DATA[charaId]);
+    std::string charaId = this->getCharaId();
+    CHARA charaTmp;
+    int charaCount = arrayLength(CHARA_DATA);
+    for (int i = 0; i < charaCount; i++) {
+        if (CHARA_DATA[i].id == charaId) {
+            charaTmp = CHARA_DATA[i];
+            break;
+        }
+    }
+    auto chara = Chara::create(charaTmp);
     chara->show(Vec2(touchPoint.x, tableMidY + 50));
     // 先頭に追加
     charas.insert(0, chara);
@@ -517,9 +534,17 @@ void GameScene::incrementChara()
     int tableMidY = tableRect.getMidY();
     
     for (int i = 0; i < 10; i++) {
-        int charaId = this->getCharaIdx();
+        std::string charaId = this->getCharaId();
+        CHARA charaTmp;
+        int charaCount = arrayLength(CHARA_DATA);
+        for (int i = 0; i < charaCount; i++) {
+            if (CHARA_DATA[i].id == charaId) {
+                charaTmp = CHARA_DATA[i];
+                break;
+            }
+        }
+        auto chara = Chara::create(charaTmp);
         int randX = arc4random() % width;
-        auto chara = Chara::create(CHARA_DATA[charaId]);
         chara->show(Vec2(randX, tableMidY + 50));
         // 先頭に追加
         this->charas.insert(0, chara);
@@ -597,7 +622,7 @@ void GameScene::getChara(Chara* chara)
 
 void GameScene::updateCharaCount()
 {
-    this->score -= 1;
+    this->score -= 4;
     
     // 進捗
     float feverRate = ((float)(FEVER_NUM - this->score)) / (float)(FEVER_NUM);
@@ -622,20 +647,33 @@ void GameScene::updateCharaCount()
     }
 }
 
-int GameScene::getCharaIdx()
+std::string GameScene::getCharaId()
 {
-    // TODO: レベル設計
-    float r = this->generateRandom(0, 1);
+    int selectRate = 0;
     
-    int idx;
-    // レア出現率
-    if (r < RARE_PROBABILITY_RATE) {
-        idx = arc4random() % 12 + 1;
-    } else {
-        idx = 0;
+    int charaCount = arrayLength(CHARA_DATA);
+    for (int i = 0; i < charaCount; i++) {
+        CHARA chara = CHARA_DATA[i];
+        selectRate += chara.rarity;
     }
     
-    return idx;
+    // 出現率上限
+    float r = this->generateRandom(0, selectRate);
+    
+    int sumRate = 0;
+    std::string charaId;
+    log("確率 %f , %d", r, selectRate);
+    for (int i = 0; i < charaCount; i++) {
+        CHARA chara = CHARA_DATA[i];
+        sumRate += chara.rarity;
+        charaId  = chara.id;
+        
+        if (r < sumRate) {
+            break;
+        }
+    }
+    
+    return charaId;
 }
 
 float GameScene::generateRandom(float min, float max)

@@ -57,6 +57,11 @@ std::string Chara::getId()
     return charaData.id;
 }
 
+const int Chara::getRarity()
+{
+    return charaData.rarity;
+}
+
 void Chara::update(float dt)
 {
 }
