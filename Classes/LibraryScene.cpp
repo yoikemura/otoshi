@@ -303,11 +303,18 @@ void LibraryScene::showDetail(Chara* chara)
     charaImg->setPosition(Vec2(70, 340));
     dialogLayer->addChild(charaImg);
     
+    // 名前
+    auto nameLabel = Label::createWithSystemFont(chara->getName(), "fonts/Osaka.ttf", 20);
+    nameLabel->setColor(Color3B(0,0,0));
+    nameLabel->setPosition(Point(visibleSize.width * 0.5, 403));
+    dialogLayer->addChild(nameLabel);
+    
     // 説明文
     auto descLabel = Label::createWithSystemFont(chara->getDescription(), "fonts/Osaka.ttf", 15);
     descLabel->setWidth(240);
     descLabel->setColor(Color3B(0,0,0));
-    descLabel->setPosition(Point(visibleSize.width * 0.5, 150));
+    descLabel->setPosition(Point(visibleSize.width * 0.5, 210));
+    descLabel->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
     dialogLayer->addChild(descLabel);
    
     // タッチしたら詳細を非表示にする処理

@@ -702,15 +702,15 @@ void GameScene::showGetRareGomabi(Chara* chara)
     pMenuTwitter->setPosition(Point(33.0, 30.0));
     popup->addChild(pMenuTwitter);
     
+    // Facebookボタン
+    auto pFacebookItem = MenuItemImage::create("popup_fb.png",
+                                               "popup_fb.png",
+                                               CC_CALLBACK_1(GameScene::shareWithFacebook, this));
+    Menu* pMenuFacebook = Menu::create(pFacebookItem, NULL);
+    pMenuFacebook->setPosition(Point(86.0, 30.0));
+    popup->addChild(pMenuFacebook);
+    
     /*
-     // Facebookボタン
-     auto pFacebookItem = MenuItemImage::create("popup_fb.png",
-     "popup_fb.png",
-     CC_CALLBACK_1(GameScene::shareWithFacebook, this));
-     Menu* pMenuFacebook = Menu::create(pFacebookItem, NULL);
-     pMenuFacebook->setPosition(Point(86.0, 30.0));
-     popup->addChild(pMenuFacebook);
-     
      // Lineボタン
      auto pLineItem = MenuItemImage::create("popup_line.png",
      "popup_line.png",
@@ -810,6 +810,8 @@ void GameScene::shareWithTwitter(Ref* pSender)
 
 void GameScene::shareWithFacebook(Ref* pSender)
 {
+    char tweet[500];
+    NativeLauncher::openFacebookDialog(tweet, this->currentGetChara->getFileName());
 }
 
 void GameScene::shareWithLine(Ref* pSender)
