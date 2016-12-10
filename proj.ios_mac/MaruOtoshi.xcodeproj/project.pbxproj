@@ -133,6 +133,7 @@
 		81AAB32A1DFC7B920038B84F /* Tutorial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81AAB3281DFC7B920038B84F /* Tutorial.cpp */; };
 		81AAB32C1DFC812A0038B84F /* popup_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 81AAB32B1DFC812A0038B84F /* popup_fb.png */; };
 		81AAB32E1DFC847D0038B84F /* popup_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 81AAB32D1DFC847D0038B84F /* popup_line.png */; };
+		81AAB3311DFC909D0038B84F /* MyAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AAB3301DFC909D0038B84F /* MyAlertView.m */; };
 		81D4F33D1B9B0F7300CBE49C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D4F33C1B9B0F7300CBE49C /* bg.png */; };
 		81D4F33F1B9B119D00CBE49C /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D4F33E1B9B119D00CBE49C /* logo.png */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
@@ -309,6 +310,8 @@
 		81AAB3291DFC7B920038B84F /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
 		81AAB32B1DFC812A0038B84F /* popup_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_fb.png; sourceTree = "<group>"; };
 		81AAB32D1DFC847D0038B84F /* popup_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_line.png; sourceTree = "<group>"; };
+		81AAB32F1DFC90810038B84F /* MyAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAlertView.h; sourceTree = "<group>"; };
+		81AAB3301DFC909D0038B84F /* MyAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAlertView.m; sourceTree = "<group>"; };
 		81D4F33C1B9B0F7300CBE49C /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		81D4F33E1B9B119D00CBE49C /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -548,10 +551,12 @@
 				46880B8619C43A87006E1F66 /* HomeScene.cpp */,
 				46880B8719C43A87006E1F66 /* HomeScene.h */,
 				815F6A351B9ACD4F008FE936 /* Config.h */,
-				815F6A201B9AA6B1008FE936 /* GameScene.cpp */,
+				81AAB32F1DFC90810038B84F /* MyAlertView.h */,
+				81AAB3301DFC909D0038B84F /* MyAlertView.m */,
 				81423FC71BE61A6E00261789 /* NativeLauncher.mm */,
 				81423FC91BE61AA200261789 /* NativeLauncher.h */,
 				815F6A211B9AA6B1008FE936 /* GameScene.h */,
+				815F6A201B9AA6B1008FE936 /* GameScene.cpp */,
 				817647891BAB7E1100EAFF03 /* ProgressBar.cpp */,
 				8176478A1BAB7E1100EAFF03 /* ProgressBar.h */,
 				815F6A361B9ACF70008FE936 /* Chara.cpp */,
@@ -845,6 +850,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				020708641B9AE260009E53E3 /* Ufo.cpp in Sources */,
+				81AAB3311DFC909D0038B84F /* MyAlertView.m in Sources */,
 				815F6A381B9ACF70008FE936 /* Chara.cpp in Sources */,
 				8176478B1BAB7E1100EAFF03 /* ProgressBar.cpp in Sources */,
 				815F6A251B9AA6D1008FE936 /* LibraryScene.cpp in Sources */,

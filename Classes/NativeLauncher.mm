@@ -9,6 +9,7 @@
 #import "NativeLauncher.h"
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
+#import "MyAlertView.h"
 void NativeLauncher::openTweetDialog(const char *$tweet, const char *$image){
     
     NSString *setText = [NSString stringWithUTF8String:$tweet];
@@ -71,23 +72,42 @@ void NativeLauncher::openFacebookDialog(const char *$tweet, const char *$image){
 void NativeLauncher::shareWithLine(const char *$image) {
     UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png" , $image]];
     
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    UIPasteboard *pasteboard;
+    
+    //iOS7.0以降では共有のクリップボードしか使えない。その際クリップボードが上書きされてしまうので注意。
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) {
+        pasteboard = [UIPasteboard generalPasteboard];
+    } else {
+        pasteboard = [UIPasteboard pasteboardWithUniqueName];
+    }
     
     [pasteboard setData:UIImagePNGRepresentation(image)
       forPasteboardType:@"public.png"];
-    printf("ここまでおｋ");
     
     NSString *LINEUrlString = [NSString stringWithFormat:@"line://msg/image/%@", pasteboard.name];
+    
     
     if ([[UIApplication sharedApplication]
          canOpenURL:[NSURL URLWithString:LINEUrlString]]) {
         [[UIApplication sharedApplication]
          openURL:[NSURL URLWithString:LINEUrlString]];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"LINEがインストールされていません"
-                              ];
-        [alert show];
+        [MyAlertView alertWithTitle:@"LINEがインストールされていません"
+                            message:@"AppStoreを開いてLINEをインストールします。"
+                  cancelButtonTitle:@"いいえ"
+                       clickedBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                            switch (buttonIndex) {
+                                case 0://いいえのとき
+                                    break;
+                                case 1://はいのとき
+                                    [[UIApplication sharedApplication]
+                                     openURL:[NSURL
+                                              URLWithString:@"https://itunes.apple.com/jp/app/line/id443904275?mt=8"]];
+                                    break;
+                            }
+                       } cancelBlock:^(UIAlertView *alertView) {
+                           // do something on cancel button
+                       } otherButtonTitles:@"はい", nil];
     }
 }
 

@@ -38,7 +38,7 @@
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>line://</string>
+		<string>line</string>
 	</array>
 </dict>
 </plist>
