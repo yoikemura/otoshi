@@ -710,17 +710,15 @@ void GameScene::showGetRareGomabi(Chara* chara)
     pMenuFacebook->setPosition(Point(86.0, 30.0));
     popup->addChild(pMenuFacebook);
     
-    /*
-     // Lineボタン
-     auto pLineItem = MenuItemImage::create("popup_line.png",
-     "popup_line.png",
-     CC_CALLBACK_1(GameScene::shareWithLine, this));
-     
-     
-     Menu* pMenuLine = Menu::create(pLineItem, NULL);
-     pMenuLine->setPosition(Point(140.0, 30.0));
-     popup->addChild(pMenuLine);
-     */
+    // Lineボタン
+    auto pLineItem = MenuItemImage::create("popup_line.png",
+                                           "popup_line.png",
+                                           CC_CALLBACK_1(GameScene::shareWithLine, this));
+    
+    
+    Menu* pMenuLine = Menu::create(pLineItem, NULL);
+    pMenuLine->setPosition(Point(140.0, 30.0));
+    popup->addChild(pMenuLine);
     
     // キャラ画像
     auto fileName = chara->getFileName();
@@ -816,5 +814,6 @@ void GameScene::shareWithFacebook(Ref* pSender)
 
 void GameScene::shareWithLine(Ref* pSender)
 {
+    NativeLauncher::shareWithLine(this->currentGetChara->getFileName());
 }
 

@@ -12,6 +12,7 @@ class NativeLauncher{
 public:
     static void openTweetDialog(const char* $tweet, const char* $image);
     static void openFacebookDialog(const char* $tweet, const char* $image);
+    static void shareWithLine(const char* $image);
 };
 
 #endif /* NativeLauncher_h */

@@ -66,3 +66,28 @@ void NativeLauncher::openFacebookDialog(const char *$tweet, const char *$image){
     
     [myViewController presentViewController:composeController animated:YES completion:nil];
 }
+
+//画像を投稿
+void NativeLauncher::shareWithLine(const char *$image) {
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png" , $image]];
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    
+    [pasteboard setData:UIImagePNGRepresentation(image)
+      forPasteboardType:@"public.png"];
+    printf("ここまでおｋ");
+    
+    NSString *LINEUrlString = [NSString stringWithFormat:@"line://msg/image/%@", pasteboard.name];
+    
+    if ([[UIApplication sharedApplication]
+         canOpenURL:[NSURL URLWithString:LINEUrlString]]) {
+        [[UIApplication sharedApplication]
+         openURL:[NSURL URLWithString:LINEUrlString]];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"LINEがインストールされていません"
+                              ];
+        [alert show];
+    }
+}
+

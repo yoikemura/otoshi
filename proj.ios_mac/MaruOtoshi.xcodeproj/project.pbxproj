@@ -132,6 +132,7 @@
 		819A051F1BA33E8E0059143A /* LibraryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819A051D1BA33E8E0059143A /* LibraryManager.cpp */; };
 		81AAB32A1DFC7B920038B84F /* Tutorial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81AAB3281DFC7B920038B84F /* Tutorial.cpp */; };
 		81AAB32C1DFC812A0038B84F /* popup_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 81AAB32B1DFC812A0038B84F /* popup_fb.png */; };
+		81AAB32E1DFC847D0038B84F /* popup_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 81AAB32D1DFC847D0038B84F /* popup_line.png */; };
 		81D4F33D1B9B0F7300CBE49C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D4F33C1B9B0F7300CBE49C /* bg.png */; };
 		81D4F33F1B9B119D00CBE49C /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D4F33E1B9B119D00CBE49C /* logo.png */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
@@ -307,6 +308,7 @@
 		81AAB3281DFC7B920038B84F /* Tutorial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tutorial.cpp; sourceTree = "<group>"; };
 		81AAB3291DFC7B920038B84F /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
 		81AAB32B1DFC812A0038B84F /* popup_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_fb.png; sourceTree = "<group>"; };
+		81AAB32D1DFC847D0038B84F /* popup_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_line.png; sourceTree = "<group>"; };
 		81D4F33C1B9B0F7300CBE49C /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		81D4F33E1B9B119D00CBE49C /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -509,6 +511,7 @@
 				812D90A21BE5F7D900A1BDBE /* popup_close.png */,
 				812D90A61BE5F7D900A1BDBE /* popup_tw.png */,
 				81AAB32B1DFC812A0038B84F /* popup_fb.png */,
+				81AAB32D1DFC847D0038B84F /* popup_line.png */,
 				8176478C1BAB7F5000EAFF03 /* progress_bar.png */,
 				02DAEF461BA9ADE800C444C3 /* get.png */,
 				02DAEF471BA9ADE800C444C3 /* plus1_yellow.png */,
@@ -808,6 +811,7 @@
 				02DAEF511BA9ADE800C444C3 /* goma_big.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				02DAEF501BA9ADE800C444C3 /* orengekappa.png in Resources */,
+				81AAB32E1DFC847D0038B84F /* popup_line.png in Resources */,
 				027514A21DF3D8CD0050FBC1 /* btn_help_on.png in Resources */,
 				814F20B41DF3F8B000152F28 /* btn_start.png in Resources */,
 				812D90A81BE5F7D900A1BDBE /* popup_close.png in Resources */,
