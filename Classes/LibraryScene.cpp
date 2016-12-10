@@ -71,18 +71,16 @@ bool LibraryScene::init()
     
     // タイトル画像
     auto titleImg = Sprite::create("karte_title.png");
-    // position the label on the center of the screen
     titleImg->setPosition(Vec2(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - titleImg->getContentSize().height));
     this->addChild(titleImg);
-
+    
     auto libraryManager = LibraryManager::getInstance();
 
     int layerX = 0;
     int charaX = 0;
     int charaY = 0;
 
-    // TODO: 雑過ぎリファクタ
     // carousel layer
     this->carouselLayer = LayerColor::create();
     carouselLayer->setPosition(Vec2(0, 106));
@@ -133,13 +131,10 @@ bool LibraryScene::init()
         layerGroups[groupNum]->addChild(karuteBg);
         karuteBg->setTag(i);
         
-        
         // タッチしたら詳細を表示する処理
         auto listener = EventListenerTouchOneByOne::create();
         
-        // onTouchBeganイベントコールバック関数実装のラムダ式の例
         listener->onTouchBegan = [=](Touch* touch, Event* event) {
-            log("タッチ開始");
             this->detailTouchPoint = touch->getLocation();
             
             auto target = static_cast<Sprite*>(event->getCurrentTarget());
@@ -154,7 +149,6 @@ bool LibraryScene::init()
             // クリックエリアをチェックする。
             if (rect.containsPoint(locationInNode))
             {
-                log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
                 return true;
             }
             return false;
@@ -162,7 +156,6 @@ bool LibraryScene::init()
         
         // タッチが移動した場合
         listener->onTouchMoved = [=](Touch* touch, Event* event) {
-            log("タッチ move");
             this->detailMoving = true;
         };
         
@@ -170,9 +163,9 @@ bool LibraryScene::init()
         listener->onTouchEnded = [=](Touch* touch, Event* event) {
             Point p = touch->getLocation();
             
-            auto deltX = this->detailTouchPoint.x - abs(p.x);
+            auto deltX = this->detailTouchPoint.x - std::abs(p.x);
             
-            if (abs(deltX) >= 5 && this->detailMoving) {
+            if (std::abs(deltX) >= 5 && this->detailMoving) {
                 return;
             }
             
@@ -201,7 +194,6 @@ bool LibraryScene::init()
         // ポップアップデータの参照用
         charas.pushBack(chara);
         
-        // キャラを取得していた場合と取得してない場合で大きく処理がわかれる
         const char* charaId = chara->getId().c_str();
         if (libraryManager->hasGotten(charaId)) {
             // キャラ自身の配置
@@ -209,9 +201,10 @@ bool LibraryScene::init()
             layerGroups[groupNum]->addChild(chara);
             
             // キャラ名前
-            auto charaName = Label::createWithTTF(charaData.name, "fonts/Osaka.ttf", 15);
-            charaName->setColor(ccc3(0,0,0));
+            int fontSize = (strlen(charaData.name) > 22) ? 10 : 15;
+            auto charaName = Label::createWithTTF(charaData.name, "fonts/Osaka.ttf", fontSize);
             charaName->setPosition(Vec2(charaX, charaY+50));
+            charaName->setColor(Color3B(0,0,0));
             layerGroups[groupNum]->addChild(charaName);
         } else {
             //
@@ -221,7 +214,7 @@ bool LibraryScene::init()
             
             // キャラ名前
             auto charaName = Label::createWithTTF("？？？", "fonts/Osaka.ttf", 15);
-            charaName->setColor(ccc3(0,0,0));
+            charaName->setColor(Color3B(0,0,0));
             charaName->setPosition(Vec2(charaX, charaY+50));
             layerGroups[groupNum]->addChild(charaName);
         }
@@ -237,6 +230,55 @@ bool LibraryScene::init()
     pMenu->setPosition(visibleSize.width*0.1, visibleSize.height*0.95);
     pMenu->alignItemsHorizontally();
     this->addChild(pMenu);
+    
+    // 左右ボタン
+    arrowRight = Sprite::create("karte_allow_right.png");
+    arrowRight->setPosition(Vec2(300, 235));
+    this->addChild(arrowRight);
+    
+    auto listenerR = EventListenerTouchOneByOne::create();
+    listenerR->setSwallowTouches(true);
+    listenerR->onTouchBegan = [=](Touch* touch, Event* event) {
+        this->detailTouchPoint = touch->getLocation();
+        auto target = static_cast<Sprite*>(event->getCurrentTarget());
+        Point locationInNode = target->convertToNodeSpace(touch->getLocation());
+        Size s = target->getContentSize();
+        Rect rect = Rect(0, 0, s.width, s.height);
+        if (rect.containsPoint(locationInNode)) {
+            return true;
+        }
+        return false;
+    };
+    listenerR->onTouchEnded = [=](Touch* touch, Event* event) {
+        if (!this->moving) {
+            this->next();
+        }
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerR, arrowRight);
+    
+    arrowLeft = Sprite::create("karte_allow_left.png");
+    arrowLeft->setPosition(Vec2(22, 235));
+    arrowLeft->setOpacity(50);
+    this->addChild(arrowLeft);
+    auto listenerL = EventListenerTouchOneByOne::create();
+    listenerL->setSwallowTouches(true);
+    listenerL->onTouchBegan = [=](Touch* touch, Event* event) {
+        this->detailTouchPoint = touch->getLocation();
+        auto target = static_cast<Sprite*>(event->getCurrentTarget());
+        Point locationInNode = target->convertToNodeSpace(touch->getLocation());
+        Size s = target->getContentSize();
+        Rect rect = Rect(0, 0, s.width, s.height);
+        if (rect.containsPoint(locationInNode)) {
+            return true;
+        }
+        return false;
+    };
+    listenerL->onTouchEnded = [=](Touch* touch, Event* event) {
+        if (!this->moving) {
+            this->prev();
+        }
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerL, arrowLeft);
     
     return true;
 }
@@ -264,7 +306,7 @@ void LibraryScene::showDetail(Chara* chara)
     // 説明文
     auto descLabel = Label::createWithSystemFont(chara->getDescription(), "fonts/Osaka.ttf", 15);
     descLabel->setWidth(240);
-    descLabel->setColor(ccc3(0,0,0));
+    descLabel->setColor(Color3B(0,0,0));
     descLabel->setPosition(Point(visibleSize.width * 0.5, 150));
     dialogLayer->addChild(descLabel);
    
@@ -308,6 +350,7 @@ void LibraryScene::onTouchEnded(Touch* touch, Event* event)
     } else if (this->dist <= -flick){
         prev();
     } else {
+        log("next %d", this->current);
         // どこにも行かない
         this->moving = true;
         MoveTo* back = MoveTo::create(0.2f, Point(this->current * -320, 106));
@@ -319,8 +362,6 @@ void LibraryScene::onTouchEnded(Touch* touch, Event* event)
         auto seq = Sequence::create(backEase, cb, NULL);
         this->carouselLayer->runAction(seq);
     }
-    
-    return;
 }
 
 void LibraryScene::onTouchMoved(Touch* touch, Event* event)
@@ -334,9 +375,9 @@ void LibraryScene::onTouchMoved(Touch* touch, Event* event)
     auto deltX = 0;
 
     if (this->dist > 0) {
-        deltX = carouselCurrentPoint.x - abs(this->dist);
+        deltX = carouselCurrentPoint.x - std::abs(this->dist);
     } else {
-        deltX = carouselCurrentPoint.x + abs(this->dist);
+        deltX = carouselCurrentPoint.x + std::abs(this->dist);
     }
 
     this->carouselLayer->setPositionX(deltX);
@@ -344,64 +385,68 @@ void LibraryScene::onTouchMoved(Touch* touch, Event* event)
 
 void LibraryScene::next()
 {
-    this->current++;
     this->moving = true;
 
     int charaCount = arrayLength(CHARA_DATA);
     int last = ceil(((double)charaCount / 4)) - 1; 
 
     // 右端
-    if (this->current > last) { // TODO:仮実装のためマジックナンバー
-        MoveTo* next = MoveTo::create(0.5f, Point(last * -320, 106));
-        auto nextEase = EaseInOut::create(next->clone(), 2);
-        auto cb = CallFunc::create([this](){
-            this->moving = false;
-            this->carouselCurrentPoint = this->carouselLayer->getPosition();
-            this->current--;
-        });
-        auto seq = Sequence::create(nextEase, cb, NULL);
-        this->carouselLayer->runAction(seq);
-        
-    // スライド可overlayLaery能
-    } else {
+    if (this->current != last) {
+        this->current++;
         MoveTo* next = MoveTo::create(0.5f, Point(this->current * -320, 106));
         auto nextEase = EaseInOut::create(next->clone(), 2);
-        auto cb = CallFunc::create([this](){
+        auto cb = CallFunc::create([this, last](){
             this->moving = false;
             this->carouselCurrentPoint = this->carouselLayer->getPosition();
+            if (this->current == last) {
+                arrowRight->setOpacity(50);
+            }
         });
         auto seq = Sequence::create(nextEase, cb, NULL);
         this->carouselLayer->runAction(seq);
+        arrowLeft->setOpacity(255);
+        return;
     }
+    
+    MoveTo* next = MoveTo::create(0.5f, Point(this->current * -320, 106));
+    auto nextEase = EaseInOut::create(next->clone(), 2);
+    auto cb = CallFunc::create([this, last](){
+        this->moving = false;
+        this->carouselCurrentPoint = this->carouselLayer->getPosition();
+    });
+    auto seq = Sequence::create(nextEase, cb, NULL);
+    this->carouselLayer->runAction(seq);
 }
 
 void LibraryScene::prev()
 {
-    this->current--;
     this->moving = true;
     
-    // 左端
-    if (this->current < 0) {
-        MoveTo* prev = MoveTo::create(0.5f, Point(0, 106));
-        auto prevEase = EaseInOut::create(prev->clone(), 2);
-        auto cb = CallFunc::create([this](){
-            this->moving = false;
-            this->carouselCurrentPoint = this->carouselLayer->getPosition();
-            this->current++;
-        });
-        auto seq = Sequence::create(prevEase, cb, NULL);
-        this->carouselLayer->runAction(seq);
-    // スライド可能
-    } else {
+    if (this->current > 0) {
+        this->current--;
         MoveTo* prev = MoveTo::create(0.5f, Point(this->current * -320, 106));
         auto prevEase = EaseInOut::create(prev->clone(), 2);
         auto cb = CallFunc::create([this](){
             this->moving = false;
             this->carouselCurrentPoint = this->carouselLayer->getPosition();
+            if (this->current == 0) {
+                arrowLeft->setOpacity(50);
+            }
         });
         auto seq = Sequence::create(prevEase, cb, NULL);
         this->carouselLayer->runAction(seq);
+        arrowRight->setOpacity(255);
+        return;
     }
+    
+    MoveTo* prev = MoveTo::create(0.5f, Point(this->current * -320, 106));
+    auto prevEase = EaseInOut::create(prev->clone(), 2);
+    auto cb = CallFunc::create([this](){
+        this->moving = false;
+        this->carouselCurrentPoint = this->carouselLayer->getPosition();
+    });
+    auto seq = Sequence::create(prevEase, cb, NULL);
+    this->carouselLayer->runAction(seq);
 }
 
 void LibraryScene::backToHome(Ref* pSender)

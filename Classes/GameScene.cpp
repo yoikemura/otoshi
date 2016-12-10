@@ -54,8 +54,6 @@ bool GameScene::init()
         return false;
     }
     
-    log("start game!");
-    
     // 利用可能ゴマビィの設定
     this->usableGomaCount = GOMA_LIMIT;
     
@@ -93,11 +91,6 @@ bool GameScene::init()
     tableTop = Sprite::create("table_top.png");
     tableTop->setPosition(visibleSize.width*0.5, TABLE_TOP_Y);
     this->addChild(tableTop);
-    
-    // NOTE:キャラ配置マップを作るためのログ
-    int tb = tableBottom->getBoundingBox().getMinY();
-    int tt = tableTop->getBoundingBox().getMaxY();
-    log("table top maxY: %i, table bottom minY: %i", tt, tb);
     
     // スコアを記述する。
     int score = getScore();
@@ -186,10 +179,8 @@ void GameScene::update(float dt)
     
     // イベントキューに値があればイベントスタート
     // 何かしらのイベント終了時にはisInEventをfalseにして終了すること
-    // TODO: Must refactor!
     if (!this->isInEvent &&
         this->eventQueue.size() > 0) {
-        log("イベント開始 %i", this->eventId);
         auto itr = this->eventQueue.begin();
         this->eventId = *this->eventQueue.erase(itr);
         
@@ -293,8 +284,8 @@ void GameScene::detectCollision()
             // 奥にあるので自分より手前(配列のindexが大きい物)に対してのみ衝突判定をするべき
             // 奥の物が前のものを押し出すイメージ
             if (j > i) {
-                Rect rect1 = chara1->boundingBox();
-                Rect rect2 = chara2->boundingBox();
+                Rect rect1 = chara1->getBoundingBox();
+                Rect rect2 = chara2->getBoundingBox();
                 
                 // 斜辺
                 float delt = rect2.size.width * rect2.size.width  - 500.0f;
@@ -393,13 +384,13 @@ void GameScene::removeCharas()
 void GameScene::dropCharas()
 {
     // 10は台の側面の部分
-    Rect tableRect = this->tableBottom->boundingBox();
+    Rect tableRect = this->tableBottom->getBoundingBox();
     int tableY = tableRect.getMinY() + 10;
     
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
         auto chara = (Chara*)(*itr);
         if (chara->isLowerTable && !chara->isDropping) {
-            Rect charaRect = chara->boundingBox();
+            Rect charaRect = chara->getBoundingBox();
             int charaY = charaRect.getMinY();
             if (tableY > charaY) {
                 chara->isDropping = true;
@@ -411,16 +402,15 @@ void GameScene::dropCharas()
 
 void GameScene::detectUfoCollision()
 {
-    Rect tableRect = tableBottom->boundingBox();
+    Rect tableRect = tableBottom->getBoundingBox();
     int tableY = tableRect.getMinY();
     
     for (auto itr = charas.begin(); itr != charas.end(); itr++) {
         auto chara = (Chara*)(*itr);
         if (chara->isLowerTable) {
-            Rect charaRect = chara->boundingBox();
+            Rect charaRect = chara->getBoundingBox();
             int charaY = charaRect.getMidY();
             if (tableY > charaY && this->ufo->detectCollision(chara) && !chara->isAbducting) {
-                log("ufoに衝突!");
                 auto cb = CallFunc::create([this, chara](){
                     Rect ufoRect = this->ufo->getBoundingBox();
                     const char* charaId = chara->getId().c_str();
@@ -465,7 +455,6 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
         return true;
     }
     
-    log("touch!!");
     //クリック音
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_put.mp3");
     
@@ -490,7 +479,6 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     this->swapZOrder();
     
     this->usableGomaCount--;
-    log("残りの利用可能キャラ数: %d", this->usableGomaCount);
     
     return true;
 }
@@ -515,9 +503,9 @@ void GameScene::sweep(int dst)
         auto chara = (Chara*)(*itr);
         if (chara->isLowerTable)
         {
-            Rect tableRect = tableTop->boundingBox();
+            Rect tableRect = tableTop->getBoundingBox();
             int tableY = tableRect.getMinY();
-            Rect charaRect = chara->boundingBox();
+            Rect charaRect = chara->getBoundingBox();
             int charaY = charaRect.getMaxY();
             if (tableY <= charaY) {
                 chara->setPositionY(charaRect.getMidY() - dst);
@@ -617,7 +605,6 @@ void GameScene::getChara(Chara* chara)
     
     // 利用可能キャラ数を増やす
     this->usableGomaCount++;
-    log("残りの利用可能キャラ数: %d", this->usableGomaCount);
 }
 
 void GameScene::updateCharaCount()
@@ -634,7 +621,6 @@ void GameScene::updateCharaCount()
         // NOTE: スロットが回ってなかったら判定がいるかも
         auto cb = CallFunc::create([this](){
             int eventId = this->slot->getLastEventId();
-            log("スロット終わり eventId:%i", eventId);
             this->eventQueue.push_back(eventId);
             this->slot->isRotating = false;
             call_after([this](){
@@ -662,7 +648,6 @@ std::string GameScene::getCharaId()
     
     int sumRate = 0;
     std::string charaId;
-    log("確率 %f , %d", r, selectRate);
     for (int i = 0; i < charaCount; i++) {
         CHARA chara = CHARA_DATA[i];
         sumRate += chara.rarity;
@@ -820,7 +805,6 @@ void GameScene::closePopup(Ref* pSender)
 void GameScene::shareWithTwitter(Ref* pSender)
 {
     char tweet[500];
-    sprintf(tweet , "「%s」を捕獲！！ ", this->currentGetChara->getName());
     NativeLauncher::openTweetDialog(tweet, this->currentGetChara->getFileName());
 }
 
