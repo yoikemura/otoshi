@@ -11,6 +11,16 @@
 using namespace cocos2d;
 using namespace rapidjson;
 
+template
+<
+    typename TYPE,
+    int SIZE
+>
+int arrayLength(const TYPE (&)[SIZE])
+{
+    return SIZE;
+}
+
 // 唯一のインスタンスをNULLで初期化
 LibraryManager *LibraryManager::instance = NULL;
 
@@ -41,8 +51,7 @@ void LibraryManager::save(const char* charaId)
 
 bool LibraryManager::hasGotten(const char* charaId)
 {
-    bool res = this->libraryData[charaId].GetBool();
-    return res;
+    return this->libraryData[charaId].GetBool();
 }
 
 Document LibraryManager::parse(std::string jsonStr)
@@ -95,4 +104,18 @@ std::string LibraryManager::createDefautJSON()
     
     // string生成
     return str;
+}
+
+int LibraryManager::calcRestCharaCount()
+{
+    int charaCount = arrayLength(CHARA_DATA);
+    int sum = 0;
+    for (int i = 0; i < charaCount; i++) {
+        const char* charaId = CHARA_DATA[i].id.c_str();
+        if (this->hasGotten(charaId)) {
+            sum++;
+        }
+    }
+    
+    return charaCount - sum;
 }
