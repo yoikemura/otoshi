@@ -53,6 +53,8 @@ public:
     bool hasGotten(const char*  charaId);
     // キャラデータ
     Document libraryData;
+    // 残りのキャラ数
+    int calcRestCharaCount();
 
 private:
     static LibraryManager *instance;

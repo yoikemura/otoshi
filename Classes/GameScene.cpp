@@ -451,7 +451,7 @@ void GameScene::moveCharas(int dst)
 
 bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    if (this->usableGomaCount <= 0) {
+    if (this->usableGomaCount <= 0 || !this->playing) {
         return true;
     }
     
@@ -729,24 +729,24 @@ void GameScene::showGetRareGomabi(Chara* chara)
     //キャラ名
     auto name = Label::createWithSystemFont(chara->getName(), "HiraKakuProN-W6", 24);
     name->setWidth(260);
+    name->setAlignment(TextHAlignment::CENTER);
     name->setColor(Color3B(0, 0, 0));
     name->setPosition(Point(139.0, 200.0));
     popup->addChild(name);
     
-    
     // キャラ説明
     auto charaDesc = Label::createWithSystemFont(chara->getDescription(), "HiraKakuProN-W6", 12);
+    // charaDesc->setLineHeight(10);
     charaDesc->setWidth(260);
     charaDesc->setColor(Color3B(0, 0, 0));
     charaDesc->setPosition(Point(139.0, 131.0));
     popup->addChild(charaDesc);
     
-    // コンプリートまでxx対
+    // コンプリートまでx種類
     char str[16];
-    auto charaId = chara->getId();
-    int charInt = std::stoi(charaId);
-    int restId = 10 - charInt;
-    sprintf(str,"コンプリートまで残り%d種類", restId);
+    auto libraryManager = LibraryManager::getInstance();
+    int rest = libraryManager->calcRestCharaCount();
+    sprintf(str,"コンプリートまで残り%d種類", rest);
     auto completeLabel = Label::createWithSystemFont(str, "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
     completeLabel->setWidth(260);
     completeLabel->setColor(Color3B(0, 0, 0));
