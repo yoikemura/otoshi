@@ -45,6 +45,11 @@ public:
     void prev();
     
     
+    // 左右矢印
+    Sprite* arrowLeft;
+    Sprite* arrowRight;
+    
+    
     // 詳細表示用キャラ配列
     Point detailTouchPoint;
     Vector<Chara*> charas = Vector<Chara*>();

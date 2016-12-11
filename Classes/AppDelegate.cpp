@@ -1,7 +1,7 @@
 #include "AppDelegate.h"
 #include "HomeScene.h"
 #include "LibraryManager.h"
-#include "Story.hpp"
+#include "Tutorial.h"
 
 
 USING_NS_CC;
@@ -45,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    // director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
@@ -53,8 +53,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // 2倍解像度で作れるようにした
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
     Size frameSize = glview->getFrameSize();
-    log("画面横: %f, 画面縦; %f", frameSize.width, frameSize.height);
-    log("画面比率: %f", (frameSize.width/designResolutionSize.width));
     director->setContentScaleFactor(2.0f);
 
     register_all_packages();
@@ -66,17 +64,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // 初期のごまーびーがいればHomeに投げる。
     if (!libraryManager->hasGotten("0001")) {
-        auto scene = Story::createScene();
+        auto scene = Tutorial::createScene();
         director->runWithScene(scene);
     }else{
         auto scene = Home::createScene();
         director->runWithScene(scene);
-        
     }
 
 
     // run
-
     return true;
 }
 

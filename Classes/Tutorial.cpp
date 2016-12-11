@@ -1,23 +1,22 @@
 //
-//  Story.cpp
+//  Tutorial.cpp
 //  MaruOtoshi
 //
-//  Created by Hayato Hoshikawa on 12/4/16.
+//  Created by Hazumu J on 2016/12/11.
 //
 //
 
-#include "Story.h"
+#include "Tutorial.h"
 #include "HomeScene.h"
 #include "SimpleAudioEngine.h"
 
-Scene* Story::createScene()
+Scene* Tutorial::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
-    CCLOG("creatScene on Story Called");
     
     // 'layer' is an autorelease object
-    auto layer = Story::create();
+    auto layer = Tutorial::create();
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -26,8 +25,9 @@ Scene* Story::createScene()
     return scene;
 }
 
-bool Story::init()
+bool Tutorial::init()
 {
+    //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
     {
@@ -53,19 +53,19 @@ bool Story::init()
     pBG->setScale(kw, kh);
     this->addChild(pBG);
     
-    auto startHome = MenuItemImage::create("btn_back.png",
-                                           "btn_back_on.png",
-                                           CC_CALLBACK_1(Story::backToHome, this));
-    Menu* pMenu = Menu::create(startHome, NULL);
-    pMenu->setPosition(size.width*0.1, size.height*0.95);
+    // ゲーム画面へ移動ボタン
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto btnToHome = MenuItemImage::create("btn_start.png",
+                                           "btn_start.png",
+                                           CC_CALLBACK_1(Tutorial::backToHome, this));
+    Menu* pMenu = Menu::create(btnToHome, NULL);
+    pMenu->setPosition(Vec2(visibleSize.width/2, 100));
     this->addChild(pMenu);
     
     return true;
 }
 
-
-
-void Story::backToHome(Ref* pSender)
+void Tutorial::backToHome(Ref* pSender)
 {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_clicked.mp3");
     Scene* scene = Home::createScene();

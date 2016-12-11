@@ -1,13 +1,13 @@
 //
-//  Story.hpp
+//  Tutorial.hpp
 //  MaruOtoshi
 //
-//  Created by Hayato Hoshikawa on 12/4/16.
+//  Created by Hazumu J on 2016/12/11.
 //
 //
 
-#ifndef Story_hpp
-#define Story_hpp
+#ifndef Tutorial_hpp
+#define Tutorial_hpp
 
 #include <stdio.h>
 #include "cocos2d.h"
@@ -15,7 +15,7 @@
 
 using namespace cocos2d;
 
-class Story : public cocos2d::Layer
+class Tutorial : public cocos2d::Layer
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -24,18 +24,10 @@ public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
     
-    
     void backToHome(cocos2d::Ref* pSender);
-    int getHightScore();
-    
-    
-    //変数
-    Sprite* pBG;
     
     // implement the "static create()" method manually
-    CREATE_FUNC(Story);
+    CREATE_FUNC(Tutorial);
 };
 
-
-
-#endif /* Story_hpp */
+#endif /* Tutorial_hpp */
