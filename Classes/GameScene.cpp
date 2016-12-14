@@ -134,7 +134,7 @@ bool GameScene::init()
     this->dropCharas();
     
     this->slot = Slot::create();
-    this->slot->setPosition(Vec2(visibleSize.width*0.5, 384));
+    this->slot->setPosition(Vec2(visibleSize.width*0.5, visibleSize.height*0.65));
     this->slot->setVisible(false);
     
     this->ufo = Ufo::create();
@@ -629,6 +629,7 @@ void GameScene::updateCharaCount()
             }, 1.5);
         });
         
+        this->slot->setGlobalZOrder(1);
         this->slot->setVisible(true);
         this->slot->rotate(cb);
     }

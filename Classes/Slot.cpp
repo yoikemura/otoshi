@@ -68,7 +68,7 @@ void Slot::rotate(CallFunc *cb)
     this->lastEventId = decidedSlot.id;
 
     animation->addSpriteFrameWithFile(decidedSlot.fileName);
-    animation->setDelayPerUnit(0.1f);
+    animation->setDelayPerUnit(0.2f);
     animation->setLoops(5);
 
     Animate* rotate = Animate::create(animation);
