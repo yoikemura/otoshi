@@ -805,23 +805,28 @@ void GameScene::showGameOver()
     // 利用可能ゴマ数を保存
     this->saveUsableGomaCount();
     
-    // 回復までの時間を取得する
     struct timeval t;
     gettimeofday(&t, NULL);
-    
     long current = t.tv_sec;
+    
+    // 回復までの時間
     long timeToRecover = t.tv_sec + GOMA_RECOVERY_MINUTE * 60;
     
     UserDefault* ud = UserDefault::getInstance();
     long restRecoverTime = ud->getDoubleForKey(kTimeToRecover, 0);
     
-    // 回復時間までの残りが0で無い時は、すでにゲームオーバしているのでこれ以上時間上限をあげない
+    long rest;
+    log("テスト1: %ld", restRecoverTime);
     if (restRecoverTime == 0) {
-        log("++++++++ 残り時間保存 ++++++++");
+        // 回復時間までの残りがある場合
         ud->setDoubleForKey(kTimeToRecover, timeToRecover);
+        rest = timeToRecover;
+    } else {
+        // 回復時間までの残り時間が存在している場合は、すでにゲームオーバしているのでこれ以上時間上限をあげない
+        rest = restRecoverTime - current;
     }
     
-    long rest = restRecoverTime - current;
+    log("テスト: %ld", rest);
     int restMin = int(rest / 60);
     int restSec = int(rest % 60);
     
@@ -840,8 +845,8 @@ void GameScene::showGameOver()
     popup->setOpacity(0);
     
     // 仮のラベル
-    char str[30];
-    sprintf(str,"回復まであと %d分: %d秒", restMin, restSec);
+    char str[100];
+    sprintf(str,"回復まであと %d分: %d秒 (仮)", restMin, restSec);
     auto label = Label::createWithSystemFont(str, "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
     label->setWidth(260);
     label->setColor(Color3B(0, 0, 0));

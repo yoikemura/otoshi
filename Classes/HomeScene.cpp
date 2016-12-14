@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "LibraryScene.h"
 #include "SimpleAudioEngine.h"
+#include "LibraryManager.h"
 
 
 USING_NS_CC;
@@ -81,8 +82,17 @@ bool Home::init()
 
     // ロゴ
     auto sprite = Sprite::create("img_logo.png");
-    sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 30));
+    sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 80));
     this->addChild(sprite, 0);
+    
+    char str[16];
+    auto libraryManager = LibraryManager::getInstance();
+    int rest = libraryManager->calcRestCharaCount();
+    sprintf(str,"コンプまで残り%d種類", rest);
+    auto completeLabel = Label::createWithSystemFont(str, "HiraKakuProN-W6", 16);
+    completeLabel->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 - 50));
+    this->addChild(completeLabel);
+
 
     return true;
 }
