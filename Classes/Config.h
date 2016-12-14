@@ -15,7 +15,10 @@ const int EVENT_RARE      = 2;
 
 // ゲーム開始時のゴマビィの数
 // const int GOMA_LIMIT      = 70;
-const int GOMA_LIMIT      = 20;
+const int GOMA_LIMIT = 20;
+
+// リカバリにかかる分
+const int GOMA_RECOVERY_MINUTE = 2;
 
 // Slotのデータ
 struct SLOT {

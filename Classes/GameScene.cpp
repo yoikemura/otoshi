@@ -66,9 +66,11 @@ bool GameScene::init()
     struct timeval t;
     gettimeofday(&t, NULL);
     long current = t.tv_sec;
+    
     if (this->loadUsableGomaCount() == 0 && timeToRecover - current <= 0) {
         // 時間経過による全回復
         this->usableGomaCount = GOMA_LIMIT;
+        ud->setDoubleForKey(kTimeToRecover, 0);
     } else {
         //
         this->usableGomaCount = this->loadUsableGomaCount();
@@ -808,15 +810,20 @@ void GameScene::showGameOver()
     gettimeofday(&t, NULL);
     
     long current = t.tv_sec;
-    long timeToRecover = t.tv_sec + 15 * 60;
+    long timeToRecover = t.tv_sec + GOMA_RECOVERY_MINUTE * 60;
     
     UserDefault* ud = UserDefault::getInstance();
-    ud->setDoubleForKey(kTimeToRecover, timeToRecover);
+    long restRecoverTime = ud->getDoubleForKey(kTimeToRecover, 0);
     
-    long rest = timeToRecover - current;
+    // 回復時間までの残りが0で無い時は、すでにゲームオーバしているのでこれ以上時間上限をあげない
+    if (restRecoverTime == 0) {
+        log("++++++++ 残り時間保存 ++++++++");
+        ud->setDoubleForKey(kTimeToRecover, timeToRecover);
+    }
+    
+    long rest = restRecoverTime - current;
     int restMin = int(rest / 60);
     int restSec = int(rest % 60);
-    log("回復まであと %d分: %d秒", restMin, restSec);
     
     // ゲームシーンを止める
     this->stopBg();
@@ -831,6 +838,15 @@ void GameScene::showGameOver()
     popup->setPosition(Point(size.width*0.5, size.height*0.5));
     popup->setCascadeOpacityEnabled(true);
     popup->setOpacity(0);
+    
+    // 仮のラベル
+    char str[30];
+    sprintf(str,"回復まであと %d分: %d秒", restMin, restSec);
+    auto label = Label::createWithSystemFont(str, "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
+    label->setWidth(260);
+    label->setColor(Color3B(0, 0, 0));
+    label->setPosition(Point(139.0, 75.0));
+    popup->addChild(label);
     
     // 閉じるボタン
     auto btnClose = MenuItemImage::create("popup_close.png",
