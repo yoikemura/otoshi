@@ -64,9 +64,10 @@ public:
     
     // 上限管理
     int usableGomaCount;
+    int loadUsableGomaCount();
+    void saveUsableGomaCount();
     void showGameOver();
     Label* scoreLabel;
-    
 
     // 進捗管理
     bool playing = true;
@@ -76,7 +77,6 @@ public:
     
     // スコア関係
     int score = FEVER_NUM;
-    // Label* scoreLabel;
     
     // スロット関係
     Slot* slot;

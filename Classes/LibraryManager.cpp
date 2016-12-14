@@ -21,6 +21,7 @@ int arrayLength(const TYPE (&)[SIZE])
     return SIZE;
 }
 
+
 // 唯一のインスタンスをNULLで初期化
 LibraryManager *LibraryManager::instance = NULL;
 

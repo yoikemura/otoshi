@@ -7,6 +7,7 @@
 //
 #include <time.h>
 #include <stdio.h>
+#include <sys/time.h>
 #include "GameScene.h"
 #include "HomeScene.h"
 #include "Config.h"
@@ -29,6 +30,9 @@ int arrayLength(const TYPE (&)[SIZE])
     return SIZE;
 }
 
+const char* kTimeToRecover = "kTimeToRecover";
+const char* kUsableGomaCount = "kUsableGomaCount";
+
 USING_NS_CC;
 
 Scene* GameScene::createScene()
@@ -46,6 +50,8 @@ Scene* GameScene::createScene()
     return scene;
 }
 
+
+
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
@@ -55,7 +61,18 @@ bool GameScene::init()
     }
     
     // 利用可能ゴマビィの設定
-    this->usableGomaCount = GOMA_LIMIT;
+    UserDefault* ud = UserDefault::getInstance();
+    long timeToRecover = ud->getDoubleForKey(kTimeToRecover, 0);
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    long current = t.tv_sec;
+    if (this->loadUsableGomaCount() == 0 && timeToRecover - current <= 0) {
+        // 時間経過による全回復
+        this->usableGomaCount = GOMA_LIMIT;
+    } else {
+        //
+        this->usableGomaCount = this->loadUsableGomaCount();
+    }
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -479,6 +496,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     this->swapZOrder();
     
     this->usableGomaCount--;
+    this->saveUsableGomaCount();
     
     return true;
 }
@@ -556,18 +574,30 @@ void GameScene::backToHome(Ref* pSender)
 
 void GameScene::setScore()
 {
-    UserDefault* userDefault = UserDefault::getInstance();
+    UserDefault* ud = UserDefault::getInstance();
     const char* scoreKey = "highScore";
-    userDefault->setIntegerForKey(scoreKey, 0);//0 はtempora
-    userDefault->flush();
+    ud->setIntegerForKey(scoreKey, 0);//0 はtempora
+    ud->flush();
 }
 
 int GameScene::getScore()
 {
-    UserDefault* userDefault = UserDefault::getInstance();
+    UserDefault* ud = UserDefault::getInstance();
     const char* scoreKey = "highScore";
-    int currentScore = userDefault->getIntegerForKey(scoreKey, 0);
-    return currentScore;
+    return ud->getIntegerForKey(scoreKey, 0);
+}
+
+void GameScene::saveUsableGomaCount()
+{
+    UserDefault* ud = UserDefault::getInstance();
+    ud->setIntegerForKey(kUsableGomaCount, this->usableGomaCount);
+    ud->flush();
+}
+
+int GameScene::loadUsableGomaCount()
+{
+    UserDefault* ud = UserDefault::getInstance();
+    return ud->getIntegerForKey(kUsableGomaCount, 0);
 }
 
 void GameScene::popPlus1(int x, int y)
@@ -635,10 +665,15 @@ void GameScene::updateCharaCount()
 
 std::string GameScene::getCharaId()
 {
-    int selectRate = 0;
+    auto libraryManager = LibraryManager::getInstance();
+    int rest = libraryManager->calcRestCharaCount();
     
     int charaCount = arrayLength(CHARA_DATA);
-    for (int i = 0; i < charaCount; i++) {
+    // キャラ総数 - 残りのゴマ数 + 1 = 最新の出現可能ゴマ
+    int appearableCharaCount = (charaCount - rest) == 0 ? charaCount : (charaCount - rest) + 1;
+    
+    int selectRate = 0;
+    for (int i = 0; i < appearableCharaCount; i++) {
         CHARA chara = CHARA_DATA[i];
         selectRate += chara.rarity;
     }
@@ -648,7 +683,7 @@ std::string GameScene::getCharaId()
     
     int sumRate = 0;
     std::string charaId;
-    for (int i = 0; i < charaCount; i++) {
+    for (int i = 0; i < appearableCharaCount; i++) {
         CHARA chara = CHARA_DATA[i];
         sumRate += chara.rarity;
         charaId  = chara.id;
@@ -762,6 +797,24 @@ void GameScene::showGetRareGomabi(Chara* chara)
 //GAMEOVERになったら出るポップアップ
 void GameScene::showGameOver()
 {
+    // 利用可能ゴマ数を保存
+    this->saveUsableGomaCount();
+    
+    // 回復までの時間を取得する
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    
+    long current = t.tv_sec;
+    long timeToRecover = t.tv_sec + 15 * 60;
+    
+    UserDefault* ud = UserDefault::getInstance();
+    ud->setDoubleForKey(kTimeToRecover, timeToRecover);
+    
+    long rest = timeToRecover - current;
+    int restMin = int(rest / 60);
+    int restSec = int(rest % 60);
+    log("回復まであと %d分: %d秒", restMin, restSec);
+    
     // ゲームシーンを止める
     this->stopBg();
     
@@ -816,4 +869,5 @@ void GameScene::shareWithLine(Ref* pSender)
 {
     NativeLauncher::shareWithLine(this->currentGetChara->getFileName());
 }
+
 
