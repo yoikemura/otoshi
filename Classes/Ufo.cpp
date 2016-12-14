@@ -49,8 +49,8 @@ void Ufo::hide() {
 void Ufo::move()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    MoveTo* gogo =  MoveTo::create(3.0f, Point(visibleSize.width, this->getBoundingBox().size.height));
-    MoveTo* goback = MoveTo::create(3.0f, Point(0, this->getBoundingBox().size.height));
+    MoveTo* gogo =  MoveTo::create(6.0f, Point(visibleSize.width, this->getBoundingBox().size.height));
+    MoveTo* goback = MoveTo::create(6.0f, Point(0, this->getBoundingBox().size.height));
     auto spawn = Spawn::create(gogo, goback, NULL);
     auto repeatForever = RepeatForever::create(spawn);
     this->runAction(repeatForever);

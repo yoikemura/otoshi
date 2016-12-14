@@ -151,7 +151,7 @@ bool GameScene::init()
     this->dropCharas();
     
     this->slot = Slot::create();
-    this->slot->setPosition(Vec2(visibleSize.width*0.5, 384));
+    this->slot->setPosition(Vec2(visibleSize.width*0.5, visibleSize.height*0.65));
     this->slot->setVisible(false);
     
     this->ufo = Ufo::create();
@@ -602,6 +602,7 @@ int GameScene::loadUsableGomaCount()
 
 void GameScene::popPlus1(int x, int y)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("get2.mp3");
     int idx = arc4random() % 3 + 1;
     auto plus1 = Sprite::create(PLUS1_IMAGE[idx]);
     plus1->setPosition(x, y);
@@ -613,7 +614,7 @@ void GameScene::popPlus1(int x, int y)
 
 void GameScene::popGet(int x, int y)
 {
-    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("get.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("get2.mp3");
     auto get = Sprite::create("get.png");
     get->setPosition(x, y);
     this->addChild(get);
@@ -658,6 +659,7 @@ void GameScene::updateCharaCount()
             }, 1.5);
         });
         
+        this->slot->setGlobalZOrder(1);
         this->slot->setVisible(true);
         this->slot->rotate(cb);
     }
@@ -704,6 +706,7 @@ float GameScene::generateRandom(float min, float max)
 
 void GameScene::showGetRareGomabi(Chara* chara)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("get_new_goma.mp3");
     // 現在取得したキャラを保存
     this->currentGetChara = chara;
     // ゲームシーンを止める
