@@ -20,6 +20,13 @@
 		020708681B9AE2BF009E53E3 /* ufo.png in Resources */ = {isa = PBXBuildFile; fileRef = 020708661B9AE2BF009E53E3 /* ufo.png */; };
 		023CADDA1E01734300F3811A /* get_new_goma.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 023CADD91E01734300F3811A /* get_new_goma.mp3 */; };
 		023CADDC1E0173EE00F3811A /* get2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 023CADDB1E0173EE00F3811A /* get2.mp3 */; };
+		023CADE41E01812700F3811A /* amebagoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 023CADDD1E01812700F3811A /* amebagoma.png */; };
+		023CADE51E01812700F3811A /* cookgoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 023CADDE1E01812700F3811A /* cookgoma.png */; };
+		023CADE61E01812700F3811A /* fleedamgoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 023CADDF1E01812700F3811A /* fleedamgoma.png */; };
+		023CADE71E01812700F3811A /* freedomgoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 023CADE01E01812700F3811A /* freedomgoma.png */; };
+		023CADE81E01812700F3811A /* toragoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 023CADE11E01812700F3811A /* toragoma.png */; };
+		023CADE91E01812700F3811A /* ultragoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 023CADE21E01812700F3811A /* ultragoma.png */; };
+		023CADEA1E01812700F3811A /* yayoigoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 023CADE31E01812700F3811A /* yayoigoma.png */; };
 		023EAFEB1DF3C462001465C0 /* karte_allow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 023EAFE41DF3C462001465C0 /* karte_allow_right.png */; };
 		023EAFEC1DF3C462001465C0 /* karte_allow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 023EAFE41DF3C462001465C0 /* karte_allow_right.png */; };
 		023EAFEF1DF3C462001465C0 /* karte_title.png in Resources */ = {isa = PBXBuildFile; fileRef = 023EAFE61DF3C462001465C0 /* karte_title.png */; };
@@ -193,6 +200,13 @@
 		020708661B9AE2BF009E53E3 /* ufo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ufo.png; sourceTree = "<group>"; };
 		023CADD91E01734300F3811A /* get_new_goma.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = get_new_goma.mp3; sourceTree = "<group>"; };
 		023CADDB1E0173EE00F3811A /* get2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = get2.mp3; sourceTree = "<group>"; };
+		023CADDD1E01812700F3811A /* amebagoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amebagoma.png; sourceTree = "<group>"; };
+		023CADDE1E01812700F3811A /* cookgoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cookgoma.png; sourceTree = "<group>"; };
+		023CADDF1E01812700F3811A /* fleedamgoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fleedamgoma.png; sourceTree = "<group>"; };
+		023CADE01E01812700F3811A /* freedomgoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freedomgoma.png; sourceTree = "<group>"; };
+		023CADE11E01812700F3811A /* toragoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toragoma.png; sourceTree = "<group>"; };
+		023CADE21E01812700F3811A /* ultragoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ultragoma.png; sourceTree = "<group>"; };
+		023CADE31E01812700F3811A /* yayoigoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yayoigoma.png; sourceTree = "<group>"; };
 		023EAFE41DF3C462001465C0 /* karte_allow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_allow_right.png; sourceTree = "<group>"; };
 		023EAFE61DF3C462001465C0 /* karte_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = karte_title.png; sourceTree = "<group>"; };
 		027514891DF3C70C0050FBC1 /* Story.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Story.cpp; sourceTree = "<group>"; };
@@ -389,6 +403,13 @@
 		0280273B1DF3A64900E15CB6 /* chara */ = {
 			isa = PBXGroup;
 			children = (
+				023CADDD1E01812700F3811A /* amebagoma.png */,
+				023CADDE1E01812700F3811A /* cookgoma.png */,
+				023CADDF1E01812700F3811A /* fleedamgoma.png */,
+				023CADE01E01812700F3811A /* freedomgoma.png */,
+				023CADE11E01812700F3811A /* toragoma.png */,
+				023CADE21E01812700F3811A /* ultragoma.png */,
+				023CADE31E01812700F3811A /* yayoigoma.png */,
 				027514AD1DF3E76B0050FBC1 /* yukimigoma.png */,
 				814F20BA1DF4039100152F28 /* goma_free.png */,
 				02ADFFC11B9C22CA00C9D567 /* chara_medjed.png */,
@@ -756,19 +777,23 @@
 				020708671B9AE2BF009E53E3 /* ufo.png in Resources */,
 				815F6A311B9ABAA0008FE936 /* goma.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
+				023CADE91E01812700F3811A /* ultragoma.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				815462011DF3DCEA00E1B21B /* karte_detail_bg.png in Resources */,
 				02DAEF551BA9ADE800C444C3 /* goma_blue.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				023CADE51E01812700F3811A /* cookgoma.png in Resources */,
 				020519C91B9B1C6700911F04 /* effect_clicked.mp3 in Resources */,
 				02ADFFB61B9C067D00C9D567 /* bgm_game.mp3 in Resources */,
 				027514AC1DF3DA100050FBC1 /* btn_back.png in Resources */,
 				027514AB1DF3DA100050FBC1 /* btn_back_on.png in Resources */,
 				812D90AC1BE5F7D900A1BDBE /* popup_tw.png in Resources */,
 				02DAEF5B1BA9ADE800C444C3 /* barzero.png in Resources */,
+				023CADE61E01812700F3811A /* fleedamgoma.png in Resources */,
 				815461FE1DF3C8AE00E1B21B /* icn_hokaku.png in Resources */,
 				814F20B51DF3F8B000152F28 /* btn_karte.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				023CADE71E01812700F3811A /* freedomgoma.png in Resources */,
 				814F20BB1DF4039100152F28 /* goma_free.png in Resources */,
 				02ADFFC41B9C234400C9D567 /* bgm_normal.mp3 in Resources */,
 				02DAEF561BA9ADE800C444C3 /* get.png in Resources */,
@@ -807,12 +832,14 @@
 				027514AE1DF3E76B0050FBC1 /* yukimigoma.png in Resources */,
 				02ADFFBD1B9C06FE00C9D567 /* effect_put.mp3 in Resources */,
 				02FF8E4B1DF3EBB000384357 /* Images.xcassets in Resources */,
+				023CADE41E01812700F3811A /* amebagoma.png in Resources */,
 				02DAEF531BA9ADE800C444C3 /* goma_noppo.png in Resources */,
 				020519BF1B9B0AC700911F04 /* table_top.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				02DAEF521BA9ADE800C444C3 /* goma_robot.png in Resources */,
 				810FB3811B9C21250056690B /* slot_long.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				023CADEA1E01812700F3811A /* yayoigoma.png in Resources */,
 				0275149D1DF3D1590050FBC1 /* bg_story.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				812D90A01BE5DE3D00A1BDBE /* itemslot.mp3 in Resources */,
@@ -824,6 +851,7 @@
 				023CADDC1E0173EE00F3811A /* get2.mp3 in Resources */,
 				023CADDA1E01734300F3811A /* get_new_goma.mp3 in Resources */,
 				02DAEF501BA9ADE800C444C3 /* orengekappa.png in Resources */,
+				023CADE81E01812700F3811A /* toragoma.png in Resources */,
 				81AAB32E1DFC847D0038B84F /* popup_line.png in Resources */,
 				027514A21DF3D8CD0050FBC1 /* btn_help_on.png in Resources */,
 				814F20B41DF3F8B000152F28 /* btn_start.png in Resources */,
