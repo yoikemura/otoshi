@@ -296,7 +296,6 @@ void GameScene::detectCollision()
         for (auto itr2 = charas.begin(); itr2 != charas.end(); itr2++) {
             auto chara1 = (Chara*)(*itr);
             auto chara2 = (Chara*)(*itr2);
-            
             // TODO: 同じテーブル内でしか衝突しないようにしたい
             
             // 配列の先頭程奥にある
@@ -307,7 +306,7 @@ void GameScene::detectCollision()
                 Rect rect2 = chara2->getBoundingBox();
                 
                 // 斜辺
-                float delt = rect2.size.width * rect2.size.width  - 500.0f;
+                float delt = rect2.size.width * rect1.size.width  - 500.0f;
                 float ab_x = rect1.getMidX() - rect2.getMidX();
                 float ab_y = rect1.getMidY() - rect2.getMidY();
                 
@@ -315,7 +314,7 @@ void GameScene::detectCollision()
                     Vec2 vec = chara2->getPosition();
                     // めり込んだ量
                     // float len = sqrtf(ab_x * ab_x + ab_y * ab_y);
-                    // float dist = rect2.size.width + rect2.size.width - len;
+                    // float dist = rect2.size.width + rect1.size.width - len;
                     float dist = 2.0f;
                     float angle = atan2f(ab_y, ab_x);
                     float nx = cosf(angle) * dist;

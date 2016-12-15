@@ -97,7 +97,7 @@ void Chara::drop()
     int x = this->getPositionX();
     MoveTo* drop = MoveTo::create(0.2f, Point(x, -100));
     RotateTo* rotate = RotateTo::create( 0.0f, 20.0f);
-    // TintTo* tint = TintTo::create(1.0f, 255, 0, 0); // 
+    // TintTo* tint = TintTo::create(1.0f, 255, 0, 0); 
     auto cb = CallFunc::create([](){
       CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("effect_drop.mp3");
     });

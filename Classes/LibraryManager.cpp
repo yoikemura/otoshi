@@ -21,17 +21,17 @@ int arrayLength(const TYPE (&)[SIZE])
     return SIZE;
 }
 
+const char* kLibrary = "kLibrary";
 
 // 唯一のインスタンスをNULLで初期化
 LibraryManager *LibraryManager::instance = NULL;
 
 void LibraryManager::init()
 {
-    UserDefault* userDefault = UserDefault::getInstance();
-    const char* key = "library";
     // NOTE: const char*はreturn時に狂う問題あり
     auto defaultLibrary = this->createDefautJSON();
-    std::string libraryJSON = userDefault->getStringForKey(key, defaultLibrary);
+    UserDefault* ud = UserDefault::getInstance();
+    std::string libraryJSON = ud->getStringForKey(kLibrary, defaultLibrary);
     this->libraryData = this->parse(libraryJSON);
 }
 
@@ -46,7 +46,7 @@ void LibraryManager::save(const char* charaId)
         PrettyWriter<StringBuffer> writer(sb);
         this->libraryData.Accept(writer);
         UserDefault* userDefault = UserDefault::getInstance();
-        userDefault->setStringForKey("library", sb.GetString());
+        userDefault->setStringForKey(kLibrary, sb.GetString());
     }
 }
 
