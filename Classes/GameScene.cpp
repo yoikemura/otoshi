@@ -815,7 +815,6 @@ void GameScene::showGameOver()
         rest = restRecoverTime - current;
     }
     
-    log("テスト: %ld", rest);
     int restMin = int(rest / 60);
     int restSec = int(rest % 60);
     
@@ -835,6 +834,10 @@ void GameScene::showGameOver()
     
     // 仮のラベル
     char str[100];
+    if (restMin > 1) {
+        restMin = 1;
+        restSec = 0;
+    }
     sprintf(str,"回復まであと %d分: %d秒 (仮)", restMin, restSec);
     auto label = Label::createWithSystemFont(str, "HiraKakuProN-W6", 12, Size(545, 32), TextHAlignment::CENTER);
     label->setWidth(260);
