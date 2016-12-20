@@ -37,7 +37,6 @@ bool Ufo::initWithFile()
     return true;
 }
 
-
 void Ufo::show() {
     this->setVisible(true);
 }

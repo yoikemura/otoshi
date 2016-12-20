@@ -172,13 +172,13 @@ bool GameScene::init()
 
 
 // ゲーム再開
-void GameScene::resumeBg()
+void GameScene::resumeGame()
 {
     this->playing = true;
 }
 
 // ゲーム停止
-void GameScene::stopBg()
+void GameScene::stopGame()
 {
     this->playing = false;
 }
@@ -223,7 +223,6 @@ void GameScene::update(float dt)
             }, 1.5);
         });
         
-        this->slot->setGlobalZOrder(1);
         this->slot->setVisible(true);
         this->slot->rotate(cb);
     }
@@ -408,7 +407,6 @@ void GameScene::removeCharas()
         if (y <= -30) {
             itr = charas.erase(itr);
             this->removeChild(chara);
-            // this->popPlus1(chara->getBoundingBox().getMidX());
         } else {
             itr++;
         }
@@ -458,6 +456,8 @@ void GameScene::detectUfoCollision()
                         this->popGet(ufoRect.getMidX(), ufoRect.getMidY());
                     }
                     
+                    this->getChara(chara);
+                    
                     // フィーバー用のバーを伸ばす
                     this->updateCharaCount();
                     
@@ -465,7 +465,7 @@ void GameScene::detectUfoCollision()
                     chara->removeFromParent();
                 });
                 this->ufo->abductChara(chara, cb);
-                this->getChara(chara);
+                // this->getChara(chara);
             }
         }
     }
@@ -660,7 +660,8 @@ std::string GameScene::getCharaId()
     
     int charaCount = arrayLength(CHARA_DATA);
     // キャラ総数 - 残りのゴマ数 + 1 = 最新の出現可能ゴマ
-    int appearableCharaCount = (charaCount - rest) == 0 ? charaCount : (charaCount - rest) + 1;
+    // int appearableCharaCount = (charaCount - rest) == 0 ? charaCount : (charaCount - rest) + 1;
+    int appearableCharaCount = charaCount;
     
     int selectRate = 0;
     for (int i = 0; i < appearableCharaCount; i++) {
@@ -698,7 +699,7 @@ void GameScene::showGetRareGomabi(Chara* chara)
     // 現在取得したキャラを保存
     this->currentGetChara = chara;
     // ゲームシーンを止める
-    this->stopBg();
+    this->stopGame();
     
     Size size = Director::getInstance()->getWinSize();
     this->overlayLaery = LayerColor::create(Color4B::BLACK);
@@ -753,7 +754,8 @@ void GameScene::showGetRareGomabi(Chara* chara)
     popup->addChild(charaImage);
     
     //キャラ名
-    auto name = Label::createWithSystemFont(chara->getName(), "HiraKakuProN-W6", 24);
+    int fontSize = (strlen(chara->getName()) > 22) ? 17 : 24;
+    auto name = Label::createWithSystemFont(chara->getName(), "HiraKakuProN-W6", fontSize);
     name->setWidth(260);
     name->setAlignment(TextHAlignment::CENTER);
     name->setColor(Color3B(0, 0, 0));
@@ -817,7 +819,7 @@ void GameScene::showGameOver()
     int restSec = int(rest % 60);
     
     // ゲームシーンを止める
-    this->stopBg();
+    this->stopGame();
     
     Size size = Director::getInstance()->getWinSize();
     this->overlayLaery = LayerColor::create(Color4B::BLACK);
@@ -852,15 +854,14 @@ void GameScene::showGameOver()
     this->overlayLaery->addChild(popup);
 }
 
-// ゲーム再開
 void GameScene::closePopup(Ref* pSender)
 {
     if (this->overlayLaery != NULL) {
         this->removeChild(this->overlayLaery);
         this->overlayLaery = NULL;
     }
-    
-    this->resumeBg();
+    // ゲーム再開
+    this->resumeGame();
 }
 
 void GameScene::shareWithTwitter(Ref* pSender)
@@ -880,4 +881,17 @@ void GameScene::shareWithLine(Ref* pSender)
     NativeLauncher::shareWithLine(this->currentGetChara->getFileName());
 }
 
-
+void setGlobalZOrderRecursive(cocos2d::Node *parent, float z)
+{
+    if (parent == nullptr) return;
+    parent->setGlobalZOrder(z);
+    
+    // adjust every child menu item
+    Vector<cocos2d::Node*> &children = parent->getChildren();
+    
+    for (int i = 0; i < children.size(); ++i)
+    {
+        Node* child = children.at(i);
+        setGlobalZOrderRecursive(child, z + 1.0f);
+    }
+}

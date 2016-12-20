@@ -35,9 +35,11 @@ public:
     
     void backToHome(cocos2d::Ref* pSender);
 
+    // ゲーム管理
     void update(float dt);
-    void stopBg(); // stopだと親の関数とかぶる
-    void resumeBg();
+    void stopGame();
+    void resumeGame();
+    
     void removeCharas();
     void moveCharas(int dst);
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);

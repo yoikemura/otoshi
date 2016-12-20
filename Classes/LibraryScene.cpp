@@ -357,7 +357,6 @@ void LibraryScene::onTouchEnded(Touch* touch, Event* event)
     } else if (this->dist <= -flick){
         prev();
     } else {
-        log("next %d", this->current);
         // どこにも行かない
         this->moving = true;
         MoveTo* back = MoveTo::create(0.2f, Point(this->current * -320, 106));

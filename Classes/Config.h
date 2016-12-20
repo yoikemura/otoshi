@@ -14,8 +14,8 @@ const int EVENT_INCREMENT = 1;
 const int EVENT_RARE      = 2;
 
 // ゲーム開始時のゴマビィの数
-const int GOMA_LIMIT = 1000;
-// const int GOMA_LIMIT = 70;
+// const int GOMA_LIMIT = 1000;
+const int GOMA_LIMIT = 70;
 
 // リカバリにかかる分
 const int GOMA_RECOVERY_MINUTE = 1;
@@ -155,7 +155,7 @@ static struct CHARA CHARA_DATA[] = {
     },
     {
         "0015",
-        "クックパッド食べログRettyゴマ",
+        "食べログRettyゴマ",
         "cookgoma.png",
         "各料理サイトを渡ってコメントを付けまくる筆まめ。一見コックのような格好をしているがコックではない。好きな言葉は、「お前がいねぇと…！！ おれは海賊王になれねぇ！！！ 」",
         1
@@ -164,7 +164,7 @@ static struct CHARA CHARA_DATA[] = {
         "0016",
         "タイポより紛らわしいゴマ",
         "fleedamgoma.png",
-        "開発者を地獄のどん底に叩き落した。タイポによるバグ、その首謀者ことがこいつだ！英単語帳のDUO 3.0でも持って勉強してこい！",
+        "開発者を地獄のどん底に叩き落したタイポによるバグ。その首謀者ことがこいつだ！英単語帳のDUO 3.0でも持って勉強してこい！",
         1
     },
     {
@@ -265,12 +265,12 @@ static int DEFAULT_CHARA_MAP[] = {
   119,
   111,
   100,
-  92,
-  91,
-  72,
-  69,
-  50,
-  47
+  192,
+  191,
+  172,
+  169,
+  180,
+  207
 };
 
 // ポップアップ画像
@@ -282,6 +282,6 @@ static const char* PLUS1_IMAGE[] = {
 };
 
 // フィーバーまでのキャラ数
-const int FEVER_NUM = 10;
+const int FEVER_NUM = 5;
 
 #endif
