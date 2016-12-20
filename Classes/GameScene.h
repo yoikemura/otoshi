@@ -37,8 +37,6 @@ public:
     void moveCharas(int dst);
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     
-    void setScore();
-    int getScore();
     void updateCharaCount();
     
     bool isInUpperTable(Chara* chara);
@@ -82,6 +80,7 @@ public:
     Slot* slot;
     Ufo* ufo;
     ProgressBar* progressBar;
+    bool isSlotRotate = false;
 
     // キャラID取得関数
     std::string getCharaId();

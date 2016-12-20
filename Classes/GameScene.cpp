@@ -112,9 +112,9 @@ bool GameScene::init()
     this->addChild(tableTop);
     
     // スコアを記述する。
-    int score = getScore();
-    std::string score_str = std::to_string(score);
+    std::string score_str = std::to_string(this->usableGomaCount);
     this->scoreLabel = Label::createWithSystemFont(score_str, "HiraKakuProN-W6", 24);
+    this->scoreLabel->setString(score_str);
     this->scoreLabel->setPosition(visibleSize.width*0.3, visibleSize.height*0.95);
     this->addChild(scoreLabel);
     
@@ -209,6 +209,24 @@ void GameScene::update(float dt)
         if (this->eventId == EVENT_LOGN || this->eventId == EVENT_INCREMENT) {
             this->isInEvent = true;
         }
+    }
+    
+    // スロット開始
+    if (this->isSlotRotate && !this->slot->isRotating) {
+        // スロットが回り終わったあとのコールバック
+        this->isSlotRotate = false;
+        auto cb = CallFunc::create([this](){
+            int eventId = this->slot->getLastEventId();
+            this->eventQueue.push_back(eventId);
+            this->slot->isRotating = false;
+            call_after([this](){
+                this->slot->setVisible(false);
+            }, 1.5);
+        });
+        
+        this->slot->setGlobalZOrder(1);
+        this->slot->setVisible(true);
+        this->slot->rotate(cb);
     }
     
     // キャラの前後関係を整理
@@ -567,25 +585,8 @@ void GameScene::backToHome(Ref* pSender)
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic("bgm_game.mp3");
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm_normal.mp3", true);
     
-    this->setScore();
-    
     Scene* scene = Home::createScene();
     Director::getInstance()->replaceScene(scene);
-}
-
-void GameScene::setScore()
-{
-    UserDefault* ud = UserDefault::getInstance();
-    const char* scoreKey = "highScore";
-    ud->setIntegerForKey(scoreKey, 0);//0 はtempora
-    ud->flush();
-}
-
-int GameScene::getScore()
-{
-    UserDefault* ud = UserDefault::getInstance();
-    const char* scoreKey = "highScore";
-    return ud->getIntegerForKey(scoreKey, 0);
 }
 
 void GameScene::saveUsableGomaCount()
@@ -641,7 +642,7 @@ void GameScene::getChara(Chara* chara)
 
 void GameScene::updateCharaCount()
 {
-    this->score -= 4;
+    this->score--;
     
     // 進捗
     float feverRate = ((float)(FEVER_NUM - this->score)) / (float)(FEVER_NUM);
@@ -649,20 +650,7 @@ void GameScene::updateCharaCount()
     
     if (this->score <= 0) {
         this->score = FEVER_NUM;
-        // スロットが回り終わったあとのコールバック
-        // NOTE: スロットが回ってなかったら判定がいるかも
-        auto cb = CallFunc::create([this](){
-            int eventId = this->slot->getLastEventId();
-            this->eventQueue.push_back(eventId);
-            this->slot->isRotating = false;
-            call_after([this](){
-                this->slot->setVisible(false);
-            }, 1.5);
-        });
-        
-        this->slot->setGlobalZOrder(1);
-        this->slot->setVisible(true);
-        this->slot->rotate(cb);
+        this->isSlotRotate = true;
     }
 }
 
