@@ -79,44 +79,43 @@ bool GameScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto bg = Sprite::create("bg.png");
-    bg->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
-    this->addChild(bg);
-    
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
-    // BACK GROUND LAYER
+    // 背景用レイヤー
     auto bgLayer = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height);
     this->addChild(bgLayer);
-    auto centerpos = visibleSize / 2;
-    auto spritebg = Sprite::create("bg.png");
-    spritebg->setPosition(centerpos);
-    bgLayer->addChild(spritebg);
+    auto bg = Sprite::create("bg.png");
+    bg->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    bgLayer->addChild(bg);
+    
+    // ゲーム用レイヤー
+    this->gameLayer = Layer::create();
+    this->addChild(this->gameLayer);
     
     // ProgressBar
     this->progressBar = ProgressBar::create();
     this->progressBar->setPosition(visibleSize.width - 105, visibleSize.height - 31);
-    this->addChild(this->progressBar);
+    this->gameLayer->addChild(this->progressBar);
     
     // Table BOTTOM
     tableBottom = Sprite::create("table_under.png");
     tableBottom->setPosition(visibleSize.width*0.5, 210);
-    this->addChild(tableBottom);
+    this->gameLayer->addChild(tableBottom);
     
     // Table TOP
     tableTop = Sprite::create("table_top.png");
     tableTop->setPosition(visibleSize.width*0.5, TABLE_TOP_Y);
-    this->addChild(tableTop);
+    this->gameLayer->addChild(tableTop);
     
     // スコアを記述する。
     std::string score_str = std::to_string(this->usableGomaCount);
     this->scoreLabel = Label::createWithSystemFont(score_str, "HiraKakuProN-W6", 24);
     this->scoreLabel->setString(score_str);
     this->scoreLabel->setPosition(visibleSize.width*0.3, visibleSize.height*0.95);
-    this->addChild(scoreLabel);
+    this->gameLayer->addChild(scoreLabel);
     
     // ホーム画面へ移動ボタン
     auto startHome = MenuItemImage::create(
@@ -125,7 +124,7 @@ bool GameScene::init()
     Menu* pMenu = Menu::create(startHome, NULL);
     pMenu->setPosition(visibleSize.width*0.1, visibleSize.height*0.95);
     pMenu->alignItemsHorizontally();
-    this->addChild(pMenu);
+    this->gameLayer->addChild(pMenu);
     
     // キャラをばらまく 30体
     Rect rect = tableBottom->getBoundingBox();
@@ -146,23 +145,23 @@ bool GameScene::init()
         }
         
         charas.pushBack(chara);
-        this->addChild(chara);
+        this->gameLayer->addChild(chara);
     }
     
     // キャラをばらまいた時点で落ちる奴は落ちるｗ
     this->dropCharas();
     
+    // スロット用のレイヤ作成
+    this->slotLayer = Layer::create();
+    this->addChild(slotLayer);
     this->slot = Slot::create();
     this->slot->setPosition(Vec2(visibleSize.width*0.5, visibleSize.height*0.65));
     this->slot->setVisible(false);
+    this->slotLayer->addChild(slot);
     
     this->ufo = Ufo::create();
     ufo->setPosition(Vec2(0, ufo->getBoundingBox().size.height));
-    
-    this->addChild(slot);
-    this->addChild(ufo);
-    
-    // UFOを永遠に左右に動かす
+    this->gameLayer->addChild(ufo);
     this->ufo->move();
     
     // メインループ開始
@@ -511,7 +510,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     chara->show(Vec2(touchPoint.x, tableMidY + 50));
     // 先頭に追加
     charas.insert(0, chara);
-    this->addChild(chara);
+    this->gameLayer->addChild(chara);
     this->swapZOrder();
     
     this->usableGomaCount--;
@@ -573,7 +572,7 @@ void GameScene::incrementChara()
         chara->show(Vec2(randX, tableMidY + 50));
         // 先頭に追加
         this->charas.insert(0, chara);
-        this->addChild(chara);
+        this->gameLayer->addChild(chara);
     }
     
     this->swapZOrder();
@@ -608,7 +607,7 @@ void GameScene::popPlus1(int x, int y)
     int idx = arc4random() % 3 + 1;
     auto plus1 = Sprite::create(PLUS1_IMAGE[idx]);
     plus1->setPosition(x, y);
-    this->addChild(plus1);
+    this->gameLayer->addChild(plus1);
     MoveTo* move =  MoveTo::create(0.3f, Vec2(x, 35));
     auto remove = RemoveSelf::create(true);
     plus1->runAction(Sequence::create(move, remove, NULL));
@@ -619,7 +618,7 @@ void GameScene::popGet(int x, int y)
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("get2.mp3");
     auto get = Sprite::create("get.png");
     get->setPosition(x, y);
-    this->addChild(get);
+    this->gameLayer->addChild(get);
     MoveTo* move =  MoveTo::create(0.3f, Vec2(x, y+20));
     auto easeAction = EaseOut::create(move, 2);
     auto remove = RemoveSelf::create(true);

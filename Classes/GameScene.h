@@ -28,6 +28,11 @@ public:
     
     virtual bool init();
     
+    // Layers
+    Layer* gameLayer;
+    Layer* slotLayer;
+    LayerColor* overlayLaery;   
+    
     void backToHome(cocos2d::Ref* pSender);
 
     void update(float dt);
@@ -100,9 +105,6 @@ public:
     // Util
     CC_SYNTHESIZE(std::mt19937, _engine, Engine);
     float generateRandom(float min, float max);
-
-    // ポップアップ類
-    LayerColor* overlayLaery;   
 
     CREATE_FUNC(GameScene);
 };
