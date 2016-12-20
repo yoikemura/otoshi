@@ -5,6 +5,7 @@
 //  Created by JoHazumu on 2015/09/12.
 //
 //
+
 #include "LibraryManager.h"
 #include "Config.h"
 #include <stdio.h>
@@ -33,6 +34,26 @@ void LibraryManager::init()
     UserDefault* ud = UserDefault::getInstance();
     std::string libraryJSON = ud->getStringForKey(kLibrary, defaultLibrary);
     this->libraryData = this->parse(libraryJSON);
+    
+    // キャラ追加時のmigrate処理
+    int beforeCharaCount = 0;
+    for (rapidjson::Value::ConstMemberIterator itr = this->libraryData.MemberBegin();
+         itr != this->libraryData.MemberEnd(); ++itr)
+    {
+        beforeCharaCount++;
+    }
+    
+    int currentCharaCount = arrayLength(CHARA_DATA);
+    if (beforeCharaCount < currentCharaCount) {
+        rapidjson::Document::AllocatorType& allocator = this->libraryData.GetAllocator();
+        int rest = currentCharaCount - beforeCharaCount;
+        for (int i = 0; i < rest; i++) {
+            int idx = beforeCharaCount++;
+            std::string charaId = CHARA_DATA[idx].id;
+            rapidjson::Value n(charaId.c_str(), allocator);
+            this->libraryData.AddMember<bool>(n, false, allocator);
+        }
+    }
 }
 
 void LibraryManager::save(const char* charaId)

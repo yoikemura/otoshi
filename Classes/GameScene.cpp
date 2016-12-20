@@ -5,6 +5,7 @@
 //  Created by JoHazumu on 2015/09/05.
 //
 //
+
 #include <time.h>
 #include <stdio.h>
 #include <sys/time.h>
@@ -660,8 +661,8 @@ std::string GameScene::getCharaId()
     
     int charaCount = arrayLength(CHARA_DATA);
     // キャラ総数 - 残りのゴマ数 + 1 = 最新の出現可能ゴマ
-    // int appearableCharaCount = (charaCount - rest) == 0 ? charaCount : (charaCount - rest) + 1;
-    int appearableCharaCount = charaCount;
+    int appearableCharaCount = (charaCount - rest) == 0 ? charaCount : (charaCount - rest) + 1;
+    // int appearableCharaCount = charaCount;
     
     int selectRate = 0;
     for (int i = 0; i < appearableCharaCount; i++) {
@@ -879,19 +880,4 @@ void GameScene::shareWithFacebook(Ref* pSender)
 void GameScene::shareWithLine(Ref* pSender)
 {
     NativeLauncher::shareWithLine(this->currentGetChara->getFileName());
-}
-
-void setGlobalZOrderRecursive(cocos2d::Node *parent, float z)
-{
-    if (parent == nullptr) return;
-    parent->setGlobalZOrder(z);
-    
-    // adjust every child menu item
-    Vector<cocos2d::Node*> &children = parent->getChildren();
-    
-    for (int i = 0; i < children.size(); ++i)
-    {
-        Node* child = children.at(i);
-        setGlobalZOrderRecursive(child, z + 1.0f);
-    }
 }
