@@ -49,7 +49,6 @@ void ProgressBar::update(float dt)
 
 void ProgressBar::setWidth(float rate)
 {
-    log("割合%f", rate);
     auto action = ScaleTo::create(0.2f, rate, 1.0f);
     bar->runAction(action);
 }

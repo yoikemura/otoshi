@@ -805,7 +805,6 @@ void GameScene::showGameOver()
     long restRecoverTime = ud->getDoubleForKey(kTimeToRecover, 0);
     
     long rest;
-    log("テスト1: %ld", restRecoverTime);
     if (restRecoverTime == 0) {
         // 回復時間までの残りがある場合
         ud->setDoubleForKey(kTimeToRecover, timeToRecover);
