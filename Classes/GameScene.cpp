@@ -526,7 +526,7 @@ void GameScene::swapZOrder()
     for (auto itr = charas.begin(); itr != charas.end(); itr++)
     {
         auto chara = (Chara*)(*itr);
-        this->reorderChild(chara, i);
+        this->gameLayer->reorderChild(chara, i);
         i++;
     }
 }
