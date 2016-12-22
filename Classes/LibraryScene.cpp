@@ -176,7 +176,8 @@ bool LibraryScene::init()
             auto targetChara = charas.at(charaIdx);
             
             const char* charaId = targetChara->getId().c_str();
-            if (libraryManager->hasGotten(charaId)) {
+            //if (libraryManager->hasGotten(charaId)) {
+            if (true) {
                 // キャラを取得していたら詳細表示
                 this->showDetail(targetChara);
             } else {
@@ -304,13 +305,43 @@ void LibraryScene::showDetail(Chara* chara)
     dialogLayer->addChild(charaImg);
     
     // 名前
-    auto nameLabel = Label::createWithSystemFont(chara->getName(), "fonts/Osaka.ttf", 20);
+    auto nameLabel = Label::createWithSystemFont(chara->getName(), "fonts/Osaka.ttf", 15);
     nameLabel->setColor(Color3B(0,0,0));
     nameLabel->setPosition(Point(visibleSize.width * 0.5, 403));
     dialogLayer->addChild(nameLabel);
     
+    // ミックス素材1
+    int mixY = 279;
+    int mixX = 90;
+    auto mix1 = Label::createWithSystemFont(chara->getMix1(), "fonts/Osaka.ttf", 13);
+    mix1->setColor(Color3B(0,0,0));
+    mix1->setPosition(mixX, mixY);
+    dialogLayer->addChild(mix1);
+    
+    // ミックス素材2
+    auto mix2 = Label::createWithSystemFont(chara->getMix2(), "fonts/Osaka.ttf", 13);
+    mix2->setColor(Color3B(0,0,0));
+    mix2->setPosition(Point(visibleSize.width - mixX, mixY));
+    dialogLayer->addChild(mix2);
+    
+    // 鳴き声
+    auto cry = Label::createWithSystemFont(chara->getCry(), "fonts/Osaka.ttf", 13);
+    cry->setColor(Color3B(0,0,0));
+    cry->setPosition(Point(visibleSize.width - 83, 358));
+    dialogLayer->addChild(cry);
+    
+    // 博士のお気に入り度
+    std::string starsStr;
+    for (int i = 0; i < chara->getLike(); i++) {
+        starsStr = starsStr + "★";
+    }
+    auto stars = Label::createWithSystemFont(starsStr.c_str(), "fonts/Osaka.ttf", 15);
+    stars->setColor(Color3B(0,0,0));
+    stars->setPosition(Point(visibleSize.width - 83, 320));
+    dialogLayer->addChild(stars);
+    
     // 説明文
-    auto descLabel = Label::createWithSystemFont(chara->getDescription(), "fonts/Osaka.ttf", 15);
+    auto descLabel = Label::createWithSystemFont(chara->getDescription(), "fonts/Osaka.ttf", 13);
     descLabel->setWidth(240);
     descLabel->setColor(Color3B(0,0,0));
     descLabel->setPosition(Point(visibleSize.width * 0.5, 210));

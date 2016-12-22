@@ -52,6 +52,21 @@ const char* Chara::getDescription()
     return charaData.description;
 }
 
+const char* Chara::getMix1()
+{
+    return charaData.mix1;
+}
+
+const char* Chara::getMix2()
+{
+    return charaData.mix2;
+}
+
+const char* Chara::getCry()
+{
+    return charaData.cry;
+}
+
 std::string Chara::getId()
 {
     return charaData.id;
@@ -60,6 +75,11 @@ std::string Chara::getId()
 const int Chara::getRarity()
 {
     return charaData.rarity;
+}
+
+const int Chara::getLike()
+{
+    return charaData.like;
 }
 
 void Chara::update(float dt)

@@ -45,6 +45,10 @@ public:
     const char* getFileName();
     const char* getDescription();
     const int getRarity();
+    const int getLike();
+    const char* getMix1();
+    const char* getMix2();
+    const char* getCry();
 };
 
 #endif
